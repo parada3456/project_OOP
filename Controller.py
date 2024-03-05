@@ -62,10 +62,13 @@ class Controller:
             
         return "User Not Found"
     
-    # def search_chapter_by_chapter_id(self,chapter_id):
-    #     for writer in self.__writer_list:
-    #         for book in writer.writing_list:
-    #             for chapter in book.ch
+    def search_chapter_by_chapter_id(self,chapter_id):
+        for writer in self.__writer_list:
+            for book in writer.writing_list:
+                for chapter in book.chapter_list:
+                    if chapter.chapter_id == chapter_id:
+                        return chapter
+        return "Not found"
     
     @property
     def report_type_list(self):
@@ -126,14 +129,15 @@ class Controller:
         else : 
             return {"Book": "please try again"}
         
-    def create_comment(self,chapter_id,username,context):
-        Chapter = self.search_user(chapter_id)
+    def create_comment(self, chapter_id, username, context):
+        chapter = self.search_chapter_by_chapter_id(chapter_id)
+        user = self.search_user(username)
         if isinstance(chapter,Chapter):
-            new_comment = Comment(chapter_id,username,context)
-        if isinstance(new_book,Book)==True:
-            return {"Book": "create book success"}
+            new_comment = Comment(chapter,user,context)
+        if isinstance(new_comment,Comment)==True:
+            return {"Comment": "create comment success"}
         else : 
-            return {"Book": "please try again"}
+            return {"Comment": "please try again"}
         
     def show_my_page(self, username):
         writing_count = 0

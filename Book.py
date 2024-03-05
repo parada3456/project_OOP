@@ -10,7 +10,7 @@ class Book():
     viewer_count = 0
     add_to_shelf_count = 0
 
-    def __init__(self,name,writer,tag_list,status,age_restricted,prologue):
+    def __init__(self, name, writer, tag_list, status, age_restricted, prologue):
         self.__name = name
         self.__writer = writer
         self.__tag = tag_list
