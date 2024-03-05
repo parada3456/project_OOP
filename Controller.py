@@ -131,9 +131,10 @@ class Controller:
         else : 
             return {"User": "invalid username"}
         
-    def create_book(self,name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
+    def create_book(self, name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
         writer = self.get_user_by_username(writer_name)
-        if isinstance(writer,Writer):
+        book = self.get_book_by_name(name)
+        if isinstance(writer,Writer) and isinstance(book,Book) == False:
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
             writer.add_writing_book_list(new_book)
             return {"Book": "create book successfully"}
@@ -162,8 +163,33 @@ class Controller:
         else : 
             return {"Comment": "please try again"}
         
-    def edit_book_info(name,tag_list,status,age_restricted,prologue):
-        pass
+    def edit_book_info(self, name, add_tag_list, delete_tag_list, status, age_restricted, prologue):
+        book = self.get_book_by_name(name)
+        if name:
+            book.name=name
+        if add_tag_list:
+            book.add_tag(add_tag_list)
+        if delete_tag_list:
+            book.delete_tag(delete_tag_list)
+        if status:
+            book.status = status
+        if age_restricted:
+            book.age_restricted = age_restricted
+        if prologue:
+            book.prologue = prologue
+        # book.date_time(0)
+        return book
+            
+    def edit_chapter_info(self,chapter_id, name, context, cost):
+        chapter = self.search_chapter_by_chapter_id(chapter_id)
+        if name:
+            chapter.name=name
+        if context:
+            chapter.context(context)
+        if cost:
+            chapter.cost(cost)
+        # chapter.publish_date_time(0)
+        return chapter
 
     # def show_my_page(self, username):
         # writing_count = 0

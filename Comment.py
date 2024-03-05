@@ -25,7 +25,7 @@ class Comment:
     def date_time(self):
         return self.__date_time
     @date_time.setter
-    def date_time(self):
+    def date_time(self,now):
         self.__date_time = datetime.now()
 
     @property

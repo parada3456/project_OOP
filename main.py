@@ -1,8 +1,9 @@
 # from typing import Union
 import uvicorn
+from typing import Optional
 from fastapi import FastAPI
 
-# from Chapter import Chapter
+from Chapter import Chapter
 # from Promotion import BookPromotion, CoinPromotion
 from Book import Book
 from Reader import Reader, Writer
@@ -26,8 +27,8 @@ WriteARead.add_reader(Reader("Pangrum", "ehehe", "02/01/2005"))
 # Book (self,name,writer,tag_list,status,age_restricted,prologue,date_time):
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
-Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue,)
-Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue,)
+Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", True, shin_chan_prologue,)
+Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", False, shin_chan_prologue,)
 Mo.add_writing_book_list(Book1)
 Mo.add_writing_book_list(Book2)
 
@@ -42,6 +43,27 @@ Mo.add_writing_book_list(Book2)
 # # print(WriteARead.search_book_by_name("Shin"))
 # print(pint.check_age_restricted())
 
+#---------------------------------------------------------------------------------------------------------------------
+def show_book_info(book):
+    str1 = {"name : " : str(book.name),
+            "writer_name : " : str(book.writer.username),
+            "tag_list : " : str(book.tag),
+            "status: " : str(book.status),
+            "age_restricted: " : str(book.age_restricted),
+            "prologue: " : str(book.prologue),
+            # "date_time: " : str(book.date_time)
+            }
+
+    return str1
+
+def show_chapter_info(chapter):
+    str1 = {"name : " : str(chapter.name),
+            "context : " : str(chapter.context),
+            "cost : " : str(chapter.cost),
+            # "publish_date_time: " : str(chapter.publish_date_time)
+            }
+
+    return str1
 #--------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/bookname")
@@ -90,9 +112,23 @@ def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cos
 def CreateComment(chapter_id:str, username:str, context: str):
     return WriteARead.create_comment(chapter_id,username,context)
 
-@app.post("/Edit", tags=['Book'])
-def EditBookInfo(name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
-    return WriteARead.edit_book_info(name,tag_list,status,age_restricted,prologue)
+@app.put("/EditBook", tags=['Book'])
+def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None,\
+                status: Optional[str] = None, age_restricted: Optional[bool] = None, prologue: Optional[str] = None):
+                
+    book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
+    if isinstance(book,Book):
+        return {"Book": show_book_info(book)}
+    else:
+        return {"error": "Book not found"}
+
+@app.put("/Edit Chapter", tags=['Chapter'])
+def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
+    chapter =  WriteARead.edit_chapter_info(name,chapter_id, name, context, cost)
+    if isinstance(chapter,Chapter):
+        return {"chapter": show_chapter_info(chapter)}
+    else:
+        return {"error": "Book not found"}
 
 # @app.get("/My Page", tags=['user'])
 # def ShowMyPage(username:str):
@@ -110,8 +146,8 @@ def get_coin_transaction(username:str):
 #----------------------------------test----------------------------------
 
 
-# if __name__ == "__main__":
-#     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
 
 # username = "pinttttt"
 # password = "sawasdee"
@@ -129,8 +165,8 @@ print("sign up : ", WriteARead.sign_up(username, password, birth_date))
 print("create book : ", WriteARead.create_book("what did OOP do?","Mozaza",["yaoi"],"publishing","true","once in a blue moon, i died because of OOP"))
 print("create chapter : ", WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3))
 print("create comment : ", WriteARead.create_comment("what did OOP do?/1","Mozaza","huhuhuhuuuhuuhuhuh"))
-
-
+print("edit book: ",show_book_info(WriteARead.edit_book_info("what did OOP do?",["boy love"],None,None,"eieieiei",None)))
+# show_book_info(Book1)
 
 
 

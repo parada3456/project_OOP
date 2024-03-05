@@ -19,6 +19,30 @@ class Chapter:
     @property
     def chapter_number(self):
         return self.__chapter_number
+    
+    @property
+    def context(self):
+        return self.__context
+    
+    @context.setter
+    def context(self,new_context):
+        self.__context = new_context
+
+    @property
+    def cost(self):
+        return self.__cost
+    
+    @cost.setter
+    def cost(self,cost):
+        self.__cost = cost
+
+    @property
+    def publish_date_time(self):
+        return self.__publish_date_time
+    
+    @publish_date_time.setter
+    def publish_date_time(self,now):
+        self.__publish_date_time = datetime.now()
 
     def add_comment(self, comment):
         self.__comment_list.append(comment)

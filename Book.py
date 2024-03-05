@@ -35,9 +35,17 @@ class Book():
     @property
     def tag(self):
         return self.__tag
-    @tag.setter
-    def tag(self,tag):
-        self.__tag = tag
+    
+    def add_tag(self,tag_list):
+        self.__tag += tag_list
+
+    def delete_tag(self,tag_list):
+        new_tag_list = []
+        for tag in self.__tag:
+            if tag not in tag_list:
+                new_tag_list.append(tag)
+        self.__tag = new_tag_list
+
     
     @property
     def age_restricted(self):
@@ -64,7 +72,7 @@ class Book():
     def date_time(self):
         return self.__date_time
     @date_time.setter
-    def date_time(self):
+    def date_time(self,now):
         self.__date_time = datetime.now()
 
     @property
