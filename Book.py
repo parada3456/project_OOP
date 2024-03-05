@@ -6,9 +6,9 @@ import Report
 import Comment
 from pydantic import BaseModel
 
-class Book(BaseModel):
-    # viewer_count = 0
-    # add_to_shelf_count = 0
+class Book():
+    viewer_count = 0
+    add_to_shelf_count = 0
 
     def __init__(self,name,writer,tag_list,status,age_restricted,prologue,date_time):
         self.__name = name

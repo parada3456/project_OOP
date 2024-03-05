@@ -1,9 +1,10 @@
 import uvicorn
-import Book
+from Book import Book
 import Chapter
 import Payment
 import Promotion
-import Reader
+from Reader import Reader
+from Reader import Writer
 import Controller
 
 
@@ -13,12 +14,12 @@ if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
     
 #create temporary instance
-Mo = Reader.Writer("Mozaza", "namchakeawpun", "12/05/2000")
+Mo = Writer("Mozaza", "namchakeawpun", "12/05/2000")
 WriteARead.add_writer(Mo)
-pint = Reader.Reader("Pinttttt", "sawasdee", "01/01/2005")
+pint = Reader("Pinttttt", "sawasdee", "01/01/2005")
 WriteARead.add_reader(pint)
-WriteARead.add_reader(Reader.Reader("Pangrum", "ehehe", "02/01/2005"))
-WriteARead.add_reader(Reader.Reader("Jueeen", "whippedcream", "12/11/2004"))
+WriteARead.add_reader(Reader("Pangrum", "ehehe", "02/01/2005"))
+WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
 
 for writer in WriteARead.writer_list:
     print(writer.username)
@@ -26,8 +27,8 @@ for writer in WriteARead.writer_list:
 # Book (self,name,writer,tag_list,status,age_restricted,prologue,date_time):
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
-Book1 = Book.Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
-Book2 = Book.Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
+Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
+Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
 Mo.add_writing_book_list(Book1)
 Mo.add_writing_book_list(Book2)
 
