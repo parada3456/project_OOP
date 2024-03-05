@@ -1,14 +1,23 @@
+from typing import Union
 import uvicorn
+from fastapi import FastAPI
+from typing import Optional
+from pydantic import BaseModel
+
+from datetime import datetime, timedelta
+
 from Book import Book
-import Chapter
-import Payment
-import Promotion
+from Chapter import Chapter
+from Payment import Payment
+from Promotion import BookPromotion
+from Promotion import CoinPromotion
 from Reader import Reader
 from Reader import Writer
-import Controller
+from Controller import Controller
 
 
-WriteARead = Controller.Controller()
+app = FastAPI()
+WriteARead = Controller()
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
@@ -33,37 +42,17 @@ Mo.add_writing_book_list(Book1)
 Mo.add_writing_book_list(Book2)
 
 #chapter_number, name, context, date_time, cost):
-Chapter1_1 = Chapter.Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", "01/01/2020", 5)
+Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", "01/01/2020", 5)
 
-book_sale = Promotion.BookPromotion("01/01/2021", 50, [])
+book_sale = BookPromotion("01/01/2021", 50, [])
 WriteARead.add_promotion(book_sale)
 
-free_coin = Promotion.CoinPromotion("01/01/2021", 40, "chakeawaroi")
+free_coin = CoinPromotion("01/01/2021", 40, "chakeawaroi")
 
 # print(WriteARead.search_book_by_name("Shin"))
 print(pint.check_age_restricted())
 
-# #--------------------------------------------------------------------------------------------------------------------------
-
-from typing import Optional
-from fastapi import FastAPI
-from pydantic import BaseModel
-
-app = FastAPI()
-
-# class BookCreate(BaseModel):
-#     name: str
-#     # writer: Optional[str] 
-#     tag_list: Optional[str] 
-#     status: Optional[str] 
-#     age_restricted: Optional[bool] 
-#     prologue: Optional[str] 
-#     date_time: Optional[str] 
-
-# class ReaderCreate(BaseModel):
-#     username: str
-#     password: Optional[str]
-#     birth_date : Optional[str]
+#--------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/bookname")
 def search_book(book_name: str):
@@ -74,44 +63,6 @@ def search_book(book_name: str):
     else:
         return {"error": "Book not found"}
     
-from typing import List
-
-# print(WriteARead.search_writer_by_username("Mozaza"))
-# @app.post("/create_book")
-# async def create_book(book_data: BookCreate, writer_name: str):
-#     # Search for writer by username
-#     writer = WriteARead.search_writer_by_username(writer_name)
-#     if writer:
-#         # Create new book object
-#         new_book = Book.Book(
-#             name=book_data.name,
-#             writer=writer,
-#             tag_list=book_data.tag_list,
-#             status=book_data.status,
-#             age_restricted=book_data.age_restricted,
-#             prologue=book_data.prologue,
-#             date_time=book_data.date_time
-#         )
-#         writer.add_writing_book_list(new_book)
-#         print("success")
-#         return {"message": "New book added successfully"}
-#     else:
-#         print("error")
-#         return {"error": "Writer not found"} 
-    
-# @app.get("/signup")
-# def SignUp(username:str, password:str, birth_date: str):
-#     return {"User": WriteARead.create_new_user(username,password,birth_date)}
-
-# @app.post("/Create book")
-# def CreateBook(name:str,writer_username:str,tag_list:list,status:str,age_restricted:bool,prologue:str,date_time:str):
-#     writer= WriteARead.search_writer_by_username(writer_username)
-#     if isinstance(writer,Reader.Writer):
-#         new_book=writer.create_new_book(name,writer,tag_list,status,age_restricted,prologue,date_time)
-#     if isinstance(new_book,Book.Book)==True:
-#         return {"Book": "create book success"}
-#     else : 
-#         return {"Book": "please try again"}
 
 @app.get("/")
 def FirstPage():

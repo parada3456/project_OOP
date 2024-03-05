@@ -2,7 +2,7 @@
 from datetime import datetime, date, timedelta
 from dateutil import relativedelta
 from Book import Book
-import Chapter import Chapter
+from Chapter import Chapter
 from Coin import GoldenCoin
 from Coin import SilverCoin
 from ChapterTransaction import ChapterTransaction
@@ -50,7 +50,7 @@ class Reader:
     def get_silver_coin_list(self):
         return self.__silver_coin_list
     def add_silver_coin(self,amount):
-        self.__silver_coin.append(Coin.SilverCoin(amount))
+        self.__silver_coin.append(SilverCoin(amount))
 
     def delete_exp_silver_coin(self):
         for silver_coin in self.__silver_coin_list:
@@ -114,12 +114,12 @@ class Writer(Reader):
         return self.__writing_book_list
     
     def add_writing_book_list(self,book):
-        if isinstance(book,Book.Book):
+        if isinstance(book,Book):
             self.__writing_book_list.append(book)
 
     def create_new_book(self,name:str,tag_list:list,status:str,age_restricted:bool,prologue:str,date_time:str):
-        new_book = Book.Book(name,self,tag_list,status,age_restricted,prologue,date_time)
-        if isinstance(new_book,Book.Book)==True:
+        new_book = Book(name,self,tag_list,status,age_restricted,prologue,date_time)
+        if isinstance(new_book,Book)==True:
             self.add_writing_book_list(new_book)
             return new_book
         else : 

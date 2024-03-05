@@ -1,5 +1,5 @@
 from Book import Book
-import Chapter
+from Chapter import Chapter
 import ChapterTransaction
 import CoinTransaction
 from Reader import Reader

@@ -22,18 +22,7 @@ class SilverCoin(GoldenCoin):
     def __init__(self,balance):
         super().__init__(balance)
         self.__exp_date_time = datetime.today() + timedelta(days=10)
-        
+
     @property
     def exp_date_time(self):
         return self.__exp_date_time
-
-    def deduct_silver_coin(self, amount):
-      silver_coin_amount = self.__balance
-      if amount >= silver_coin_amount:
-        amount -= silver_coin_amount
-        del self
-        return silver_coin_amount
-      
-      else:
-        self.__balance -= amount
-        return amount

@@ -1,6 +1,6 @@
 class Report:
     def __init__(self, report_to, user, report_type, context, date_time):
-        self._report_to = None
+        self._report_to = report_to
         self._user = user
         self._report_type = report_type
         self._context = context
@@ -48,4 +48,4 @@ class Report:
         return self.__date_time
 
     def delete(self):
-        self.report_to.delete_report(self)
+        self.__report_to.delete_report(self)

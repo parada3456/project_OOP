@@ -1,9 +1,9 @@
 #Book.py
-import Controller
-import datetime
-import Chapter
-import Report
-import Comment
+from Controller import Controller
+from datetime import datetime 
+from Chapter import Chapter
+from Report import Report
+from Comment import Comment
 from datetime import datetime, timedelta
 
 class Book():
@@ -93,7 +93,7 @@ class Book():
     def counting_report_from_type(self):
         report_count=0
         for report in self.__report_list:
-            for report_type in Controller.WriteARead.report_type_list:
+            for report_type in Controller.report_type_list:
                 if report_count == 10:
                     break
                 if report.report_type == report_type:
