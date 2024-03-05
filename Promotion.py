@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-import Book
+from Book import Book
 
 class Promotion():
     def __init__(self, start_date_time, discount):
@@ -42,7 +42,7 @@ class BookPromotion(Promotion):
         return self.__promotion_book_list
     
     def add_promotion_book_list(self,book):
-        if isinstance(book,Book.Book):
+        if isinstance(book,Book):
             self.__promotion_book_list.append(book)
 
     def remove_promotion_book_list(self, book):

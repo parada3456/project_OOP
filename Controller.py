@@ -4,6 +4,7 @@ import ChapterTransaction
 import CoinTransaction
 from Reader import Reader
 from Reader import Writer
+from Comment import Comment
 
 
 class Controller:
@@ -61,6 +62,11 @@ class Controller:
             
         return "User Not Found"
     
+    # def search_chapter_by_chapter_id(self,chapter_id):
+    #     for writer in self.__writer_list:
+    #         for book in writer.writing_list:
+    #             for chapter in book.ch
+    
     @property
     def report_type_list(self):
         return self.__report_type_list
@@ -115,6 +121,15 @@ class Controller:
         writer = self.search_user(writer_name)
         if isinstance(writer,Writer):
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
+        if isinstance(new_book,Book)==True:
+            return {"Book": "create book success"}
+        else : 
+            return {"Book": "please try again"}
+        
+    def create_comment(self,chapter_id,username,context):
+        Chapter = self.search_user(chapter_id)
+        if isinstance(chapter,Chapter):
+            new_comment = Comment(chapter_id,username,context)
         if isinstance(new_book,Book)==True:
             return {"Book": "create book success"}
         else : 

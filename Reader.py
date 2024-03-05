@@ -47,7 +47,8 @@ class Reader:
     def deduct_golden_coin(self,amount):
         self.golden_coin.balance -= amount
     
-    def get_silver_coin_list(self):
+    @property
+    def silver_coin_list(self):
         return self.__silver_coin_list
     def add_silver_coin(self,amount):
         self.__silver_coin.append(SilverCoin(amount))
@@ -55,7 +56,7 @@ class Reader:
     def delete_exp_silver_coin(self):
         for silver_coin in self.__silver_coin_list:
             if silver_coin.exp_date_time - datetime.now():
-                self.__silver_coin_list.pop(silver_coin)
+                self.__silver_coin_list.remove(silver_coin)
 
     def deduct_silver_coin(self,amount):
         self.delete_exp_silver_coin()
@@ -70,25 +71,29 @@ class Reader:
                 self.__silver_coin_list.remove(silver_coin)
                 break
     
-    def get_book_shelf_list(self):
+    @property
+    def book_shelf_list(self):
         return self.__book_shelf_list
     def add_book_shelf_list(self, book):
         if isinstance(book,Book):
             self.__book_shelf_list.append(book)
 
-    def get_recent_read_chapter_list(self):
+    @property
+    def recent_read_chapter_list(self):
         return self.__recent_read_chapter_list
     def add_recent_read_chapter_list(self, chapter):
         if isinstance(chapter,Chapter):
             self.__recent_read_chapter_list.append(chapter)
 
-    def get_chapter_transaction_list(self):
+    @property
+    def chapter_transaction_list(self):
         return self.__chapter_transaction_list
     def add_chapter_transaction_list(self,chapter_transaction):
         if isinstance(chapter_transaction, ChapterTransaction):
             self.__chapter_transaction_list.append(chapter_transaction)
     
-    def get_coin_transaction_list(self):
+    @property
+    def coin_transaction_list(self):
         return self.__coin_transaction_list
     def add_coin_transaction_list(self,coin_transaction):
         if isinstance(coin_transaction,CoinTransaction):
@@ -110,17 +115,51 @@ class Writer(Reader):
         self.__writing_book_list = []
     
     @property
-    def writing_book_list(self):
+    def writing_list(self):
         return self.__writing_book_list
+    
+    @property
+    def writing_name_list(self):
+        writing_name_list = []
+        for book in self.__writing_book_list:
+            writing_name_list.append(book.name)
+        return writing_name_list
     
     def add_writing_book_list(self,book):
         if isinstance(book,Book):
             self.__writing_book_list.append(book)
 
-    def create_new_book(self,name:str,tag_list:list,status:str,age_restricted:bool,prologue:str,date_time:str):
-        new_book = Book(name,self,tag_list,status,age_restricted,prologue,date_time)
-        if isinstance(new_book,Book)==True:
-            self.add_writing_book_list(new_book)
-            return new_book
-        else : 
-            return "Error: please try again"
+    @property
+    def pseudonym_list(self):
+        return self.__pseudonym
+    
+    def add_pseudonym(self, pseudonym):
+        self.__pseudonym.append(pseudonym)
+
+    @property
+    def viewer_count(self):
+        count = 0
+        for book in self.__writing_book_list:
+            for chapter in book.get_chapter_list():
+                count += chapter.viewer_count
+        return count
+    
+    @property
+    def comment_list(self):
+        comment_list = []
+        for book in self.__writing_book_list:
+            comment_list.append(book.get_comment_list())
+        return comment_list
+    
+    @property
+    def json_comment_list(self):
+        comment_list = []
+        for book in self.__writing_book_list:
+            for comment in book.get_comment_list():
+                comment_dict = {}
+                comment_dict["user"] = comment.commentator.name
+                comment_dict["context"] = comment.context
+                comment_dict["chapter"] = f"#{comment.chapter.chapter_number} : {comment.chapter.name}"
+                comment_dict["date_time"] = comment.publish_date_time
+                comment_list.append(comment_dict)
+        return comment_list

@@ -68,23 +68,27 @@ class Book():
     def date_time(self):
         self.__date_time = datetime.now()
 
-    def get_chapter_list(self):
+    @property
+    def chapter_list(self):
         return self.__chapter_list
     def add_chapter_list(self,chapter):
         if isinstance(chapter,Chapter):
             self.__chapter_list.append(chapter)
 
-    def get_report_list(self):
+    @property
+    def report_list(self):
         return self.__report_list
     def add_report_list(self,report):
         if isinstance(report,Report):
             self.__report_list.append(report)
 
-    def get_comment_list(self):
+    @property
+    def comment_list(self):
         return self.__comment_list
     def add_comment_list(self,comment):
         if isinstance(comment,Comment):
             self.__comment_list.append(comment)
+
 
     def add_report_list(self, report):
         self.report_list.append(report)

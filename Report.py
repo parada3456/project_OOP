@@ -1,10 +1,12 @@
+from datetime import datetime
+
 class Report:
-    def __init__(self, report_to, user, report_type, context, date_time):
+    def __init__(self, report_to, user, report_type, context):
         self._report_to = report_to
         self._user = user
         self._report_type = report_type
         self._context = context
-        self._date_time = date_time
+        self._date_time = datetime.now()
 
     @property
     def report_to(self):
@@ -14,13 +16,13 @@ class Report:
         return self.user
     @property
     def report_type(self):
-        return self.report_type
+        return self.__report_type
     @property
     def context(self):
-        return self.context
+        return self.__context
     @property
     def date_time(self):
-        return self.date_time
+        return self.__date_time
 
     @report_to.setter
     def report_to(self,report_to):
@@ -44,8 +46,7 @@ class Report:
 
     @date_time.setter
     def date_time(self,date_time):
-        self.__date_time = date_time
-        return self.__date_time
+        self.__date_time = date_time.now()
 
     def delete(self):
         self.__report_to.delete_report(self)
