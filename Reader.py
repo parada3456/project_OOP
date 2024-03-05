@@ -1,18 +1,19 @@
 #Reader.py
 from datetime import datetime, date, timedelta
 from dateutil import relativedelta
-import Book
-import Chapter
-import Coin
-import ChapterTransaction
-import CoinTransaction
+from Book import Book
+import Chapter import Chapter
+from Coin import GoldenCoin
+from Coin import SilverCoin
+from ChapterTransaction import ChapterTransaction
+from CoinTransaction import CoinTransaction
 
 class Reader:
-    def __init__(self,username,password,birth_date):
+    def __init__(self, username, password, birth_date):
         self.__username = username
         self.__password = password
         self.__birth_date = birth_date #check age_restricted
-        self.__golden_coin = Coin.GoldenCoin(0)
+        self.__golden_coin = GoldenCoin(0)
         self.__silver_coin_list = []
         self.__book_shelf_list = []
         self.__recent_read_chapter_list = []
@@ -53,38 +54,38 @@ class Reader:
 
     def delete_exp_silver_coin(self):
         for silver_coin in self.__silver_coin_list:
-            if silver_coin.exp_date_time - datetime.today():
+            if silver_coin.exp_date_time - datetime.now():
                 self.__silver_coin_list.pop(silver_coin)
 
     def deduct_silver_coin(self,amount):
         self.delete_exp_silver_coin()
         for silver_coin in self.__silver_coin_list:
             if amount > silver_coin.balance :
-                self.__silver_coin_list.pop(silver_coin)
+                self.__silver_coin_list.remove(silver_coin)
                 amount -= silver_coin.balance
             elif amount < silver_coin.balance :
                 silver_coin.balance -= amount
                 break
             else :
-                self.__silver_coin_list.pop(silver_coin)
+                self.__silver_coin_list.remove(silver_coin)
                 break
     
     def get_book_shelf_list(self):
         return self.__book_shelf_list
-    def add_book_shelf_list(self,book):
-        if isinstance(book,Book.Book):
+    def add_book_shelf_list(self, book):
+        if isinstance(book,Book):
             self.__book_shelf_list.append(book)
 
     def get_recent_read_chapter_list(self):
         return self.__recent_read_chapter_list
-    def add_recent_read_chapter_list(self,chapter):
-        if isinstance(chapter,Chapter.Chapter):
+    def add_recent_read_chapter_list(self, chapter):
+        if isinstance(chapter,Chapter):
             self.__recent_read_chapter_list.append(chapter)
 
     def get_chapter_transaction_list(self):
         return self.__chapter_transaction_list
     def add_chapter_transaction_list(self,chapter_transaction):
-        if isinstance(chapter_transaction,ChapterTransaction):
+        if isinstance(chapter_transaction, ChapterTransaction):
             self.__chapter_transaction_list.append(chapter_transaction)
     
     def get_coin_transaction_list(self):

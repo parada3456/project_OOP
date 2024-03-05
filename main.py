@@ -113,10 +113,44 @@ from typing import List
 #     else : 
 #         return {"Book": "please try again"}
 
-# @app.get("/test")
-# def test(request:str, reply:str):
-#     return {"Request": request, "Reply": reply}
+@app.get("/")
+def FirstPage():
+     return "Welcome to WriteARead"
 
-# @app.get("/items/{item_id}")
-# def read_item(item_id: int, q: Optional[str] = None):
-#     return {"item_id": item_id, "q": q}
+@app.get("/bookname", tags=['search bar'])
+def searchBook(book_name:str):
+    return {"Book": WriteARead.search_book_by_name(book_name)}
+
+@app.get("/username", tags=['search bar'])
+def SearchUser(username:str):
+     return {"user": WriteARead.search_user(username)}
+
+@app.get("/coin", tags=['coin'])
+def ShowCoins(username:str):
+     return WriteARead.show_coin(username)
+
+@app.post("/signup", tags=['sign up/sign in'])
+def SignUp(username:str, password:str, birth_date: str):
+    return WriteARead.sign_up(username, password, birth_date)
+
+@app.post("/Book", tags=['Book'])
+def CreateBook(name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
+    return WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue)
+
+@app.get("/My Page", tags=['user'])
+def ShowMyPage(username:str):
+     return f"My Page : {WriteARead.show_my_page(username)}"
+
+@app.get("/My Profile", tags=['user'])
+def ShowMyProfile(username:str):
+     return f"My Profile : {WriteARead.show_my_profile(username)}"
+
+@app.get("/get_coin_transacttion", tags=['Coin Transaction'])
+def get_coin_transaction(username:str):
+    user = WriteARead.get_user_by_username(username)
+    return {"Coin Transaction" : user.show_coin_transaction()}
+
+#----------------------------------test----------------------------------
+
+test = ShowMyProfile("Mozaza")
+print(test)

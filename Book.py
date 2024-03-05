@@ -4,13 +4,13 @@ import datetime
 import Chapter
 import Report
 import Comment
-from pydantic import BaseModel
+from datetime import datetime, timedelta
 
 class Book():
     viewer_count = 0
     add_to_shelf_count = 0
 
-    def __init__(self,name,writer,tag_list,status,age_restricted,prologue,date_time):
+    def __init__(self,name,writer,tag_list,status,age_restricted,prologue):
         self.__name = name
         self.__writer = writer
         self.__tag = tag_list
@@ -20,7 +20,7 @@ class Book():
         self.__chapter_list = []
         self.__comment_list = []
         self.__report_list = []
-        self.__date_time = date_time
+        self.__date_time = datetime.now()
     
     @property
     def name(self):
@@ -65,8 +65,8 @@ class Book():
     def date_time(self):
         return self.__date_time
     @date_time.setter
-    def date_time(self,date_time):
-        self.__date_time = date_time
+    def date_time(self):
+        self.__date_time = datetime.now()
 
     def get_chapter_list(self):
         return self.__chapter_list
