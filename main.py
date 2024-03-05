@@ -92,7 +92,11 @@ def SignUp(username:str, password:str, birth_date: str):
 def CreateBook(name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
     return WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue)
 
-@app.post("/Comment", tags=['Book'])
+@app.post("/Chapter", tags=['Chapter'])
+def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cost : int):
+    return WriteARead.create_chapter(book_name, chapter_number, name, context, cost)
+
+@app.post("/Comment", tags=['Comment'])
 def CreateComment(chapter_id:str, username:str, context: str):
     return WriteARead.create_comment(chapter_id,username,context)
 

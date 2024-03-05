@@ -1,15 +1,24 @@
+from datetime import datetime
 class Chapter:
     __chapter_id = 1
 
-    def __init__(self, chapter_number, name, context, date_time, cost):
-        self.__chapter_id += 1
+    def __init__(self,book_name, chapter_number, name, context, cost):
+        self.__chapter_id = str(book_name) + "/" + str(chapter_number)
         self.__chapter_number = chapter_number
         self.__name = name
         self.__context = context
-        self.__publish_date_time = date_time
+        self.__publish_date_time = datetime.now()
         self.__viewer_count = 0
         self.__comment_list = []
         self.__cost = cost
+
+    @property
+    def chapter_id(self):
+        return self.__chapter_id
+    
+    @property
+    def chapter_number(self):
+        return self.__chapter_number
 
     def add_comment(self, comment):
         self.__comment_list.append(comment)

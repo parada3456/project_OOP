@@ -139,17 +139,29 @@ class Controller:
         writer = self.search_user(writer_name)
         if isinstance(writer,Writer):
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
-        if isinstance(new_book,Book)==True:
+            writer.add_writing_book_list(new_book)
             return {"Book": "create book successfully"}
         else : 
             return {"Book": "please try again"}
+    
+    def create_chapter(self,book_name,chapter_number, name, context, cost):
+        book = self.search_book_by_name(book_name)
+        if isinstance(book,Book) and chapter_number not in book.search_all_chapter_number:
+            chapter = Chapter(book_name,chapter_number, name, context, cost)
+            book.add_chapter_list(chapter)
+            return {"Chapter": "create Chapter successfully"}
+        else : 
+            return {"Chapter": "please try again"}
+            
+        
         
     def create_comment(self, chapter_id, username, context):
         chapter = self.search_chapter_by_chapter_id(chapter_id)
         user = self.search_user(username)
         if isinstance(chapter,Chapter):
             new_comment = Comment(chapter,user,context)
-        if isinstance(new_comment,Comment)==True:
+            #find book and append in book 
+            chapter.add_comment(new_comment)
             return {"Comment": "create comment success"}
         else : 
             return {"Comment": "please try again"}

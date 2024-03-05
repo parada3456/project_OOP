@@ -106,5 +106,10 @@ class Book():
     def delete_report(self, report):
       if report in self.report_list:
           self.report_list.remove(report)
+
     
-    
+    def search_all_chapter_number(self):
+        chapter_number_list = []
+        for chapter in self.chapter_list:
+            chapter_number_list.append(chapter.number)
+        return chapter_number_list
