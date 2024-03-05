@@ -3,7 +3,7 @@ from datetime import datetime
 from Report import Report
 from Comment import Comment
 from Chapter import Chapter
-from Controller import Controller
+# from Controller import Controller
 
 class Book():
     viewer_count = 0
@@ -93,22 +93,21 @@ class Book():
         self.report_list.append(report)
         self.counting_date_time = datetime.now()
 
-    def counting_report_from_type(self):
-        report_count=0
-        for report in self.__report_list:
-            for report_type in Controller.report_type_list:
-                if report_count == 10:
-                    break
-                if report.report_type == report_type:
-                    report_count+=1
+    # def counting_report_from_type(self):
+    #     report_count=0
+    #     for report in self.__report_list:
+    #         for report_type in Controller.report_type_list:
+    #             if report_count == 10:
+    #                 break
+    #             if report.report_type == report_type:
+    #                 report_count+=1
 
     def delete_report(self, report):
       if report in self.report_list:
           self.report_list.remove(report)
-
     
-    def search_all_chapter_number(self):
-        chapter_number_list = []
+    def is_chapter_valid(self,chapter_number):
         for chapter in self.chapter_list:
-            chapter_number_list.append(chapter.number)
-        return chapter_number_list
+            if chapter.chapter_number == chapter_number:
+                return False
+        return True

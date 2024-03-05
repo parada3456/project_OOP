@@ -1,9 +1,9 @@
-from typing import Union
+# from typing import Union
 import uvicorn
 from fastapi import FastAPI
 
-from Chapter import Chapter
-from Promotion import BookPromotion, CoinPromotion
+# from Chapter import Chapter
+# from Promotion import BookPromotion, CoinPromotion
 from Book import Book
 from Reader import Reader, Writer
 from Controller import Controller
@@ -12,38 +12,35 @@ from Controller import Controller
 app = FastAPI()
 WriteARead = Controller()
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
-    
 #create temporary instance
 Mo = Writer("Mozaza", "namchakeawpun", "12/05/2000")
 WriteARead.add_writer(Mo)
 pint = Reader("Pinttttt", "sawasdee", "01/01/2005")
 WriteARead.add_reader(pint)
 WriteARead.add_reader(Reader("Pangrum", "ehehe", "02/01/2005"))
-WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
+# WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
 
-for writer in WriteARead.writer_list:
-    print(writer.username)
+# for writer in WriteARead.writer_list:
+#     print(writer.username)
 
 # Book (self,name,writer,tag_list,status,age_restricted,prologue,date_time):
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
-Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
-Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue, "01/01/2020")
+Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue,)
+Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue,)
 Mo.add_writing_book_list(Book1)
 Mo.add_writing_book_list(Book2)
 
-#chapter_number, name, context, date_time, cost):
-Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", "01/01/2020", 5)
+# #chapter_number, name, context, date_time, cost):
+# Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", 5)
 
-book_sale = BookPromotion("01/01/2021", 50, [])
-WriteARead.add_promotion(book_sale)
+# book_sale = BookPromotion("01/01/2021", 50, [])
+# WriteARead.add_promotion(book_sale)
 
-free_coin = CoinPromotion("01/01/2021", 40, "chakeawaroi")
+# free_coin = CoinPromotion("01/01/2021", 40, "chakeawaroi")
 
-# print(WriteARead.search_book_by_name("Shin"))
-print(pint.check_age_restricted())
+# # print(WriteARead.search_book_by_name("Shin"))
+# print(pint.check_age_restricted())
 
 #--------------------------------------------------------------------------------------------------------------------------
 
@@ -74,7 +71,7 @@ def ShowCoins(username:str):
      return WriteARead.show_coin(username)
 
 @app.post("/sign in", tags=['sign up/sign in'])
-def SignUp(username:str, password:str):
+def SignIN(username:str, password:str):
     return WriteARead.sign_in(username, password)
 
 @app.post("/signup", tags=['sign up/sign in'])
@@ -93,13 +90,17 @@ def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cos
 def CreateComment(chapter_id:str, username:str, context: str):
     return WriteARead.create_comment(chapter_id,username,context)
 
-@app.get("/My Page", tags=['user'])
-def ShowMyPage(username:str):
-     return f"My Page : {WriteARead.show_my_page(username)}"
+@app.post("/Edit", tags=['Book'])
+def EditBookInfo(name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
+    return WriteARead.edit_book_info(name,tag_list,status,age_restricted,prologue)
 
-@app.get("/My Profile", tags=['user'])
-def ShowMyProfile(username:str):
-     return f"My Profile : {WriteARead.show_my_profile(username)}"
+# @app.get("/My Page", tags=['user'])
+# def ShowMyPage(username:str):
+#      return f"My Page : {WriteARead.show_my_page(username)}"
+
+# @app.get("/My Profile", tags=['user'])
+# def ShowMyProfile(username:str):
+#      return f"My Profile : {WriteARead.show_my_profile(username)}"
 
 @app.get("/get_coin_transacttion", tags=['Coin Transaction'])
 def get_coin_transaction(username:str):
@@ -108,5 +109,30 @@ def get_coin_transaction(username:str):
 
 #----------------------------------test----------------------------------
 
-test = ShowMyProfile("Mozaza")
-print(test)
+
+# if __name__ == "__main__":
+#     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
+
+# username = "pinttttt"
+# password = "sawasdee"
+# username = "Mozaza"
+# password = "namchakeawpun"
+WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
+username = "Jueeen"
+password = "whippedcream"
+birth_date = 12/11/2004
+print("search user: ", WriteARead.search_user_list_by_name(username))
+print("get user by name: ", WriteARead.get_user_by_username(username))
+print("show coin: ", WriteARead.show_coin(username))
+print("sign in: ", WriteARead.sign_in(username, password))
+print("sign up : ", WriteARead.sign_up(username, password, birth_date))
+print("create book : ", WriteARead.create_book("what did OOP do?","Mozaza",["yaoi"],"publishing","true","once in a blue moon, i died because of OOP"))
+print("create chapter : ", WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3))
+print("create comment : ", WriteARead.create_comment("what did OOP do?/1","Mozaza","huhuhuhuuuhuuhuhuh"))
+
+
+
+
+
+# test = ShowMyProfile("Mozaza")
+# print(test)

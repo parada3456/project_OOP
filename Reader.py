@@ -18,6 +18,8 @@ class Reader:
         self.__recent_read_chapter_list = []
         self.__chapter_transaction_list = []
         self.__coin_transaction_list = []
+        self.__follower_list = []
+        self.__introduction = ''
     
     @property
     def username(self):
@@ -36,6 +38,28 @@ class Reader:
     @property
     def birth_date(self):
         return self.__birth_date
+    
+    @property
+    def follower_list(self):
+        return self.__follower_list
+    
+    @property
+    def introduction(self):
+        return self.__introduction
+    @introduction.setter
+    def introduction(self, text):
+        self.__introduction = text
+
+    @property
+    def user_coin_balance(self):
+      return self.__golden_coin.balance + self.silver_coin_balance()
+    
+    @property
+    def silver_coin_balance(self):
+      silver_coin_balance = 0
+      for silver_coin in self.__silver_coin_list:
+        silver_coin_balance += silver_coin.balance
+      return silver_coin_balance
     
     @property
     def golden_coin(self):

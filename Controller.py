@@ -15,10 +15,10 @@ class Controller:
     def add_reader(self, reader):
         self.__reader_list.append(reader)
 
-    def search_book_by_name(self, book_name):
+    def search_book_list_by_name(self, book_name):
         search_list=[]
         for writer in self.__writer_list:
-            for book in writer.writing_book_list:
+            for book in writer.writing_list:
                 if book_name.lower() in book.name.lower():
                     search_list.append(book.name)
                     
@@ -27,7 +27,7 @@ class Controller:
         else:
             return search_list
           
-    def search_user(self, username):
+    def search_user_list_by_name(self, username):
         search_list = []
         for reader in self.__reader_list:
             if username.lower() in reader.username.lower():
@@ -44,17 +44,17 @@ class Controller:
                     
     def get_book_by_name(self, book_name):
         for writer in self.__writer_list:
-            for book in writer.book:
+            for book in writer.writing_list:
                 if book.name == book_name:
                     return book
                 
     def get_user_by_username(self, username):
         for reader in self.__reader_list:
-            if reader.username == username:
+            if reader.username.lower() == username.lower():
                 return reader
         
         for writer in self.__writer_list:
-            if writer.username == username:
+            if writer.username.lower() == username.lower():
                 return writer
             
         return "User Not Found"
@@ -67,13 +67,6 @@ class Controller:
                         return chapter
         return "Not found"
 
-    def search_all_username_list(self):
-        username_list = []
-        for reader in self.__reader_list:
-            username_list.append(reader.name)
-        for writer in self.__writer_list:
-            username_list.append(writer.name)
-        return username_list
     
     @property
     def report_type_list(self):
@@ -113,19 +106,25 @@ class Controller:
         
     def show_coin(self, username):
         user = self.get_user_by_username(username)
+        # print(user)
         if user:
-            return f"Golden Coin : {user.golden_coin.balance} | Silver Coin : {user.get_silver_coin_balance()}"
+            return f"Golden Coin : {user.golden_coin.balance} | Silver Coin : {user.silver_coin_balance}"
         return "User Not Found"
     
     def sign_in(self,username, password):
-        user = self.search_user(username)
-        if (isinstance(user,Reader) or isinstance(user,Writer)) and user.password == password:
-            return "log in successfully"
+        user = self.get_user_by_username(username)
+        print(user.username, user.password, user.birth_date)
+        if (isinstance(user,Reader) or isinstance(user,Writer)):
+            if user.password == password:
+                return "log in successfully"
+            else: 
+                return "wrong password"
         else:
             return "can not find username/password"
     
     def sign_up(self,username:str, password:str, birth_date: str):
-        if username not in self.search_all_username_list:
+        user = self.get_user_by_username(username)
+        if isinstance(user,Reader) == False or isinstance(user,Writer) == False:
             new_reader = Reader(username,password,birth_date)
             self.add_reader(new_reader)
             return {"User": "sign up successfully"}
@@ -133,7 +132,7 @@ class Controller:
             return {"User": "invalid username"}
         
     def create_book(self,name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
-        writer = self.search_user(writer_name)
+        writer = self.get_user_by_username(writer_name)
         if isinstance(writer,Writer):
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
             writer.add_writing_book_list(new_book)
@@ -142,19 +141,19 @@ class Controller:
             return {"Book": "please try again"}
     
     def create_chapter(self,book_name,chapter_number, name, context, cost):
-        book = self.search_book_by_name(book_name)
-        if isinstance(book,Book) and chapter_number not in book.search_all_chapter_number:
+        book = self.get_book_by_name(book_name)
+        if isinstance(book,Book) and book.is_chapter_valid(chapter_number):
             chapter = Chapter(book_name,chapter_number, name, context, cost)
             book.add_chapter_list(chapter)
             return {"Chapter": "create Chapter successfully"}
         else : 
             return {"Chapter": "please try again"}
-            
         
         
     def create_comment(self, chapter_id, username, context):
         chapter = self.search_chapter_by_chapter_id(chapter_id)
-        user = self.search_user(username)
+        user = self.get_user_by_username(username)
+        # print(chapter)
         if isinstance(chapter,Chapter):
             new_comment = Comment(chapter,user,context)
             #find book and append in book 
@@ -163,54 +162,57 @@ class Controller:
         else : 
             return {"Comment": "please try again"}
         
-    def show_my_page(self, username):
-        writing_count = 0
-        reads = 0
-        writing_list = None
-        pseudonym_list = None
-        comments = None
-        user = self.get_user_by_username(username)
-        if isinstance(user, Writer):
-            writing_count = len(user.get_writing_list())
-            reads = user.get_viewer_count()
-            writing_list = user.get_writing_name_list()
-            pseudonym_list = user.get_pseudonym_list()
-            comment_list = user.get_json_comment_list()
-        else:
-            return "User Not Found"
-        return {"display_name" : user.display_name,
-                "introduction" : user.introduction,
-                "writing_count" : writing_count,
-                "book_on_shelf_count" : len(user.get_book_shelf_list()),
-                "followers" : len(user.get_follower_list()),
-                "read_count" : len(user.get_recent_read_chapter_list()),
-                "viewer_count" : reads,
-                "writings" : writing_list,
-                "pseudonyms" : pseudonym_list,
-                "comments" : comment_list}
+    def edit_book_info(name,tag_list,status,age_restricted,prologue):
+        pass
+
+    # def show_my_page(self, username):
+        # writing_count = 0
+        # reads = 0
+        # writing_list = None
+        # pseudonym_list = None
+        # comments = None
+        # user = self.get_user_by_username(username)
+        # if isinstance(user, Writer):
+        #     writing_count = len(user.get_writing_list())
+        #     reads = user.get_viewer_count()
+        #     writing_list = user.get_writing_name_list()
+        #     pseudonym_list = user.get_pseudonym_list()
+        #     comment_list = user.get_json_comment_list()
+        # else:
+        #     return "User Not Found"
+        # return {"display_name" : user.display_name,
+        #         "introduction" : user.introduction,
+        #         "writing_count" : writing_count,
+        #         "book_on_shelf_count" : len(user.get_book_shelf_list()),
+        #         "followers" : len(user.get_follower_list()),
+        #         "read_count" : len(user.get_recent_read_chapter_list()),
+        #         "viewer_count" : reads,
+        #         "writings" : writing_list,
+        #         "pseudonyms" : pseudonym_list,
+        #         "comments" : comment_list}
     
-    def show_my_profile(self, username):
-        writing_count = 0
-        reads = 0
-        writing_list = None
-        pseudonym_list = None
-        comments = None
-        user = self.get_user_by_username(username)
-        if isinstance(user, Writer):
-            writing_count = len(user.get_writing_list())
-            reads = user.get_viewer_count()
-            writing_list = user.get_writing_name_list()
-            pseudonym_list = user.get_pseudonym_list()
-            comment_list = user.get_json_comment_list()
-        else:
-            return "User Not Found"
-        return {"display_name" : user.display_name,
-                "username" : user.username,
-                "password" : "*" * len(user.password),
-                "book_on_shelf_count" : len(user.get_book_shelf_list()),
-                "followers" : len(user.get_follower_list()),
-                "read_count" : len(user.get_recent_read_chapter_list()),
-                "viewer_count" : reads,
-                "writings" : writing_list,
-                "pseudonyms" : pseudonym_list,
-                "comments" : comment_list}
+    # def show_my_profile(self, username):
+    #     writing_count = 0
+    #     reads = 0
+    #     writing_list = None
+    #     pseudonym_list = None
+    #     comments = None
+    #     user = self.get_user_by_username(username)
+    #     if isinstance(user, Writer):
+    #         writing_count = len(user.writing_list())
+    #         reads = user.get_viewer_count()
+    #         writing_list = user.writing_name_list()
+    #         pseudonym_list = user.pseudonym_list()
+    #         comment_list = user.json_comment_list()
+    #     else:
+    #         return "User Not Found"
+    #     return {"display_name" : user.display_name,
+    #             "username" : user.username,
+    #             "password" : "*" * len(user.password),
+    #             "book_on_shelf_count" : len(user.book_shelf_list()),
+    #             "followers" : len(user.follower_list()),
+    #             "read_count" : len(user.recent_read_chapter_list()),
+    #             "viewer_count" : reads,
+    #             "writings" : writing_list,
+    #             "pseudonyms" : pseudonym_list,
+    #             "comments" : comment_list}
