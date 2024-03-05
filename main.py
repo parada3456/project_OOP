@@ -1,18 +1,11 @@
 from typing import Union
 import uvicorn
 from fastapi import FastAPI
-from typing import Optional
-from pydantic import BaseModel
 
-from datetime import datetime, timedelta
-
-from Book import Book
 from Chapter import Chapter
-from Payment import Payment
-from Promotion import BookPromotion
-from Promotion import CoinPromotion
-from Reader import Reader
-from Reader import Writer
+from Promotion import BookPromotion, CoinPromotion
+from Book import Book
+from Reader import Reader, Writer
 from Controller import Controller
 
 

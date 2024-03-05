@@ -1,10 +1,7 @@
-from Book import Book
-from Chapter import Chapter
-import ChapterTransaction
-import CoinTransaction
-from Reader import Reader
-from Reader import Writer
 from Comment import Comment
+from Chapter import Chapter
+from Book import Book
+from Reader import Reader, Writer
 
 
 class Controller:

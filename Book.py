@@ -1,10 +1,9 @@
 #Book.py
-from Controller import Controller
 from datetime import datetime 
-from Chapter import Chapter
 from Report import Report
 from Comment import Comment
-from datetime import datetime, timedelta
+from Chapter import Chapter
+from Controller import Controller
 
 class Book():
     viewer_count = 0
