@@ -69,6 +69,14 @@ class Controller:
                     if chapter.chapter_id == chapter_id:
                         return chapter
         return "Not found"
+
+    def search_all_username_list(self):
+        username_list = []
+        for reader in self.__reader_list:
+            username_list.append(reader.name)
+        for writer in self.__writer_list:
+            username_list.append(writer.name)
+        return username_list
     
     @property
     def report_type_list(self):
@@ -112,20 +120,27 @@ class Controller:
             return f"Golden Coin : {user.golden_coin.balance} | Silver Coin : {user.get_silver_coin_balance()}"
         return "User Not Found"
     
+    def sign_in(self,username, password):
+        user = self.search_user(username)
+        if (isinstance(user,Reader) or isinstance(user,Writer)) and user.password == password:
+            return "log in successfully"
+        else:
+            return "can not find username/password"
+    
     def sign_up(self,username:str, password:str, birth_date: str):
-        new_reader = Reader(username,password,birth_date)
-        if isinstance(new_reader, Reader):
+        if username not in self.search_all_username_list:
+            new_reader = Reader(username,password,birth_date)
             self.add_reader(new_reader)
-            return {"User": "sign up success"}
+            return {"User": "sign up successfully"}
         else : 
-            return {"User": "please try again"}
+            return {"User": "invalid username"}
         
     def create_book(self,name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
         writer = self.search_user(writer_name)
         if isinstance(writer,Writer):
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
         if isinstance(new_book,Book)==True:
-            return {"Book": "create book success"}
+            return {"Book": "create book successfully"}
         else : 
             return {"Book": "please try again"}
         

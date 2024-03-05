@@ -80,6 +80,10 @@ def SearchUser(username:str):
 def ShowCoins(username:str):
      return WriteARead.show_coin(username)
 
+@app.post("/sign in", tags=['sign up/sign in'])
+def SignUp(username:str, password:str):
+    return WriteARead.sign_in(username, password)
+
 @app.post("/signup", tags=['sign up/sign in'])
 def SignUp(username:str, password:str, birth_date: str):
     return WriteARead.sign_up(username, password, birth_date)
