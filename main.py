@@ -113,7 +113,7 @@ def show_comment_info(comment):
 
     return str1
 #--------------------------------------------------------------------------------------------------------------------------
-class dto_sign_up_post(BaseModel):
+class dto_sign_up(BaseModel):
     username:str
     password:str
     birth_date: str
