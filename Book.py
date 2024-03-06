@@ -6,9 +6,6 @@ from Chapter import Chapter
 # from Controller import Controller
 
 class Book():
-    viewer_count = 0
-    add_to_shelf_count = 0
-
     def __init__(self, name, writer, tag_list, status, age_restricted, prologue):
         self.__name = name
         self.__writer = writer
@@ -96,10 +93,6 @@ class Book():
         if isinstance(comment,Comment):
             self.__comment_list.append(comment)
 
-
-    def add_report_list(self, report):
-        self.report_list.append(report)
-        self.counting_date_time = datetime.now()
 
     def counting_report_from_type(self,type):
         report_count=0

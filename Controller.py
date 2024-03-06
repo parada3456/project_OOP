@@ -138,6 +138,13 @@ class Controller:
         else:
             return "Not enough coin"
         
+    def add_coin_to_user(self, user, payment, golden_amount, silver_amount, price):
+        payment.buy_coin(price)
+        date_time = datetime.now()
+        user.add_golden_coin(golden_amount)
+        user.add_silver_coin(silver_amount)
+        user.add_coin_transaction_list(CoinTransaction(payment.name, price, f"+{golden_amount}", f"+{silver_amount}", date_time.strftime("%d/%m/%Y, %H:%M:%S")))
+          
         
     def show_coin(self, username):
         user = self.get_user_by_username(username)
@@ -333,6 +340,57 @@ class Controller:
             return DebitCard(payment_info)
         elif payment_method_name == self.__payment_list[2]:
             return TrueMoneyWallet(payment_info)
+        
+    def show_my_reading(self, username):
+        user = self.get_user_by_username(username)
+        if self.is_user_not_found(user): return user
+        reading_list = []
+        for book in user.get_book_shelf_list():
+            reading = {"name" : book.name,
+                       "tags" : book.tag,
+                       "status" : book.status,
+                       "prologue" : book.prologue}
+            reading_list.append(reading)
+        return reading_list
+
+    def change_password(self, username, old_password, new_password):
+        user = self.get_user_by_username(username)
+        if self.is_user_not_found(user): return user
+        if user.password == old_password and len(new_password) >= 8:
+            user.password = new_password
+            return "Password has been changed"
+        elif user.password != old_password:
+            return "Wrong password"
+        elif len(new_password) < 8:
+            return "Password must be at least 8 letters"
+        else:
+            return "Please try again"
+    
+    def get_all_pseudonym_list(self):
+        pseudonym_list = []
+        for user in self.__writer_list:
+            for pseudonym in user.pseudonym_list:
+                pseudonym_list.append(pseudonym)
+        return pseudonym_list
+    
+    def repeated_pseudonym(self, new_pseudonym):
+        for pseudonym in self.get_all_pseudonym_list():
+            if pseudonym.lower() == new_pseudonym.lower():
+                return True
+        return False
+    
+    def add_pseudonym(self, username, pseudonym):
+        user = self.get_user_by_username(username)
+        if self.is_user_not_found(user): return user
+        if self.repeated_pseudonym(pseudonym):
+            return "pseudonym already exists"
+        user.add_pseudonym(pseudonym)
+        return "pseudonym added"
+    
+    def is_user_not_found(self, user):
+        if not (isinstance(user, Reader) or isinstance(user, Writer)):
+            return True
+        return False
     
     def counting_report(self,book):
         for report_type in self.__report_type_list:

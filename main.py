@@ -173,6 +173,30 @@ def buy_coin(username:str, golden_coin_amount:int, payment_info: Annotated[str |
     WriteARead.buy_coin(username, payment, code, golden_coin_amount)  
     return "Purchase successful, THANK YOU"
 
+
+@app.get("/show_chapter_transaction", tags=['Chapter Transaction'])
+def ShowChapterTransaction(username:str):
+     user = WriteARead.get_user_by_username(username)
+     if WriteARead.is_user_not_found(user): return user
+     return {"Chapter Transaction" : user.show_chapter_transaction()}
+
+@app.put("/My Profile/change_password", tags=['user'])
+def ChangePassword(username:str,old_password:str, new_password:str):
+     return {"Change Password" : WriteARead.change_password(username, old_password, new_password)}
+
+@app.post("/My Profile/psedonym", tags=["user"])
+def AddPseudonym(username:str, new_pseudonym:str):
+     return {"Add Pseudonym" : WriteARead.add_pseudonym(username, new_pseudonym)}
+
+@app.get("/My Reading", tags=['user'])
+def ShowMyReading(username:str):
+     return {"My Reading" : WriteARead.show_my_reading(username)}
+
+@app.post("/Buy Chapter", tags=['chapter'])
+def BuyChapter(username:str, chapter_id:str):
+     return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
+
+
 #----------------------------------test----------------------------------
 
 
