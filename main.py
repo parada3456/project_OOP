@@ -113,7 +113,7 @@ def show_comment_info(comment):
 
     return str1
 #--------------------------------------------------------------------------------------------------------------------------
-class dto_sign_up(BaseModel):
+class dto_sign_up_post(BaseModel):
     username:str
     password:str
     birth_date: str
@@ -127,6 +127,14 @@ class dto_create_book(BaseModel):
     age_restricted: bool
     status: str 
 
+class dto_edit_book(BaseModel):
+    name:str = None
+    writer_name:str = None
+    tag_list: str = None
+    prologue: str = None
+    age_restricted: bool = None
+    status: str = None
+
 class dto_create_chapter(BaseModel):
     book_name:str
     chapter_number:int
@@ -134,10 +142,17 @@ class dto_create_chapter(BaseModel):
     context: str
     cost : int
 
+class dto_edit_chapter(BaseModel):
+    book_name : str = None
+    chapter_number : int = None
+    name : str = None
+    context : str = None
+    cost : int = None
+
 class dto_create_comment(BaseModel):
-    chapter_id:str
-    username:str
-    context: str
+    chapter_id : str
+    username : str
+    context : str
 
 class dto_buy_coin(BaseModel):
     username:str
@@ -196,22 +211,21 @@ def CreateChapter(dto : dto_create_chapter):
 def CreateComment(dto: dto_create_comment):
     return WriteARead.create_comment(dto.chapter_id, dto.username, dto.context)
 
-# @app.put("/edit_book", tags=['Book'])
-# def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None, \
-#                  prologue: Optional[str] = None,status: Optional[str] = None, age_restricted: Optional[bool] = Query(False, enum=[False, True])):
-#     book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
-#     if isinstance(book,Book):
-#         return book
-#     else:
-#         return {"error": "Book not found"}
+@app.put("/edit_book", tags=['Book'])
+def EditBookInfo(dto : dto_edit_book):
+    book =  WriteARead.edit_book_info(dto.name,dto.add_tag_list,dto.delete_tag_list,dto.status,dto.age_restricted,dto.prologue)
+    if isinstance(book,Book):
+        return book
+    else:
+        return {"error": "Book not found"}
 
-# @app.put("/edit_chapter", tags=['Chapter'])
-# def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
-#     chapter =  WriteARead.edit_chapter_info(chapter_id, name, context, cost)
-#     if isinstance(chapter,Chapter):
-#         return chapter
-#     else:
-#         return {"error": "Book not found"}
+@app.put("/edit_chapter", tags=['Chapter'])
+def EditChapterInfo(dto : dto_edit_chapter):
+    chapter =  WriteARead.edit_chapter_info(dto.chapter_id, dto.name, dto.context, dto.cost)
+    if isinstance(chapter,Chapter):
+        return chapter
+    else:
+        return {"error": "Book not found"}
 
 @app.get("/my_page", tags=['user'])
 def ShowMyPage(username:str):
