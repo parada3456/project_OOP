@@ -210,10 +210,10 @@ class Controller:
         else : 
             return {"Comment": "please try again"}
         
-    def edit_book_info(self, name, add_tag_list, delete_tag_list, status, age_restricted, prologue):
-        book = self.get_book_by_name(name)
-        if name:
-            book.name = name
+    def edit_book_info(self, old_name,new_name, add_tag_list, delete_tag_list, status, age_restricted, prologue):
+        book = self.get_book_by_name(old_name)
+        if new_name:
+            book.name = new_name
         if add_tag_list:
             book.add_tag(add_tag_list)
         if delete_tag_list:
