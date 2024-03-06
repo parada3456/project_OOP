@@ -78,8 +78,15 @@ class Controller:
                     if chapter.chapter_id == chapter_id:
                         return chapter
         return "Not found"
-
     
+    def search_book_by_chapter(self,insert_chapter):
+        for writer in self.__writer_list:
+            for book in writer.writing_list:
+                for chapter in book.chapter_list:
+                    if chapter == insert_chapter:
+                        return book
+        return "Not found"
+
     @property
     def report_type_list(self):
         return self.__report_type_list
@@ -134,11 +141,15 @@ class Controller:
         else:
             return "can not find username/password"
     
-    def sign_up(self,username:str, password:str, birth_date: str):
+    def sign_up(self,username:str, password:str, birth_date: str, role: str):
         user = self.get_user_by_username(username)
         if isinstance(user,Reader) == False or isinstance(user,Writer) == False:
-            new_reader = Reader(username,password,birth_date)
-            self.add_reader(new_reader)
+            if role.lower() == "reader":
+                new_reader = Reader(username,password,birth_date)
+                self.add_reader(new_reader)
+            if role.lower() == "writer":
+                new_writer = Writer(username,password,birth_date)
+                self.add_writer(new_writer)
             return {"User": "sign up successfully"}
         else : 
             return {"User": "invalid username"}
@@ -162,7 +173,6 @@ class Controller:
         else : 
             return {"Chapter": "please try again"}
         
-        
     def create_comment(self, chapter_id, username, context):
         chapter = self.search_chapter_by_chapter_id(chapter_id)
         user = self.get_user_by_username(username)
@@ -170,6 +180,8 @@ class Controller:
         if isinstance(chapter,Chapter):
             new_comment = Comment(chapter,user,context)
             #find book and append in book 
+            book = self.search_book_by_chapter(chapter)
+            book.add_comment_list(new_comment)
             chapter.add_comment(new_comment)
             return new_comment
         else : 

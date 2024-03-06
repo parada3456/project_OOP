@@ -1,6 +1,6 @@
 import uvicorn
 from typing import Optional
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 
 from Chapter import Chapter
 # from Promotion import BookPromotion, CoinPromotion
@@ -49,7 +49,7 @@ def show_book_info(book):
             "writer_name" : str(book.writer.username),
             "tag_list" : str(book.tag),
             "status" : str(book.status),
-            "age_restricted" : str(book.age_restricted),
+            "age_restricted" : book.age_restricted,
             "prologue" : str(book.prologue),
             "date_time" : str(book.date_time)
             }
@@ -75,16 +75,6 @@ def show_comment_info(comment):
     return str1
 #--------------------------------------------------------------------------------------------------------------------------
 
-# @app.get("/bookname")
-# def search_book(book_name: str):
-#     # Assuming WriteARead has a method to search for a book by name
-#     book = WriteARead.search_book_by_name(book_name)
-#     if book:
-#         return {"Book": book.dict()}
-#     else:
-#         return {"error": "Book not found"}
-    
-
 @app.get("/")
 def FirstPage():
      return "Welcome to WriteARead"
@@ -92,6 +82,10 @@ def FirstPage():
 @app.get("/bookname or username", tags=['search bar'])
 def searchBar(search_str:str):
     return {"Search": WriteARead.search_book_and_user_list(search_str)}
+
+@app.get("/bookname", tags=['search bar'])
+def SearchBook(search_str:str):
+    return {"Search Book": show_book_info(WriteARead.get_book_by_name(search_str))}
 
 # @app.get("/username", tags=['search bar'])
 # def SearchUser(username:str):
@@ -106,27 +100,28 @@ def SignIN(username:str, password:str):
     return WriteARead.sign_in(username, password)
 
 @app.post("/signup", tags=['sign up/sign in'])
-def SignUp(username:str, password:str, birth_date: str):
-    return WriteARead.sign_up(username, password, birth_date)
+def SignUp(username:str, password:str, birth_date: str,  role: str = Query("Reader", enum=["Reader", "Writer"])):
+    return WriteARead.sign_up(username, password, birth_date, role)
 
 @app.post("/Book", tags=['Book'])
-def CreateBook(name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
-    return show_book_info(WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue))
+def CreateBook(name:str, writer_name:str, tag_list: str,prologue: str, age_restricted: bool = Query(False, enum=[False, True]), \
+                status: str = Query("Publishing", enum=["Publishing", "Hiding","Complete"])):
+    return WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue)
 
 @app.post("/Chapter", tags=['Chapter'])
 def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cost : int):
-    return show_chapter_info(WriteARead.create_chapter(book_name, chapter_number, name, context, cost))
+    return WriteARead.create_chapter(book_name, chapter_number, name, context, cost)
 
 @app.post("/Comment", tags=['Comment'])
 def CreateComment(chapter_id:str, username:str, context: str):
-    return show_comment_info(WriteARead.create_comment(chapter_id,username,context))
+    return WriteARead.create_comment(chapter_id,username,context)
 
 @app.put("/EditBook", tags=['Book'])
-def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None,\
-                status: Optional[str] = None, age_restricted: Optional[bool] = None, prologue: Optional[str] = None):
+def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None, \
+                 prologue: Optional[str] = None,status: Optional[str] = None, age_restricted: Optional[bool] = Query(False, enum=[False, True])):
     book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
     if isinstance(book,Book):
-        return {"Book": show_book_info(book)}
+        return book
     else:
         return {"error": "Book not found"}
 
@@ -134,7 +129,7 @@ def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list
 def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
     chapter =  WriteARead.edit_chapter_info(chapter_id, name, context, cost)
     if isinstance(chapter,Chapter):
-        return {"chapter": show_chapter_info(chapter)}
+        return chapter
     else:
         return {"error": "Book not found"}
 
@@ -161,6 +156,7 @@ if __name__ == "__main__":
 # password = "sawasdee"
 # username = "Mozaza"
 # password = "namchakeawpun"
+    
 print("------------------------------------------------------------------------------------------------------------------------------------")
 WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
 username = "Jueeen"
@@ -171,7 +167,7 @@ print("get user by name: ", WriteARead.get_user_by_username(username))
 print("show coin: ", WriteARead.show_coin(username))
 print("------------------------------------------------------------------------------------------------------------------------------------")
 print("sign in: ", WriteARead.sign_in(username, password))
-print("sign up : ", WriteARead.sign_up(username, password, birth_date))
+print("sign up : ", WriteARead.sign_up(username, password, birth_date,"reader"))
 print("------------------------------------------------------------------------------------------------------------------------------------")
 print("create book : ", show_book_info(WriteARead.create_book("what did OOP do?","Mozaza",["yaoi"],"publishing",True,"once in a blue moon, i died because of OOP")))
 print("create chapter : ", show_chapter_info(WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3)))
@@ -185,7 +181,8 @@ print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did 
 print("------------------------------------------------------------------------------------------------------------------------------------")
 
 
-
+# _q: str = Query("eu", enum=["eu", "us", "cn", "ru"])):
+    # return {"selected": _q}
 
 # test = ShowMyProfile("Mozaza")
 # print(test)
