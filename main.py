@@ -12,6 +12,7 @@ from Controller import Controller
 app = FastAPI()
 WriteARead = Controller()
 
+
 #create temporary instance
 Mo = Writer("Mozaza", "namchakeawpun", "12/05/2000")
 WriteARead.add_writer(Mo)
@@ -74,27 +75,27 @@ def show_comment_info(comment):
     return str1
 #--------------------------------------------------------------------------------------------------------------------------
 
-@app.get("/bookname")
-def search_book(book_name: str):
-    # Assuming WriteARead has a method to search for a book by name
-    book = WriteARead.search_book_by_name(book_name)
-    if book:
-        return {"Book": book.dict()}
-    else:
-        return {"error": "Book not found"}
+# @app.get("/bookname")
+# def search_book(book_name: str):
+#     # Assuming WriteARead has a method to search for a book by name
+#     book = WriteARead.search_book_by_name(book_name)
+#     if book:
+#         return {"Book": book.dict()}
+#     else:
+#         return {"error": "Book not found"}
     
 
 @app.get("/")
 def FirstPage():
      return "Welcome to WriteARead"
 
-@app.get("/bookname", tags=['search bar'])
-def searchBook(book_name:str):
-    return {"Book": WriteARead.search_book_by_name(book_name)}
+@app.get("/bookname or username", tags=['search bar'])
+def searchBar(search_str:str):
+    return {"Search": WriteARead.search_book_and_user_list(search_str)}
 
-@app.get("/username", tags=['search bar'])
-def SearchUser(username:str):
-     return {"user": WriteARead.search_user(username)}
+# @app.get("/username", tags=['search bar'])
+# def SearchUser(username:str):
+#      return {"user": WriteARead.search_user_list_by_name(username)}
 
 @app.get("/coin", tags=['coin'])
 def ShowCoins(username:str):
@@ -110,11 +111,11 @@ def SignUp(username:str, password:str, birth_date: str):
 
 @app.post("/Book", tags=['Book'])
 def CreateBook(name:str, writer_name:str, tag_list: str, status: str, age_restricted: bool, prologue: str):
-    return WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue)
+    return show_book_info(WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue))
 
 @app.post("/Chapter", tags=['Chapter'])
 def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cost : int):
-    return WriteARead.create_chapter(book_name, chapter_number, name, context, cost)
+    return show_chapter_info(WriteARead.create_chapter(book_name, chapter_number, name, context, cost))
 
 @app.post("/Comment", tags=['Comment'])
 def CreateComment(chapter_id:str, username:str, context: str):
@@ -160,11 +161,12 @@ if __name__ == "__main__":
 # password = "sawasdee"
 # username = "Mozaza"
 # password = "namchakeawpun"
+print("------------------------------------------------------------------------------------------------------------------------------------")
 WriteARead.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
 username = "Jueeen"
 password = "whippedcream"
 birth_date = 12/11/2004
-print("search user: ", WriteARead.search_user_list_by_name(username))
+print("search : ", WriteARead.search_book_and_user_list(username))
 print("get user by name: ", WriteARead.get_user_by_username(username))
 print("show coin: ", WriteARead.show_coin(username))
 print("------------------------------------------------------------------------------------------------------------------------------------")

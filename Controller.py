@@ -15,32 +15,44 @@ class Controller:
     def add_reader(self, reader):
         self.__reader_list.append(reader)
 
-    def search_book_list_by_name(self, book_name):
-        search_list=[]
+    def search_book_and_user_list(self, search_str):
+        search_book_list=[]
+        search_reader_list=[]
+        search_writer_list=[]
         for writer in self.__writer_list:
             for book in writer.writing_list:
-                if book_name.lower() in book.name.lower():
-                    search_list.append(book.name)
-                    
-        if search_list==[]:
-            return "huhuuuu"
-        else:
-            return search_list
-          
-    def search_user_list_by_name(self, username):
-        search_list = []
+                if search_str.lower() in book.name.lower():
+                    search_book_list.append(book.name)
+
         for reader in self.__reader_list:
-            if username.lower() in reader.username.lower():
-                search_list.append(reader.username)
+            if search_str.lower() in reader.username.lower():
+                search_reader_list.append(reader.username)
         
         for writer in self.__writer_list:
-            if username.lower() in writer.username.lower() and writer.username not in search_list:
-                search_list.append(writer.username)
+            if search_str.lower() in writer.username.lower():
+                search_writer_list.append(writer.username)
 
-        if search_list == []:
-            return "user not found"
+        search_dict = {"Book": search_book_list,"Reader": search_reader_list, "Writer": search_writer_list}
+
+        if search_book_list == [] and search_reader_list == [] and search_writer_list == []:
+            return "huhuuuu"
         else:
-            return search_list
+            return search_dict
+          
+    # def search_user_list_by_name(self, username):
+        # search_list = []
+        # for reader in self.__reader_list:
+        #     if username.lower() in reader.username.lower():
+        #         search_list.append(reader.username)
+        
+        # for writer in self.__writer_list:
+        #     if username.lower() in writer.username.lower() and writer.username not in search_list:
+        #         search_list.append(writer.username)
+
+        # if search_list == []:
+        #     return "user not found"
+        # else:
+        #     return search_list
                     
     def get_book_by_name(self, book_name):
         for writer in self.__writer_list:
