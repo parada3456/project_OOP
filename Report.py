@@ -2,11 +2,11 @@ from datetime import datetime
 
 class Report:
     def __init__(self, report_to, user, report_type, context):
-        self._report_to = report_to
-        self._user = user
+        self.__report_to = report_to
+        self.__user = user
         self._report_type = report_type
-        self._context = context
-        self._date_time = datetime.now()
+        self.__context = context
+        self.__date_time = datetime.now()
 
     @property
     def report_to(self):

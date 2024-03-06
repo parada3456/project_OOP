@@ -19,22 +19,6 @@ class Chapter:
     @property
     def chapter_number(self):
         return self.__chapter_number
-    
-    @property
-    def context(self):
-        return self.__context
-    
-    @context.setter
-    def context(self,new_context):
-        self.__context = new_context
-
-    @property
-    def cost(self):
-        return self.__cost
-    
-    @cost.setter
-    def cost(self,cost):
-        self.__cost = cost
 
     @property
     def publish_date_time(self):

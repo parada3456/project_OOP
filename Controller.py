@@ -166,7 +166,7 @@ class Controller:
     def edit_book_info(self, name, add_tag_list, delete_tag_list, status, age_restricted, prologue):
         book = self.get_book_by_name(name)
         if name:
-            book.name=name
+            book.name = name
         if add_tag_list:
             book.add_tag(add_tag_list)
         if delete_tag_list:
@@ -183,11 +183,11 @@ class Controller:
     def edit_chapter_info(self,chapter_id, name, context, cost):
         chapter = self.search_chapter_by_chapter_id(chapter_id)
         if name:
-            chapter.name=name
+            chapter.update_name = name
         if context:
-            chapter.context(context)
+            chapter.update_context = context
         if cost:
-            chapter.cost(cost)
+            chapter.update_cost = cost
         # chapter.publish_date_time(0)
         return chapter
 
@@ -242,3 +242,10 @@ class Controller:
     #             "writings" : writing_list,
     #             "pseudonyms" : pseudonym_list,
     #             "comments" : comment_list}
+
+    def counting_report(self,book):
+        for report_type in self.__report_type_list:
+            if book.counting_report_from_type(report_type) in self.__report_type_list:
+                #send to web master
+                book.status = "hiding"
+                return f"your book has been reported 10 times in {report_type}"

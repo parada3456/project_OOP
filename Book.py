@@ -101,14 +101,13 @@ class Book():
         self.report_list.append(report)
         self.counting_date_time = datetime.now()
 
-    # def counting_report_from_type(self):
-    #     report_count=0
-    #     for report in self.__report_list:
-    #         for report_type in Controller.report_type_list:
-    #             if report_count == 10:
-    #                 break
-    #             if report.report_type == report_type:
-    #                 report_count+=1
+    def counting_report_from_type(self,type):
+        report_count=0
+        for report in self.__report_list:
+            if report_count == 10:
+                return type
+            if report.report_type == type:
+                report_count+=1
 
     def delete_report(self, report):
       if report in self.report_list:

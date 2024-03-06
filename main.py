@@ -56,9 +56,9 @@ def show_book_info(book):
     return str1
 
 def show_chapter_info(chapter):
-    str1 = {"name : " : str(chapter.name),
-            "context : " : str(chapter.context),
-            "cost : " : str(chapter.cost),
+    str1 = {"name : " : str(chapter.update_name),
+            "context : " : str(chapter.update_context),
+            "cost : " : str(chapter.update_cost),
             # "publish_date_time: " : str(chapter.publish_date_time)
             }
 
@@ -123,7 +123,7 @@ def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list
 
 @app.put("/Edit Chapter", tags=['Chapter'])
 def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
-    chapter =  WriteARead.edit_chapter_info(name,chapter_id, name, context, cost)
+    chapter =  WriteARead.edit_chapter_info(chapter_id, name, context, cost)
     if isinstance(chapter,Chapter):
         return {"chapter": show_chapter_info(chapter)}
     else:
@@ -165,7 +165,8 @@ print("create book : ", WriteARead.create_book("what did OOP do?","Mozaza",["yao
 print("create chapter : ", WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3))
 print("create comment : ", WriteARead.create_comment("what did OOP do?/1","Mozaza","huhuhuhuuuhuuhuhuh"))
 print("edit book: ",show_book_info(WriteARead.edit_book_info("what did OOP do?",["boy love"],None,None,"eieieiei",None)))
-# show_book_info(Book1)
+print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did OOP do?/1",None,None,123)))
+
 
 
 
