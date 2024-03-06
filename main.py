@@ -143,6 +143,15 @@ class dto_create_comment(BaseModel):
 @app.get("/")
 def FirstPage():
      return "Welcome to WriteARead"
+#edit19
+@app.get("/sign_in", tags=['sign up/sign in'])
+def SignIN(username:str, password:str):
+    return WriteARead.sign_in(username, password)
+
+#edit19
+@app.post("/sign_up", tags=['sign up/sign in'])
+def SignUp(dto : dto_sign_up):
+    return WriteARead.sign_up(dto.username, dto.password, dto.birth_date, dto.role)
 
 @app.get("/bookname or username", tags=['search bar'])
 def searchBar(search_str:str):
@@ -159,16 +168,6 @@ def SearchBook(search_str:str):
 @app.get("/coin", tags=['Coin'])
 def ShowCoins(username:str):
      return WriteARead.show_coin(username)
-
-#edit19
-@app.get("/sign_in", tags=['sign up/sign in'])
-def SignIN(username:str, password:str):
-    return WriteARead.sign_in(username, password)
-
-#edit19
-@app.post("/sign_up", tags=['sign up/sign in'])
-def SignUp(dto : dto_sign_up):
-    return WriteARead.sign_up(dto.username, dto.password, dto.birth_date, dto.role)
 
 #edit19
 @app.post("/book", tags=['Book'])
