@@ -156,7 +156,7 @@ def SearchBook(search_str:str):
 # def SearchUser(username:str):
 #      return {"user": WriteARead.search_user_list_by_name(username)}
 
-@app.get("/coin", tags=['coin'])
+@app.get("/coin", tags=['Coin'])
 def ShowCoins(username:str):
      return WriteARead.show_coin(username)
 
@@ -210,24 +210,24 @@ def ShowMyPage(username:str):
 def ShowMyProfile(username:str):
      return f"My Profile : {WriteARead.show_my_profile(username)}"
 
-@app.get("/get_coin_transaction", tags=['Coin Transaction'])
+@app.get("/get_coin_transaction", tags=['Coin'])
 def get_coin_transaction(username:str):
     user = WriteARead.get_user_by_username(username)
     return {"Coin Transaction" : user.show_coin_transaction}
 
-@app.get("/get_my_coin", tags=['My Coin'])
+@app.get("/get_my_coin", tags=['Coin'])
 def get_my_coin(username:str):
     user = WriteARead.get_user_by_username(username)
     return {"Golden Coin balance" : user.golden_coin.balance, "Silver Coin balance" : user.silver_coin_balance}
 
-@app.post("/post_payment_method", tags=['Buy Coin'])
+@app.post("/post_payment_method", tags=['Coin'])
 def buy_coin(username:str, golden_coin_amount:int, payment_info: Annotated[str | None, Query(max_length = 10)],\
         payment_method:str = Query("Payment Method", enum = WriteARead.payment_list, description ='Choose your payment method'),code: Optional[str] = None):
     payment = WriteARead.create_payment_method(payment_method, payment_info)
     WriteARead.buy_coin(username, payment, code, golden_coin_amount)  
     return "Purchase successful, THANK YOU"
 
-@app.get("/show_chapter_transaction", tags=['Chapter Transaction'])
+@app.get("/show_chapter_transaction", tags=['Chapter'])
 def ShowChapterTransaction(username:str):
         user = WriteARead.get_user_by_username(username)
         if WriteARead.is_user_not_found(user): return user
@@ -245,7 +245,7 @@ def AddPseudonym(username:str, new_pseudonym:str):
 def ShowMyReading(username:str):
         return {"My Reading" : WriteARead.show_my_reading(username)}
 
-@app.post("/buy_chapter", tags=['chapter'])
+@app.post("/buy_chapter", tags=['Chapter'])
 def BuyChapter(username:str, chapter_id:str):
         return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
 
