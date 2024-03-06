@@ -1,4 +1,3 @@
-# from typing import Union
 import uvicorn
 from typing import Optional
 from fastapi import FastAPI

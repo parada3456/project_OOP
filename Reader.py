@@ -31,7 +31,7 @@ class Reader:
     @property
     def password(self):
         return self.__password
-    @username.setter
+    @password.setter
     def password(self,password):
         self.__password = password
 
