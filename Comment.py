@@ -23,7 +23,7 @@ class Comment:
 
     @property
     def date_time(self):
-        return self.__date_time
+        return f"{self.__date_time.strftime("%x")} {self.__date_time.strftime("%X")}"
     @date_time.setter
     def date_time(self,now):
         self.__date_time = datetime.now()

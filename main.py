@@ -44,22 +44,31 @@ Mo.add_writing_book_list(Book2)
 
 #---------------------------------------------------------------------------------------------------------------------
 def show_book_info(book):
-    str1 = {"name : " : str(book.name),
-            "writer_name : " : str(book.writer.username),
-            "tag_list : " : str(book.tag),
-            "status: " : str(book.status),
-            "age_restricted: " : str(book.age_restricted),
-            "prologue: " : str(book.prologue),
-            # "date_time: " : str(book.date_time)
+    str1 = {"name" : str(book.name),
+            "writer_name" : str(book.writer.username),
+            "tag_list" : str(book.tag),
+            "status" : str(book.status),
+            "age_restricted" : str(book.age_restricted),
+            "prologue" : str(book.prologue),
+            "date_time" : str(book.date_time)
             }
 
     return str1
 
 def show_chapter_info(chapter):
-    str1 = {"name : " : str(chapter.update_name),
-            "context : " : str(chapter.update_context),
-            "cost : " : str(chapter.update_cost),
-            # "publish_date_time: " : str(chapter.publish_date_time)
+    str1 = {"name" : str(chapter.name),
+            "context" : str(chapter.context),
+            "cost" : str(chapter.cost),
+            "publish_date_time" : str(chapter.publish_date_time)
+            }
+
+    return str1
+
+def show_comment_info(comment):
+    str1 = {"user" : str(comment.commentator.username),
+            "chapter" : str(comment.chapter.chapter_id),
+            "context" : str(comment.context),
+            "date_time" : str(comment.date_time)
             }
 
     return str1
@@ -109,12 +118,11 @@ def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cos
 
 @app.post("/Comment", tags=['Comment'])
 def CreateComment(chapter_id:str, username:str, context: str):
-    return WriteARead.create_comment(chapter_id,username,context)
+    return show_comment_info(WriteARead.create_comment(chapter_id,username,context))
 
 @app.put("/EditBook", tags=['Book'])
 def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None,\
                 status: Optional[str] = None, age_restricted: Optional[bool] = None, prologue: Optional[str] = None):
-                
     book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
     if isinstance(book,Book):
         return {"Book": show_book_info(book)}
@@ -159,13 +167,20 @@ birth_date = 12/11/2004
 print("search user: ", WriteARead.search_user_list_by_name(username))
 print("get user by name: ", WriteARead.get_user_by_username(username))
 print("show coin: ", WriteARead.show_coin(username))
+print("------------------------------------------------------------------------------------------------------------------------------------")
 print("sign in: ", WriteARead.sign_in(username, password))
 print("sign up : ", WriteARead.sign_up(username, password, birth_date))
-print("create book : ", WriteARead.create_book("what did OOP do?","Mozaza",["yaoi"],"publishing","true","once in a blue moon, i died because of OOP"))
-print("create chapter : ", WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3))
-print("create comment : ", WriteARead.create_comment("what did OOP do?/1","Mozaza","huhuhuhuuuhuuhuhuh"))
-print("edit book: ",show_book_info(WriteARead.edit_book_info("what did OOP do?",["boy love"],None,None,"eieieiei",None)))
-print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did OOP do?/1",None,None,123)))
+print("------------------------------------------------------------------------------------------------------------------------------------")
+print("create book : ", show_book_info(WriteARead.create_book("what did OOP do?","Mozaza",["yaoi"],"publishing",True,"once in a blue moon, i died because of OOP")))
+print("create chapter : ", show_chapter_info(WriteARead.create_chapter("what did OOP do?", 1, "prologue not real", "pee kra toey", 3)))
+print("create comment : ", show_comment_info(WriteARead.create_comment("what did OOP do?/1","Mozaza","huhuhuhuuuhuuhuhuh")))
+print("------------------------------------------------------------------------------------------------------------------------------------")
+print("before edit book : ",show_book_info(WriteARead.get_book_by_name("what did OOP do?")))
+print("edit book: ",show_book_info(WriteARead.edit_book_info("what did OOP do?",["boy love"],["yaoi"],None,False,None)))
+print("------------------------------------------------------------------------------------------------------------------------------------")
+print("before edit chapter : ",show_chapter_info(WriteARead.search_chapter_by_chapter_id("what did OOP do?/1")))
+print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did OOP do?/1","edittttttttttt chapter",None,123)))
+print("------------------------------------------------------------------------------------------------------------------------------------")
 
 
 

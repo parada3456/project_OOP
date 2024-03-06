@@ -25,8 +25,8 @@ class Book():
     def name(self):
         return self.__name
     @name.setter
-    def name(self,name):
-        self.__name = name
+    def name(self,new_name):
+        self.__name = new_name
 
     @property
     def writer(self):
@@ -51,26 +51,26 @@ class Book():
     def age_restricted(self):
         return self.__age_restricted
     @age_restricted.setter
-    def age_restricted(self,age_restricted):
-        self.__age_restricted = age_restricted
+    def age_restricted(self,new_age_restricted):
+        self.__age_restricted = new_age_restricted
 
     @property
     def status(self):
         return self.__status
     @status.setter
-    def status(self,status):
-        self.__status = status
+    def status(self,new_status):
+        self.__status = new_status
 
     @property
     def prologue(self):
         return self.__prologue
     @prologue.setter
-    def prologue(self,prologue):
-        self.__prologue = prologue
+    def prologue(self,new_prologue):
+        self.__prologue = new_prologue
 
     @property
     def date_time(self):
-        return self.__date_time
+        return f"{self.__date_time.strftime("%x")} {self.__date_time.strftime("%X")}"
     @date_time.setter
     def date_time(self,now):
         self.__date_time = datetime.now()

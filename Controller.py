@@ -137,7 +137,7 @@ class Controller:
         if isinstance(writer,Writer) and isinstance(book,Book) == False:
             new_book = Book(name,writer,tag_list,status,age_restricted,prologue)
             writer.add_writing_book_list(new_book)
-            return {"Book": "create book successfully"}
+            return new_book
         else : 
             return {"Book": "please try again"}
     
@@ -146,7 +146,7 @@ class Controller:
         if isinstance(book,Book) and book.is_chapter_valid(chapter_number):
             chapter = Chapter(book_name,chapter_number, name, context, cost)
             book.add_chapter_list(chapter)
-            return {"Chapter": "create Chapter successfully"}
+            return chapter
         else : 
             return {"Chapter": "please try again"}
         
@@ -159,7 +159,7 @@ class Controller:
             new_comment = Comment(chapter,user,context)
             #find book and append in book 
             chapter.add_comment(new_comment)
-            return {"Comment": "create comment success"}
+            return new_comment
         else : 
             return {"Comment": "please try again"}
         
@@ -173,7 +173,7 @@ class Controller:
             book.delete_tag(delete_tag_list)
         if status:
             book.status = status
-        if age_restricted:
+        if age_restricted != None:
             book.age_restricted = age_restricted
         if prologue:
             book.prologue = prologue
@@ -182,12 +182,12 @@ class Controller:
             
     def edit_chapter_info(self,chapter_id, name, context, cost):
         chapter = self.search_chapter_by_chapter_id(chapter_id)
-        if name:
-            chapter.update_name = name
-        if context:
-            chapter.update_context = context
-        if cost:
-            chapter.update_cost = cost
+        if name != None:
+            chapter.update_name(name)
+        if context != None:
+            chapter.update_context(context)
+        if cost != None:
+            chapter.update_cost(cost)
         # chapter.publish_date_time(0)
         return chapter
 

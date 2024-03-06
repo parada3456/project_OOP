@@ -22,7 +22,7 @@ class Report:
         return self.__context
     @property
     def date_time(self):
-        return self.__date_time
+        return f"{self.__date_time.strftime("%x")} {self.__date_time.strftime("%X")}"
 
     @report_to.setter
     def report_to(self,report_to):

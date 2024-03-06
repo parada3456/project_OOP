@@ -32,7 +32,7 @@ class Reader:
     def password(self):
         return self.__password
     @password.setter
-    def password(self,password):
+    def password(self, password):
         self.__password = password
 
     @property

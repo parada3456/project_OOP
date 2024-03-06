@@ -10,10 +10,10 @@ class Promotion():
 
     @property
     def start_date_time(self):
-        return self.__start_date_time
+        return f"{self.__start_date_time.strftime("%x")} {self.__start_date_time.strftime("%X")}"
     @property
     def end_date_time(self):
-        return self.__end_date_time
+        return f"{self.__end_date_time.strftime("%x")} {self.__end_date_time.strftime("%X")}"
     @property
     def discount(self):
         return self.__discount

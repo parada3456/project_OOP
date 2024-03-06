@@ -25,4 +25,4 @@ class SilverCoin(GoldenCoin):
 
     @property
     def exp_date_time(self):
-        return self.__exp_date_time
+        return f"{self.__exp_date_time.strftime("%x")} {self.__exp_date_time.strftime("%X")}"

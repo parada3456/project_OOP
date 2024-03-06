@@ -15,6 +15,15 @@ class Chapter:
     @property
     def chapter_id(self):
         return self.__chapter_id
+    @property
+    def cost(self):
+        return self.__cost
+    @property
+    def name(self):
+        return self.__name
+    @property
+    def context(self):
+        return self.__context
     
     @property
     def chapter_number(self):
@@ -22,7 +31,7 @@ class Chapter:
 
     @property
     def publish_date_time(self):
-        return self.__publish_date_time
+        return f"{self.__publish_date_time.strftime("%x")} {self.__publish_date_time.strftime("%X")}"
     
     @publish_date_time.setter
     def publish_date_time(self,now):
