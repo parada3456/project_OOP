@@ -1,12 +1,16 @@
 import uvicorn
-from typing import Optional
+from typing import Optional,Annotated
 from fastapi import FastAPI, Query
 
 from Chapter import Chapter
-# from Promotion import BookPromotion, CoinPromotion
+from Promotion import BookPromotion, CoinPromotion
+from CoinTransaction import CoinTransaction
+from ChapterTransaction import ChapterTransaction
 from Book import Book
 from Reader import Reader, Writer
 from Controller import Controller
+from Payment import OnlineBanking, TrueMoneyWallet, DebitCard
+from datetime import datetime 
 
 
 app = FastAPI()
@@ -31,6 +35,17 @@ Book1 = Book("Shin_chan", Mo, ["kids", "comedy","crime"], "publishing", True, sh
 Book2 = Book("Shinosuke", Mo, ["kids", "comedy","crime"], "publishing", False, shin_chan_prologue,)
 Mo.add_writing_book_list(Book1)
 Mo.add_writing_book_list(Book2)
+
+#chapter_number, name, context, date_time, cost):
+Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", "01/01/2020", 5)
+
+book_sale = BookPromotion("01/01/2021", 50, [])
+WriteARead.add_promotion(book_sale)
+
+promotion_12_12 = CoinPromotion("01/01/2021", 40, "December")
+promotion_11_11 = CoinPromotion("01/01/2021", 20, "November")
+WriteARead.add_promotion(promotion_12_12)
+WriteARead.add_promotion(promotion_11_11)
 
 # #chapter_number, name, context, date_time, cost):
 # Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", 5)
@@ -133,18 +148,30 @@ def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optiona
     else:
         return {"error": "Book not found"}
 
-# @app.get("/My Page", tags=['user'])
-# def ShowMyPage(username:str):
-#      return f"My Page : {WriteARead.show_my_page(username)}"
+@app.get("/My Page", tags=['user'])
+def ShowMyPage(username:str):
+     return f"My Page : {WriteARead.show_my_page(username)}"
 
-# @app.get("/My Profile", tags=['user'])
-# def ShowMyProfile(username:str):
-#      return f"My Profile : {WriteARead.show_my_profile(username)}"
+@app.get("/My Profile", tags=['user'])
+def ShowMyProfile(username:str):
+     return f"My Profile : {WriteARead.show_my_profile(username)}"
 
-@app.get("/get_coin_transacttion", tags=['Coin Transaction'])
+@app.get("/get_coin_transaction", tags=['Coin Transaction'])
 def get_coin_transaction(username:str):
     user = WriteARead.get_user_by_username(username)
-    return {"Coin Transaction" : user.show_coin_transaction()}
+    return {"Coin Transaction" : user.show_coin_transaction}
+
+@app.get("/get_my_coin", tags=['My Coin'])
+def get_my_coin(username:str):
+    user = WriteARead.get_user_by_username(username)
+    return {"Golden Coin balance" : user.golden_coin.balance, "Silver Coin balance" : user.silver_coin_balance}
+
+@app.post("/post_payment_method", tags=['Buy Coin'])
+def buy_coin(username:str, golden_coin_amount:int, payment_info: Annotated[str | None, Query(max_length = 10)],\
+            payment_method:str = Query("Payment Method", enum = WriteARead.payment_list, description ='Choose your payment method'),code: Optional[str] = None):
+    payment = WriteARead.create_payment_method(payment_method, payment_info)
+    WriteARead.buy_coin(username, payment, code, golden_coin_amount)  
+    return "Purchase successful, THANK YOU"
 
 #----------------------------------test----------------------------------
 
@@ -179,10 +206,8 @@ print("-------------------------------------------------------------------------
 print("before edit chapter : ",show_chapter_info(WriteARead.search_chapter_by_chapter_id("what did OOP do?/1")))
 print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did OOP do?/1","edittttttttttt chapter",None,123)))
 print("------------------------------------------------------------------------------------------------------------------------------------")
-
-
-# _q: str = Query("eu", enum=["eu", "us", "cn", "ru"])):
-    # return {"selected": _q}
+print("show my profile : ", WriteARead.show_my_profile("Mozaza"))
+print("show my page", WriteARead.show_my_page("Mozaza"))
 
 # test = ShowMyProfile("Mozaza")
 # print(test)

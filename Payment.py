@@ -1,67 +1,75 @@
-import Controller
-import Reader
-import main
-
-class Payment:
+class PaymentMethod:
     def __init__(self):
-        self.__coin_promotion = []
+        self.__name = "hi"
     #=================================
     @property
-    def coin_promotion(self):
-        return self.__coin_promotion
+    def name(self):
+        return self.__name
+    #==================================method   
+    # def buy_coin(self, username, price):
+    #     silver_amount = int(price * 10 / 100)
+    #     user = Controller.get_user_by_username(username)
+    #     user.add_golden_coin(price)
+    #     user.add_silver_coin(silver_amount)
+    #     date_time = datetime.now()
+    #     user.add_coin_transaction_list(CoinTransaction(self.__name, price, [price, silver_amount], date_time.strftime("%d/%m/%Y, %H:%M:%S")))
+        
+    def buy_coin(self, price):
+        pass
+    
+    def add_coin_promotion(self, new_coin_promotion):
+        self.__coin_promotion.append(new_coin_promotion)
 
-class OnlineBanking(Payment):
+class OnlineBanking(PaymentMethod):
     def __init__(self, account_id):
+        self.__name = 'OnlineBanking'
         self.__account_id = account_id
     #==================================
+    @property
+    def name(self):
+        return self.__name
     @property
     def account_id(self):
         return self.__account_id
     #==================================method
-    def buy_coin(self, username, code, coin_amount):
-        coin_cost = coin_amount * 2
-        user = Controller.search_user(username)
-        if(code != None):
-            coin_promotion = Controller.search_coin_promotion(code)
-            if(coin_promotion != None):
-                coin_cost = (100 - coin_promotion.discount) / 100 * coin_cost #ลดราคา 
-
-
-            else:
-                return "Your code is expired or not exist"
-
-class DebitCard(Payment):
-    def __init__(self, card_id, exp_date, cvv):
+    def buy_coin(self, price):
+        print("The system is implemented Please wait for the confirmation of the service")
+        print(f"The system is sending a bill to account number {self.__account_id} total {price} baht")
+        # print("Purchase successful, THANK YOU")
+        
+    
+class DebitCard(PaymentMethod):
+    def __init__(self, card_id):
+        self.__name = 'Debit Card'
         self.__card_id = card_id
-        self.__exp_date = exp_date
-        self.__cvv = cvv
     #==================================
     @property
-    def card_id(self):
-        return self.__card_id
-    @property
-    def card_id(self):
-        return self.__card_id
+    def name(self):
+        return self.__name
     @property
     def card_id(self):
         return self.__card_id
     #==================================method
-    def buy_coin(self, user_name, code, amount):
-        pass
+    def buy_coin(self, price):
+        print("The system is implemented Please wait for the confirmation of the service")
+        print(f"The system will deduct money from the card number {self.__card_id} total {price} baht")
+        # print("Purchase successful, THANK YOU")
+    
 
-
-class TrueMoneyWallet(Payment):
-    def __init__(self, phone_number, otp_number):
+class TrueMoneyWallet(PaymentMethod):
+    def __init__(self, phone_number):
+        self.__name = 'TrueMoney Wallet'
         self.__phone_number = phone_number
-        self.__otp_number = otp_number
     #==================================
+    @property
+    def name(self):
+        return self.__name
     @property
     def phone_number(self):
         return self.__phone_number
-    @property
-    def otp_number(self):
-        return self.__otp_number
     #==================================method
-    def buy_coin(self, user_name, code, amount):
-        pass
-
+    def buy_coin(self, price):
+        print("The system is implemented Please wait for the confirmation of the service")
+        print(f"Total {price} baht")
+        print(f"An bill will be sent to phone number {self.__phone_number} in a moment")
+        # print("Purchase successful, THANK YOU")

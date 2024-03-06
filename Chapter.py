@@ -28,6 +28,10 @@ class Chapter:
     @property
     def chapter_number(self):
         return self.__chapter_number
+    
+    @property
+    def viewer_count(self):
+        return self.__viewer_count
 
     @property
     def publish_date_time(self):

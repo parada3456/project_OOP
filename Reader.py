@@ -10,6 +10,7 @@ from Book import Book
 class Reader:
     def __init__(self, username, password, birth_date):
         self.__username = username
+        self.__display_name = username
         self.__password = password
         self.__birth_date = birth_date #check age_restricted
         self.__golden_coin = GoldenCoin(0)
@@ -27,6 +28,13 @@ class Reader:
     @username.setter
     def username(self,username):
         self.__username = username
+
+    @property
+    def display_name(self):
+        return self.__display_name
+    @display_name.setter
+    def display_name(self, display_name):
+        self.__display_name = display_name
 
     @property
     def password(self):
@@ -74,7 +82,7 @@ class Reader:
     def silver_coin_list(self):
         return self.__silver_coin_list
     def add_silver_coin(self,amount):
-        self.__silver_coin.append(SilverCoin(amount))
+        self.__silver_coin_list.append(SilverCoin(amount))
 
     def delete_exp_silver_coin(self):
         for silver_coin in self.__silver_coin_list:
@@ -130,12 +138,32 @@ class Reader:
             return "over 18"
         else: 
             return "under 18"
+        
+    def show_coin_transaction(self):
+        show_list = []
+        for coin_transaction in self.__coin_transaction_list:
+            payment_type = coin_transaction.payment
+            golden_amount = coin_transaction.golden_amount
+            silver_amount = coin_transaction.silver_amount
+            price = coin_transaction.price
+            date_time = coin_transaction.date_time
+            if(payment_type != None):
+                show_list.append(f"{payment_type} {golden_amount}_golden_coin {silver_amount}_silver_coin -{price} baht at {date_time}")
+            elif(silver_amount == '0'):
+                show_list.append(f"{payment_type} {golden_amount}_silver_coin at {date_time}")
+            elif(golden_amount == '0'):
+                show_list.append(f"{payment_type} {silver_amount}_silver_coin at {date_time}")
+            else:
+                show_list.append(f"{payment_type} {golden_amount}_golden_coin {silver_amount}_silver_coin at {date_time}")
+            
+        return show_list
 
 class Writer(Reader):
     money_balance = 0
     def __init__(self,username,password,birth_date):
         super().__init__(username,password,birth_date)
         self.__writing_book_list = []
+        self.__pseudonym = []
     
     @property
     def writing_list(self):
@@ -163,7 +191,7 @@ class Writer(Reader):
     def viewer_count(self):
         count = 0
         for book in self.__writing_book_list:
-            for chapter in book.get_chapter_list():
+            for chapter in book.chapter_list:
                 count += chapter.viewer_count
         return count
     
@@ -171,18 +199,18 @@ class Writer(Reader):
     def comment_list(self):
         comment_list = []
         for book in self.__writing_book_list:
-            comment_list.append(book.get_comment_list())
+            comment_list.append(book.comment_list())
         return comment_list
     
     @property
     def json_comment_list(self):
         comment_list = []
         for book in self.__writing_book_list:
-            for comment in book.get_comment_list():
+            for comment in book.comment_list:
                 comment_dict = {}
-                comment_dict["user"] = comment.commentator.name
+                comment_dict["user"] = comment.commentator.username
                 comment_dict["context"] = comment.context
                 comment_dict["chapter"] = f"#{comment.chapter.chapter_number} : {comment.chapter.name}"
-                comment_dict["date_time"] = comment.publish_date_time
+                comment_dict["date_time"] = comment.date_time
                 comment_list.append(comment_dict)
         return comment_list
