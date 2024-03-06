@@ -143,8 +143,7 @@ class dto_create_chapter(BaseModel):
     cost : int
 
 class dto_edit_chapter(BaseModel):
-    book_name : str = None
-    chapter_number : int = None
+    chapter_id : str = None
     name : str = None
     context : str = None
     cost : int = None
