@@ -160,22 +160,27 @@ def SearchBook(search_str:str):
 def ShowCoins(username:str):
      return WriteARead.show_coin(username)
 
+#edit19
 @app.get("/sign_in", tags=['sign up/sign in'])
 def SignIN(username:str, password:str):
     return WriteARead.sign_in(username, password)
 
+#edit19
 @app.post("/sign_up", tags=['sign up/sign in'])
 def SignUp(dto : dto_sign_up):
     return WriteARead.sign_up(dto.username, dto.password, dto.birth_date, dto.role)
 
+#edit19
 @app.post("/book", tags=['Book'])
 def CreateBook(dto : dto_create_book):
     return WriteARead.create_book(dto.name, dto.writer_name, dto.tag_list, dto.status, dto.age_restricted, dto.prologue)
 
+#edit19
 @app.post("/chapter", tags=['Chapter'])
 def CreateChapter(dto : dto_create_chapter):
     return WriteARead.create_chapter(dto.book_name, dto.chapter_number, dto.name, dto.context, dto.cost)
 
+#edit19
 @app.post("/comment", tags=['Comment'])
 def CreateComment(dto: dto_create_comment):
     return WriteARead.create_comment(dto.chapter_id, dto.username, dto.context)
