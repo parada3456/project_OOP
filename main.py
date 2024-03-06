@@ -138,6 +138,18 @@ class dto_create_comment(BaseModel):
     chapter_id:str
     username:str
     context: str
+
+class dto_buy_coin(BaseModel):
+    username:str
+    golden_coin_amount:int
+    payment_info: str
+    payment_method:str 
+    code: Optional[str]
+
+class dto_buy_chapter(BaseModel):
+    username : str
+    chapter_id : str
+
 #--------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/")
@@ -153,7 +165,7 @@ def SignIN(username:str, password:str):
 def SignUp(dto : dto_sign_up):
     return WriteARead.sign_up(dto.username, dto.password, dto.birth_date, dto.role)
 
-@app.get("/bookname or username", tags=['search bar'])
+@app.get("/search_all", tags=['search bar'])
 def searchBar(search_str:str):
     return {"Search": WriteARead.search_book_and_user_list(search_str)}
 
@@ -219,11 +231,10 @@ def get_my_coin(username:str):
     user = WriteARead.get_user_by_username(username)
     return {"Golden Coin balance" : user.golden_coin.balance, "Silver Coin balance" : user.silver_coin_balance}
 
-@app.post("/post_payment_method", tags=['Coin'])
-def buy_coin(username:str, golden_coin_amount:int, payment_info: Annotated[str | None, Query(max_length = 10)],\
-        payment_method:str = Query("Payment Method", enum = WriteARead.payment_list, description ='Choose your payment method'),code: Optional[str] = None):
-    payment = WriteARead.create_payment_method(payment_method, payment_info)
-    WriteARead.buy_coin(username, payment, code, golden_coin_amount)  
+@app.post("/buy_coin", tags=['Coin'])
+def buy_coin(dto : dto_buy_coin):
+    payment = WriteARead.create_payment_method(dto.payment_method, dto.payment_info)
+    WriteARead.buy_coin(dto.username, dto.payment, dto.code, dto.golden_coin_amount)  
     return "Purchase successful, THANK YOU"
 
 @app.get("/show_chapter_transaction", tags=['Chapter'])
@@ -245,8 +256,8 @@ def ShowMyReading(username:str):
         return {"My Reading" : WriteARead.show_my_reading(username)}
 
 @app.post("/buy_chapter", tags=['Chapter'])
-def BuyChapter(username:str, chapter_id:str):
-        return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
+def BuyChapter(dto : dto_buy_chapter):
+        return {"Buy Chapter" : WriteARead.buy_chapter(dto.username, dto.chapter_id)}
 
 
 #----------------------------------test----------------------------------
