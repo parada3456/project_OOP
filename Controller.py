@@ -122,14 +122,14 @@ class Controller:
         user = self.get_user_by_username(username)
         if self.is_user_not_found(user): return user
 
-        chapter = self.get_chapter_by_chapter_id(chapter_id)
+        chapter = self.search_chapter_by_chapter_id(chapter_id)
         if not isinstance(chapter, Chapter): return chapter
         
         if user.check_repeated_purchase(chapter): return "You have already purchased this chapter."
         
         cost = chapter.cost
 
-        coin_balance = user.get_user_coin_balance()
+        coin_balance = user.user_coin_balance
 
         if coin_balance >= cost:
             user.deduct_coin(cost)
@@ -315,20 +315,23 @@ class Controller:
             
         self.add_coin_to_user(user, payment, golden_amount, silver_amount, price)
     
-    def buy_chapter(self, chapter_id, book_name, username):
-        book = self.get_book_by_name(book_name)
-        chapter_list = book.chapter_list
-
-        for chapter in chapter_list:
-            if chapter.chapter_id == chapter_id:
-                cost = chapter.cost
-
+    def buy_chapter(self, username, chapter_id):
         user = self.get_user_by_username(username)
+        if self.is_user_not_found(user): return user
+
+        chapter = self.search_chapter_by_chapter_id(chapter_id)
+        if not isinstance(chapter, Chapter): return chapter
+        
+        if user.check_repeated_purchase(chapter): return "You have already purchased this chapter."
+        
+        cost = chapter.cost
+
         coin_balance = user.user_coin_balance
 
         if coin_balance >= cost:
             user.deduct_coin(cost)
-            user.add_chapter_transaction()
+            user.add_chapter_transaction_list(ChapterTransaction(chapter, cost))
+            return "Your purchase was successful"
         else:
             return "Not enough coin"
         
@@ -345,7 +348,7 @@ class Controller:
         user = self.get_user_by_username(username)
         if self.is_user_not_found(user): return user
         reading_list = []
-        for book in user.get_book_shelf_list():
+        for book in user.book_shelf_list:
             reading = {"name" : book.name,
                        "tags" : book.tag,
                        "status" : book.status,

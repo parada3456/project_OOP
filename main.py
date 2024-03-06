@@ -47,16 +47,39 @@ promotion_11_11 = CoinPromotion("01/01/2021", 20, "November")
 WriteARead.add_promotion(promotion_12_12)
 WriteARead.add_promotion(promotion_11_11)
 
-# #chapter_number, name, context, date_time, cost):
-# Chapter1_1 = Chapter("1", "first chapter of shinchan", "this is the first chapter of shinchan", 5)
 
-# book_sale = BookPromotion("01/01/2021", 50, [])
-# WriteARead.add_promotion(book_sale)
+#----------------------------------create chapters----------------------------------
+#Chapter("number", "name", "context", "dd/mm/yyyy", price)
 
-# free_coin = CoinPromotion("01/01/2021", 40, "chakeawaroi")
+Book1.add_chapter_list(Chapter( "Shin_chan","1","first_ch", "this is the first chapter of shincha", 184))
 
-# # print(WriteARead.search_book_by_name("Shin"))
-# print(pint.check_age_restricted())
+#----------------------------------create promotions----------------------------------
+#BookPromotion("dd/mm/yyyy", discount, [book_list])
+#CoinPromotion("dd/mm/yyyy", discount, "code")
+
+
+book_sale = BookPromotion("01/01/2021",50, [])
+WriteARead.add_promotion(book_sale)
+
+free_coin = CoinPromotion("01/01/2021",40, "chakeawaroi")
+WriteARead.add_promotion(free_coin)
+
+#----------------------------------create transactions----------------------------------
+
+# Mo.add_coin_transaction_list(CoinTransaction(OnlineBanking("012-3-45678-9"), 100, 100, 10, now))
+# Mo.add_coin_transaction_list(CoinTransaction(TrueMoneyWallet("0123456789", "5174"), 200, 200, 20, now))
+
+#----------------------------------add coin----------------------------------
+Mo.add_silver_coin(20)
+Mo.add_silver_coin(10)
+Mo.add_silver_coin(50)
+Mo.add_silver_coin(3)
+Mo.add_silver_coin(100)
+Mo.add_golden_coin(888)
+
+#----------------------------------add to bookshelf----------------------------------
+Mo.add_book_shelf_list(Book1)
+Mo.add_book_shelf_list(Book2)
 
 #---------------------------------------------------------------------------------------------------------------------
 def show_book_info(book):
@@ -168,37 +191,35 @@ def get_my_coin(username:str):
 
 @app.post("/post_payment_method", tags=['Buy Coin'])
 def buy_coin(username:str, golden_coin_amount:int, payment_info: Annotated[str | None, Query(max_length = 10)],\
-            payment_method:str = Query("Payment Method", enum = WriteARead.payment_list, description ='Choose your payment method'),code: Optional[str] = None):
+        payment_method:str = Query("Payment Method", enum = WriteARead.payment_list, description ='Choose your payment method'),code: Optional[str] = None):
     payment = WriteARead.create_payment_method(payment_method, payment_info)
     WriteARead.buy_coin(username, payment, code, golden_coin_amount)  
     return "Purchase successful, THANK YOU"
 
-
 @app.get("/show_chapter_transaction", tags=['Chapter Transaction'])
 def ShowChapterTransaction(username:str):
-     user = WriteARead.get_user_by_username(username)
-     if WriteARead.is_user_not_found(user): return user
-     return {"Chapter Transaction" : user.show_chapter_transaction()}
+        user = WriteARead.get_user_by_username(username)
+        if WriteARead.is_user_not_found(user): return user
+        return {"Chapter Transaction" : user.show_chapter_transaction()}
 
 @app.put("/My Profile/change_password", tags=['user'])
 def ChangePassword(username:str,old_password:str, new_password:str):
-     return {"Change Password" : WriteARead.change_password(username, old_password, new_password)}
+        return {"Change Password" : WriteARead.change_password(username, old_password, new_password)}
 
 @app.post("/My Profile/psedonym", tags=["user"])
 def AddPseudonym(username:str, new_pseudonym:str):
-     return {"Add Pseudonym" : WriteARead.add_pseudonym(username, new_pseudonym)}
+        return {"Add Pseudonym" : WriteARead.add_pseudonym(username, new_pseudonym)}
 
 @app.get("/My Reading", tags=['user'])
 def ShowMyReading(username:str):
-     return {"My Reading" : WriteARead.show_my_reading(username)}
+        return {"My Reading" : WriteARead.show_my_reading(username)}
 
 @app.post("/Buy Chapter", tags=['chapter'])
 def BuyChapter(username:str, chapter_id:str):
-     return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
+        return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
 
 
 #----------------------------------test----------------------------------
-
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
@@ -232,6 +253,10 @@ print("edit chapter: ",show_chapter_info(WriteARead.edit_chapter_info("what did 
 print("------------------------------------------------------------------------------------------------------------------------------------")
 print("show my profile : ", WriteARead.show_my_profile("Mozaza"))
 print("show my page", WriteARead.show_my_page("Mozaza"))
+print("------------------------------------------------------------------------------------------------------------------------------------")
+print("buy chapter", WriteARead.buy_chapter("Mozaza", "what did OOP do?/1"))
+print("buy chapter", WriteARead.buy_chapter("Mozaza", "Shin_chan/1"))
+print("------------------------------------------------------------------------------------------------------------------------------------")
 
 # test = ShowMyProfile("Mozaza")
 # print(test)

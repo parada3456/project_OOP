@@ -60,7 +60,7 @@ class Reader:
 
     @property
     def user_coin_balance(self):
-      return self.__golden_coin.balance + self.silver_coin_balance()
+      return self.__golden_coin.balance + self.silver_coin_balance
     
     @property
     def silver_coin_balance(self):
@@ -89,18 +89,27 @@ class Reader:
             if silver_coin.exp_date_time - datetime.now():
                 self.__silver_coin_list.remove(silver_coin)
 
-    def deduct_silver_coin(self,amount):
-        self.delete_exp_silver_coin()
+    def remove_silver_coin(self):
+        for silver_coin in self.get_silver_coin_list():
+            if silver_coin.balance == 0:
+                self.__silver_coin_list.remove(silver_coin)
+
+    def deduct_coin(self, total_amount):
+        silver_coin_deducted = 0
+        golden_coin_deducted = 0
         for silver_coin in self.__silver_coin_list:
-            if amount > silver_coin.balance :
-                self.__silver_coin_list.remove(silver_coin)
-                amount -= silver_coin.balance
-            elif amount < silver_coin.balance :
-                silver_coin.balance -= amount
+            if total_amount != 0:
+                transac_amount = silver_coin.deduct_silver_coin(total_amount) 
+                silver_coin_deducted += transac_amount      
+                total_amount -= transac_amount
+            else:
                 break
-            else :
-                self.__silver_coin_list.remove(silver_coin)
-                break
+        if total_amount != 0:
+            golden_coin_deducted = self.__golden_coin.deduct_golden_coin(total_amount)
+            print(golden_coin_deducted)
+            
+        self.add_coin_transaction_list(CoinTransaction(None, None, -1*golden_coin_deducted, -1*(silver_coin_deducted), datetime.now()))
+        return "Done"
     
     @property
     def book_shelf_list(self):
