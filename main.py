@@ -1,6 +1,7 @@
 import uvicorn
 from typing import Optional,Annotated
 from fastapi import FastAPI, Query
+from pydantic import BaseModel
 
 from Chapter import Chapter
 from Promotion import BookPromotion, CoinPromotion
@@ -112,6 +113,32 @@ def show_comment_info(comment):
 
     return str1
 #--------------------------------------------------------------------------------------------------------------------------
+class dto_sign_up(BaseModel):
+    username:str
+    password:str
+    birth_date: str
+    role: str
+
+class dto_create_book(BaseModel):
+    name:str
+    writer_name:str
+    tag_list: str
+    prologue: str
+    age_restricted: bool
+    status: str 
+
+class dto_create_chapter(BaseModel):
+    book_name:str
+    chapter_number:int
+    name:str
+    context: str
+    cost : int
+
+class dto_create_comment(BaseModel):
+    chapter_id:str
+    username:str
+    context: str
+#--------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/")
 def FirstPage():
@@ -133,49 +160,48 @@ def SearchBook(search_str:str):
 def ShowCoins(username:str):
      return WriteARead.show_coin(username)
 
-@app.post("/sign in", tags=['sign up/sign in'])
+@app.get("/sign_in", tags=['sign up/sign in'])
 def SignIN(username:str, password:str):
     return WriteARead.sign_in(username, password)
 
-@app.post("/signup", tags=['sign up/sign in'])
-def SignUp(username:str, password:str, birth_date: str,  role: str = Query("Reader", enum=["Reader", "Writer"])):
-    return WriteARead.sign_up(username, password, birth_date, role)
+@app.post("/sign_up", tags=['sign up/sign in'])
+def SignUp(dto : dto_sign_up):
+    return WriteARead.sign_up(dto.username, dto.password, dto.birth_date, dto.role)
 
-@app.post("/Book", tags=['Book'])
-def CreateBook(name:str, writer_name:str, tag_list: str,prologue: str, age_restricted: bool = Query(False, enum=[False, True]), \
-                status: str = Query("Publishing", enum=["Publishing", "Hiding","Complete"])):
-    return WriteARead.create_book(name,writer_name,tag_list,status,age_restricted,prologue)
+@app.post("/book", tags=['Book'])
+def CreateBook(dto : dto_create_book):
+    return WriteARead.create_book(dto.name, dto.writer_name, dto.tag_list, dto.status, dto.age_restricted, dto.prologue)
 
-@app.post("/Chapter", tags=['Chapter'])
-def CreateChapter(book_name:str, chapter_number:int, name:str, context: str, cost : int):
-    return WriteARead.create_chapter(book_name, chapter_number, name, context, cost)
+@app.post("/chapter", tags=['Chapter'])
+def CreateChapter(dto : dto_create_chapter):
+    return WriteARead.create_chapter(dto.book_name, dto.chapter_number, dto.name, dto.context, dto.cost)
 
-@app.post("/Comment", tags=['Comment'])
-def CreateComment(chapter_id:str, username:str, context: str):
-    return WriteARead.create_comment(chapter_id,username,context)
+@app.post("/comment", tags=['Comment'])
+def CreateComment(dto: dto_create_comment):
+    return WriteARead.create_comment(dto.chapter_id, dto.username, dto.context)
 
-@app.put("/EditBook", tags=['Book'])
-def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None, \
-                 prologue: Optional[str] = None,status: Optional[str] = None, age_restricted: Optional[bool] = Query(False, enum=[False, True])):
-    book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
-    if isinstance(book,Book):
-        return book
-    else:
-        return {"error": "Book not found"}
+# @app.put("/edit_book", tags=['Book'])
+# def EditBookInfo(name: str, add_tag_list: Optional[list] = None, delete_tag_list: Optional[list] = None, \
+#                  prologue: Optional[str] = None,status: Optional[str] = None, age_restricted: Optional[bool] = Query(False, enum=[False, True])):
+#     book =  WriteARead.edit_book_info(name,add_tag_list,delete_tag_list,status,age_restricted,prologue)
+#     if isinstance(book,Book):
+#         return book
+#     else:
+#         return {"error": "Book not found"}
 
-@app.put("/Edit Chapter", tags=['Chapter'])
-def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
-    chapter =  WriteARead.edit_chapter_info(chapter_id, name, context, cost)
-    if isinstance(chapter,Chapter):
-        return chapter
-    else:
-        return {"error": "Book not found"}
+# @app.put("/edit_chapter", tags=['Chapter'])
+# def EditChapterInfo(chapter_id:str, name: Optional[str] = None, context: Optional[str] = None, cost: Optional[int] = None):
+#     chapter =  WriteARead.edit_chapter_info(chapter_id, name, context, cost)
+#     if isinstance(chapter,Chapter):
+#         return chapter
+#     else:
+#         return {"error": "Book not found"}
 
-@app.get("/My Page", tags=['user'])
+@app.get("/my_page", tags=['user'])
 def ShowMyPage(username:str):
      return f"My Page : {WriteARead.show_my_page(username)}"
 
-@app.get("/My Profile", tags=['user'])
+@app.get("/my_profile", tags=['user'])
 def ShowMyProfile(username:str):
      return f"My Profile : {WriteARead.show_my_profile(username)}"
 
@@ -202,19 +228,19 @@ def ShowChapterTransaction(username:str):
         if WriteARead.is_user_not_found(user): return user
         return {"Chapter Transaction" : user.show_chapter_transaction()}
 
-@app.put("/My Profile/change_password", tags=['user'])
-def ChangePassword(username:str,old_password:str, new_password:str):
-        return {"Change Password" : WriteARead.change_password(username, old_password, new_password)}
+# @app.put("/my_profile/change_password", tags=['user'])
+# def ChangePassword(username:str,old_password:str, new_password:str):
+#         return {"Change Password" : WriteARead.change_password(username, old_password, new_password)}
 
-@app.post("/My Profile/psedonym", tags=["user"])
+@app.post("/my_profile/psedonym", tags=["user"])
 def AddPseudonym(username:str, new_pseudonym:str):
         return {"Add Pseudonym" : WriteARead.add_pseudonym(username, new_pseudonym)}
 
-@app.get("/My Reading", tags=['user'])
+@app.get("/my_reading", tags=['user'])
 def ShowMyReading(username:str):
         return {"My Reading" : WriteARead.show_my_reading(username)}
 
-@app.post("/Buy Chapter", tags=['chapter'])
+@app.post("/buy_chapter", tags=['chapter'])
 def BuyChapter(username:str, chapter_id:str):
         return {"Buy Chapter" : WriteARead.buy_chapter(username, chapter_id)}
 
