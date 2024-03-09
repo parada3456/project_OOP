@@ -4,11 +4,11 @@ from Comment import Comment #
 from datetime import datetime, timedelta
 
 class Book:
-    def __init__(self, name, pseudonym, writer, tag_list, status, age_restricted, prologue):
+    def __init__(self, name, pseudonym, writer, genre, status, age_restricted, prologue):
         self.__name = name
         self.__pseudonym = pseudonym
         self.__writer = writer
-        self.__tag = tag_list
+        self.__genre = genre
         self.__status = status
         self.__age_restricted = age_restricted
         self.__prologue = prologue
@@ -39,8 +39,8 @@ class Book:
         return self.__writer
 
     @property
-    def tag(self):
-        return self.__tag
+    def genre(self):
+        return self.__genre
         
     @property
     def age_restricted(self):
@@ -99,6 +99,10 @@ class Book:
     def chapter_count(self):
         return len(self.__chapter_list)
     
+    @genre.setter
+    def genre(self,new_genre):
+        self.__genre = new_genre
+    
     def add_comment_list(self, comment):
         if isinstance(comment, Comment):
             self.__comment_list.append(comment)
@@ -112,22 +116,6 @@ class Book:
         self.report_list.append(report)
         self.counting_date_time = datetime.now()
     
-    #if add to list = -> +=
-    def add_tag(self, tag_list):
-        self.__tag += tag_list
-        
-    #อันนี้งงมาก
-    def delete_tag(self, tag_list):
-        new_tag_list = []
-        for tag in self.__tag:
-            if tag not in tag_list: #เพิ่มแท็กที่ไม่อยู่ใน tag_list จาก tagเดิม
-                new_tag_list.append(tag)
-        self.__tag = new_tag_list
-        
-    def delete_tag_jin(self, tag_list):
-        for tag in tag_list:
-            if tag in self.__tag:
-                self.__tag.remove(tag)
 
     # def counting_report_from_type(self):
     #     report_count=0

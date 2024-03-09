@@ -1,17 +1,18 @@
-:root{
+:root {
     --main_color: rgb(0, 203, 195);
     --main_color_light: #95DBD5;
     /* #89d3cd */
     --main_color_dark: rgb(59, 163, 182);
     --main_font: "IBM Plex Sans Thai", sans-serif
 }
-html{
+
+html {
     margin: 0;
     padding: 0;
     font-family: "IBM Plex Sans Thai", sans-serif;
 }
 
-.page_name{
+.page_name {
     color: White;
     margin: 0px;
     text-align: center;
@@ -19,11 +20,11 @@ html{
     background-color: var(--main_color);
 }
 
-.menu_button{
+.menu_button {
     color: White;
 }
 
-.flexbox{
+.flexbox {
     display: flex;
     /* box-sizing: border-box; */
     flex-direction: row;
@@ -34,7 +35,7 @@ html{
     margin-right: 10%;
 }
 
-.item{
+.item {
     display: block;
     box-sizing: border-box;
     width: 15.8%;
@@ -43,12 +44,12 @@ html{
     margin-right: 5px;
 }
 
-.search_item{
+.search_item {
     box-sizing: border-box;
     margin-top: 10px;
 }
 
-.search_button{
+.search_button {
     box-sizing: border-box;
     margin-top: 7px;
     margin-left: 5px;
@@ -71,20 +72,23 @@ html{
 
 }
 
-input { font-family: var(--main_font); }
+input {
+    font-family: var(--main_font);
+}
 
-.WriteARead_image{
+.WriteARead_image {
     background-color: var(--main_color);
     Width: 200px;
     margin-top: 10px;
 }
 
-.top_banner{
+.top_banner {
     background-color: var(--main_color);
     padding: 10px;
     text-align: center;
 }
-.writing_type{
+
+.writing_type {
     font-weight: 500;
     font-size: 20px;
     color: rgb(255, 255, 255);
@@ -92,23 +96,22 @@ input { font-family: var(--main_font); }
     margin-left: 5%;
     margin-bottom: 0px;
     margin-top: 10px;
-    text-decoration:none ;
+    text-decoration: none;
 }
 
-.writing_type:hover
-{
+.writing_type:hover {
     color: rgb(0, 0, 0);
 }
 
 
-#searchForm{
+#searchForm {
     /* display: inline-block; */
     text-align: center;
     /* margin-top: 30px;
     margin-bottom: -20px; */
 }
 
-.flexbox_menu{
+.flexbox_menu {
     background-color: var(--main_color);
     display: flex;
     flex-direction: row;
@@ -120,7 +123,7 @@ input { font-family: var(--main_font); }
     padding-top: 20px
 }
 
-.menu_banner_item{
+.menu_banner_item {
     background-color: var(--main_color);
     color: White;
     text-align: center;
@@ -130,7 +133,7 @@ input { font-family: var(--main_font); }
     padding: 0px 0px;
 }
 
-.ring_icon{
+.ring_icon {
     box-sizing: border-box;
     margin-top: 7px;
     margin-left: 5px;
@@ -141,10 +144,10 @@ input { font-family: var(--main_font); }
     display: inline-block;
     margin-left: 10px;
     margin-bottom: 0px;
-    text-decoration:none
+    text-decoration: none
 }
 
-.pen_icon{
+.pen_icon {
     box-sizing: border-box;
     margin-top: 7px;
     margin-left: 5px;
@@ -155,10 +158,10 @@ input { font-family: var(--main_font); }
     display: inline-block;
     margin-left: 10px;
     margin-bottom: 0px;
-    text-decoration:none
+    text-decoration: none
 }
 
-.user_icon{
+.user_icon {
     box-sizing: border-box;
     margin-top: 7px;
     margin-left: 5px;
@@ -169,7 +172,7 @@ input { font-family: var(--main_font); }
     display: inline-block;
     margin-left: 10px;
     margin-bottom: 0px;
-    text-decoration:none
+    text-decoration: none
 }
 
 .search_button:hover {
@@ -192,50 +195,50 @@ input { font-family: var(--main_font); }
     content: url('../Templates/image/user_button.png');
 }
 
-.center{
+.center {
     text-align: center;
 }
 
-.right{
+.right {
     text-align: right;
 }
 
 
-.top_up{
+.top_up {
     width: 9.5%;
     margin-top: 10px;
     margin-right: 10%;
     min-width: 100px;
 }
 
-.top_up:hover{
+.top_up:hover {
     transform: scale(1.05);
 }
 
-.tag_title{
+.tag_title {
     font-size: 30px;
     font-weight: 500;
     margin-left: 10%;
 }
 
-.subtag_title{
+.subtag_title {
     font-size: 22px;
     font-weight: 500;
     margin-left: 10%;
 }
 
-.book_title{
+.book_title {
     font-size: 18px;
     font-weight: 400;
     cursor: pointer;
 }
 
-.book_title:hover{
+.book_title:hover {
     font-weight: 500;
     color: var(--main_color)
 }
 
-.temporary_text{
+.temporary_text {
     color: white;
 }
 
@@ -266,7 +269,7 @@ input { font-family: var(--main_font); }
     box-sizing: border-box;
     height: 100%;
     padding: 0px 10px;
-    
+
 }
 
 .gallery_item img {
@@ -275,7 +278,7 @@ input { font-family: var(--main_font); }
     border-radius: 20px;
 }
 
-.banner{
+.banner {
     background-color: var(--main_color);
     Width: 40%;
     margin-top: 10px;
@@ -283,7 +286,7 @@ input { font-family: var(--main_font); }
     overflow: hidden;
 }
 
-.temp_cover_preview{
+.temp_cover_preview {
     background-color: black;
     width: 90%;
     cursor: pointer;

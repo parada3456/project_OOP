@@ -193,14 +193,14 @@ def BuyChapter(dto : dto_buy_chapter):
 class dto_create_book(BaseModel):
      name:str
      writer_name:str
-     tag_list: str
+     genre: str
      prologue: str
      age_restricted: bool
      status: str 
      
 @app.post("/book", tags=['Book'])
 def CreateBook(dto : dto_create_book):
-     return write_a_read.create_book(dto.name, dto.writer_name, dto.tag_list, dto.status, dto.age_restricted, dto.prologue)
+     return write_a_read.create_book(dto.name, dto.writer_name, dto.genre, dto.status, dto.age_restricted, dto.prologue)
 
 #..........................................................................................................
 
@@ -279,15 +279,14 @@ def ChangeDisplayName(dto : dto_change_display_name):
 class dto_edit_book(BaseModel):
      old_name : str = None
      new_name : str = None
-     add_tag_list: list = None
-     delete_tag_list: list = None
+     new_genre: str = None
      prologue: str = None
      age_restricted: bool = None
      status: str = None
      
 @app.put("/edit_book", tags=['Book'])
 def EditBookInfo(dto : dto_edit_book):
-     book =  write_a_read.edit_book_info(dto.old_name,dto.new_name,dto.add_tag_list,dto.delete_tag_list,dto.status,dto.age_restricted,dto.prologue)
+     book =  write_a_read.edit_book_info(dto.old_name,dto.new_name,dto.new_genre,dto.status,dto.age_restricted,dto.prologue)
      if isinstance(book,Book):
           return book
      else:
@@ -333,13 +332,13 @@ print(write_a_read.search_all_list("mo"))
 # print(write_a_read.show_my_reading("Mozaza"))
 
 # print("_______________________________________________Create Book_______________________________________________")
-# print(write_a_read.create_book("SAO", "Mola", "Mozaza", ["romance", "anime"], "publishing", True, "Kirito<3Asuna"))
+# print(write_a_read.create_book("SAO", "Mola", "Mozaza", "anime", "publishing", True, "Kirito<3Asuna"))
 
 # print("_______________________________________________Edit Book_______________________________________________")
 # print("----------Edit everything-----------")
-# print(write_a_read.edit_book_info("SAO", "Shinnosuke", "lala", ["kids", "comedy"], [], "hiding", False, "edited"))
+# print(write_a_read.edit_book_info("SAO", "Shinnosuke", "lala", "fantasy", "hiding", False, "edited"))
 # print("----------Edit tags-----------")
-# print(write_a_read.edit_book_info("Shinnosuke", "Shinnosuke", "lala", ["family"], ["romance"], "hiding", False, "edited"))
+# print(write_a_read.edit_book_info("Shinnosuke", "Shinnosuke", "lala","romance", "hiding", False, "edited"))
 
 # print("_______________________________________________Creat Chapter_______________________________________________")
 # print(write_a_read.create_chapter("Shin_chan", "10", "second", "hihi", 50))
