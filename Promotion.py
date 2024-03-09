@@ -10,10 +10,20 @@ class Promotion():
 
     @property
     def start_date_time(self):
-        return f"{self.__start_date_time.strftime("%x")} {self.__start_date_time.strftime("%X")}"
+        return self.__start_date_time
+    
+    @property
+    def start_date_time_str(self):
+        return self.__start_date_time.strftime("%x %")
+    
     @property
     def end_date_time(self):
-        return f"{self.__end_date_time.strftime("%x")} {self.__end_date_time.strftime("%X")}"
+        return self.__end_date_time
+    
+    @property
+    def end_date_time_str(self):
+        return self.__end_date_time.strftime("%x %")
+    
     @property
     def discount(self):
         return self.__discount
@@ -33,8 +43,8 @@ class CoinPromotion(Promotion):
         return self.__code
 
 class BookPromotion(Promotion):
-    def __init__(self, start_date_time,discount, promotion_book_list):
-        super().__init__(start_date_time,discount)
+    def __init__(self, start_date_time, discount, promotion_book_list):
+        super().__init__(start_date_time, discount)
         self.__promotion_book_list = promotion_book_list
 
     @property
@@ -42,7 +52,7 @@ class BookPromotion(Promotion):
         return self.__promotion_book_list
     
     def add_promotion_book_list(self,book):
-        if isinstance(book,Book):
+        if isinstance(book,Book.Book):
             self.__promotion_book_list.append(book)
 
     def remove_promotion_book_list(self, book):

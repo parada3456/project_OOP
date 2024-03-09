@@ -1,3 +1,5 @@
+import Controller as Controller
+
 class PaymentMethod:
     def __init__(self):
         self.__name = "hi"
@@ -5,20 +7,12 @@ class PaymentMethod:
     @property
     def name(self):
         return self.__name
-    #==================================method   
-    # def buy_coin(self, username, price):
-    #     silver_amount = int(price * 10 / 100)
-    #     user = Controller.get_user_by_username(username)
-    #     user.add_golden_coin(price)
-    #     user.add_silver_coin(silver_amount)
-    #     date_time = datetime.now()
-    #     user.add_coin_transaction_list(CoinTransaction(self.__name, price, [price, silver_amount], date_time.strftime("%d/%m/%Y, %H:%M:%S")))
-        
+    #=================================method   
     def buy_coin(self, price):
         pass
     
-    def add_coin_promotion(self, new_coin_promotion):
-        self.__coin_promotion.append(new_coin_promotion)
+    # def add_coin_promotion(self, new_coin_promotion):
+    #     self.__coin_promotion.append(new_coin_promotion)
 
 class OnlineBanking(PaymentMethod):
     def __init__(self, account_id):
@@ -36,7 +30,6 @@ class OnlineBanking(PaymentMethod):
         print("The system is implemented Please wait for the confirmation of the service")
         print(f"The system is sending a bill to account number {self.__account_id} total {price} baht")
         # print("Purchase successful, THANK YOU")
-        
     
 class DebitCard(PaymentMethod):
     def __init__(self, card_id):

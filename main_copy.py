@@ -24,9 +24,6 @@ app = FastAPI()
 
 templates = Jinja2Templates(directory="Templates")
 app.mount("/Templates", StaticFiles(directory="Templates"), name="templates")
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
-
 
 write_a_read = Controller()
 
@@ -363,5 +360,3 @@ print(write_a_read.search_all_list("mo"))
 #________________________________________Error________________________________________
 # print("_______________________________________________Buy Coin_______________________________________________")
 # print(write_a_read.buy_coin("Mozaza", OnlineBanking, "chakeawaroi", 100))
-
-

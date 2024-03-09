@@ -2,9 +2,9 @@ from datetime import datetime, timedelta
 
 class ChapterTransaction:
   def __init__(self,chapter, price):
-    self.__chapter = chapter
-    self.__price = price
-    self.__date_time = datetime.now()
+      self.__chapter = chapter
+      self.__price = price
+      self.__date_time = datetime.now()
       
   @property
   def chapter(self):
