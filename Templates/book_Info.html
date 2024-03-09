@@ -1,51 +1,100 @@
 <html>
-    <head>
-        <title>BookInfo</title>
-        <link rel="stylesheet" href="/static/style.css">
-        <link rel="stylesheet" href="/static/bookstyle.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        
-        <header class="top_header"> 
-            <a class="menu_item brand" href="Templates/index.html">WriteARead</a>
-            <a class="menu_item" href="Templates/index.html">Home</a>
-        </header>
 
-        <div>
-            <div class="flexbox">
-                <div class="item">
-                    <img class="book_cover" src="image/temp_cover2.png" alt="book_cover" />
+<head>
+    <title>BookInfo</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!--หัวกระดาษ-->
+    <div class="flexbox_menu">
+        <div class="menu_banner_item">
+            <a href="index.html"><img src="image/WriteARead_white.png" class="WriteARead_image"></a>
+        </div>
+        <div class="menu_banner_item">
+            <a href="#"> <img class="ring_icon" src="image/ring_button_light.png" alt="Original Image"></a>
+            <a href="#"> <img class="pen_icon" src="image/writing_button_light.png" alt="Original Image"></a>
+            <a href="#"> <img class="user_icon" src="image/user_button_light.png" alt="Original Image"></a>
+        </div>
+    </div>
+
+    <!--book info-->
+    <div>
+        <div class="book_flexbox">
+            <div class="book_item">
+                <img class="book_cover" src="image/temp_cover2.png" alt="book_cover" />
+            </div>
+            <!-- <div class ="item"> -->
+            <div class="info_flexbox">
+                <div class="info_item">
+                    <a class="genre">รักใสๆ</a>
                 </div>
-                <div class ="info_flexbox">
-                    <div class="info_item">
-                        <a class="tag">รักใสๆ</a>
-                    </div>
-                    <div class="info_item">
-                        <a class="book_title">รักลับๆกับเจ้านายเย็นชา</a>
-                    </div>
-                    <div class="info_item">
-                        <a class="tag">Writer_name</a>
-                    </div>
-                    <div class="info_item">
-                        <a class="book_title">รักลับๆกับเจ้านายเย็นชา</a>
-                    </div>
+                <div class="info_item">
+                    <a class="book_title">รักลับๆกับเจ้านายเย็นชา</a>
+                </div>
+                <div class="info_item">
+                    <a class="genre">Writer_name</a>
+                </div>
+                <div class="info_item">
+                    <a class="book_title">introduccccccccccccccccccccccccccccccction</a>
                 </div>
             </div>
-            <div class = "Flexbox">
-                <div class="item">
-                    <img class="book_cover" src="image/temp_cover2.png" alt="book_cover" />
+            <!-- </div> -->
+        </div>
+        <div class="flexbox-3">
+            <div class="item-3">
+                <a class="title">prologue</a>
+                <br>
+                <a class="text">once upon a time</a>
+            </div>
+        </div>
+        <div class="flexbox-3">
+            <div class="item-3">
+                <a class="title">writer infomation</a>
+                <br>
+                <a class="text"><span>pseudonim :</span> <span>Mozaza007</span></a>
+                <br>
+                <a class="text"><span>Username :</span> <span>Mozaza</span></a>
+                <br>
+                <a class="title">publish</a>
+                <br>
+                <a class="text"><span>Lastest edit : </span> <span>02 Mar 2024</span></a>
+            </div>
+        </div>
+        <div class="flexbox-3">
+            <div class="item-3">
+                <a class="title">ตอนทั้งหมด</a>
+                <div class="grid">
+                    <p class="text text-3 text-2 content">บทที่</p>
+                    <p class="text text-3 content">ชื่อตอน</p>                    
+                    <img class="watch_icon content" src="image/eye.png" alt="watched" />
+                    <p class="text text-4 content">แก้ไข</p>
+                    <p class="text text-3 text-2 content">#1</p>
+                    <a href="payment.html" class="text text-3 content">เมื่อไหร่จะทำ oop เส้ดดดด</a>
+                    <p class="text text-4 content">152</p>
+                    <p class="text text-4 content">12/5/2023</p>
+                    <p class="text text-3 text-2 content">#2</p>
+                    <a href="payment.html" class="text text-3 content">ขี้เกียจแล้ววววว</a>
+                    <p class="text text-4 content">100</p>
+                    <p class="text text-4 content">14/5/2023</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <footer class="bottom_footer">
-            <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
-        </footer>
+    <footer class="bottom_footer">
+        <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
+    </footer>
 
-    </body>
+</body>
 
 
 </html>
