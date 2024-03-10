@@ -55,6 +55,7 @@ shin_chan_prologue = "Shin Chan is a 50-year-old boy"
 
 book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue)
 Mo.add_writing_list(book1)
+print(book1.pseudonym)
 
 book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue)
 Mo.add_writing_list(book2)
@@ -98,6 +99,19 @@ Mo.add_book_shelf_list(book2)
 # @app.get("/")
 # def FirstPage(req: Request):
 #      return template.TemplateResponse(name="index.html", context={"request":req})
+
+@app.get("/", response_class=HTMLResponse)
+async def read_items(request: Request):
+    with open("Templates/book_info.html","rb") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content, status_code=200)
+
+@app.get("/book/{book_name}")
+async def get_book_info(book_name: str):
+    book = write_a_read.get_book_by_name(book_name)
+    return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
+            "age_restricted":book.age_restricted, "prologue":book.prologue}
+#     return {"message": "Book not found"}
 
 @app.get("/bookname", tags=['search bar'])
 def searchBook(book_name:str):
@@ -311,6 +325,10 @@ def EditChapterInfo(dto : dto_edit_chapter):
 # _________________________________________________ TEST _________________________________________________
 # mo_username = "Mozaza"
 # mo_password = "namchakeawpun"
+
+book5 = write_a_read.get_book_by_name("Shin_chan")
+print({"name":book5.name, "pseudonym":book5.pseudonym, "genre":book5.genre, "status":book5.status, \
+            "age_restricted":book5.age_restricted, "prologue":book5.prologue})
 
 # print("________________________________________________sign in_______________________________________________")
 # print(write_a_read.sign_in("Mozaza", "12345678"))
