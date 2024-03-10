@@ -28,7 +28,7 @@ class Book:
         
     @property
     def pseudonym(self):
-        self.__pseudonym
+        return self.__pseudonym
         
     @pseudonym.setter
     def pseudonym(self, new_pseudonym):

@@ -49,7 +49,7 @@ write_a_read.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
 write_a_read.add_writer(Mo)
 
 #----------------------------------create books----------------------------------
-# Book("name", writer, [tag_list], "publishing/hiding", age_restricted, "prologue", "dd/mm/yyyy"):
+# Book( name, pseudonym, writer, genre, status, age_restricted, prologue)
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
 
@@ -102,7 +102,7 @@ Mo.add_book_shelf_list(book2)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items(request: Request):
-    with open("Templates/book_info.html","rb") as f:
+    with open("Templates/index.html") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content, status_code=200)
 
@@ -110,7 +110,8 @@ async def read_items(request: Request):
 async def get_book_info(book_name: str):
     book = write_a_read.get_book_by_name(book_name)
     return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
-            "age_restricted":book.age_restricted, "prologue":book.prologue}
+            "age_restricted":book.age_restricted, "prologue":book.prologue, "date_time":book.date_time_str,\
+            "writer_name":book.writer.username}
 #     return {"message": "Book not found"}
 
 @app.get("/bookname", tags=['search bar'])
@@ -328,7 +329,8 @@ def EditChapterInfo(dto : dto_edit_chapter):
 
 book5 = write_a_read.get_book_by_name("Shin_chan")
 print({"name":book5.name, "pseudonym":book5.pseudonym, "genre":book5.genre, "status":book5.status, \
-            "age_restricted":book5.age_restricted, "prologue":book5.prologue})
+            "age_restricted":book5.age_restricted, "prologue":book5.prologue,"date_time":book5.date_time_str,\
+            "writer_name":book5.writer.username})
 
 # print("________________________________________________sign in_______________________________________________")
 # print(write_a_read.sign_in("Mozaza", "12345678"))
