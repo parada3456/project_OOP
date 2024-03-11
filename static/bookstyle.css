@@ -183,9 +183,9 @@ html, body {
     border: 1px solid #d7d6d6; 
     background: #fff; 
     padding: 10px 10px 10px 20px; 
-    /* width: 40%;  */
     margin-left: 20px;
     outline: none;
+    border-radius: 8px;
 }
 
 

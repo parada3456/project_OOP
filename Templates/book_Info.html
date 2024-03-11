@@ -6,7 +6,7 @@
     <!-- Include your CSS and other meta tags here -->
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <link rel="stylesheet" type="text/css" href="/static/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
     <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,16 +20,21 @@
 <body>
     <div id="book-info"></div>
     <!--หัวกระดาษ-->
-    <div class="flexbox_menu">
-        <div class="menu_banner_item">
-            <a href="index.html"><img src="image/WriteARead_white.png" class="WriteARead_image"></a>
+        <div class="header_flexbox_menu">
+            <div class="header_menu_item">
+                <a class="header_writing_type" href="#">นิยาย</a>
+                <a class="header_writing_type" href="#">แฟนฟิค</a>
+                <a class="header_writing_type" href="#">การ์ตูน</a>
+            </div>
+            <div class="header_menu_item">
+                <a href="homepage.html"><img src="../assets/writearead_img/WriteARead_white.png" class="WriteARead_image"></a>
+            </div>
+            <div class="header_menu_item">
+                <a href="#" onclick="toggle_search()"> <img class="search_icon" src="../assets/header_img/search_button_light.png" alt="Original Image"></a>
+                <a href="#"> <img class="pen_icon" src="../assets/header_img/writing_button_light.png" alt=Original Image"></a>
+                <a href="#"> <img class="user_icon" src="../assets/header_img/user_button_light.png" alt=Original Image"></a>
+            </div>
         </div>
-        <div class="menu_banner_item">
-            <a href="#"> <img class="ring_icon" src="image/ring_button_light.png" alt="Original Image"></a>
-            <a href="#"> <img class="pen_icon" src="image/writing_button_light.png" alt="Original Image"></a>
-            <a href="#"> <img class="user_icon" src="image/user_button_light.png" alt="Original Image"></a>
-        </div>
-    </div>
 
     <!--book info-->
     <div class="book_flexbox">
@@ -137,9 +142,28 @@
     <!-- <div id="commentDiv"></div> -->
 
 
-    <footer class="bottom_footer">
-        <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer_item_container">
+            <a class="footer_home_button" href="https://www.readawrite.com/">ReadAWrite</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="payment.html">Payment</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="MyPage.html">My Page</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="search_page.html">search</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="payment.html">Payment</a>
+        </div>
+        <div class="footer_item_container">
+            <p class="footer_menu_text">© 2024 - 2024 Teletubbies Book Center | All Rights Reserved.</p>
+        </div>
     </footer>
+    <br>
 
     <script>
         // Retrieve book information from sessionStorage
