@@ -114,6 +114,11 @@ async def get_book_info(book_name: str):
             "age_restricted":book.age_restricted, "prologue":book.prologue, "date_time":book.date_time_str,\
             "writer_name":book.writer.username}
 #     return {"message": "Book not found"}
+b=write_a_read.get_book_by_name("Shin_chan")
+print("1",b)
+print("2",{"name":b.name, "pseudonym":b.pseudonym, "genre":b.genre, "status":b.status, \
+            "age_restricted":b.age_restricted, "prologue":b.prologue, "date_time":b.date_time_str,\
+            "writer_name":b.writer.username})
 
 @app.get("/bookname", tags=['search bar'])
 def searchBook(book_name:str):
@@ -214,7 +219,7 @@ class dto_create_book(BaseModel):
      age_restricted: bool
      status: str 
      
-@app.post("/book", tags=['Book'])
+@app.post("/book/", tags=['Book'])
 def CreateBook(dto : dto_create_book):
      return write_a_read.create_book(dto.name, dto.writer_name, dto.genre, dto.status, dto.age_restricted, dto.prologue)
 
@@ -238,7 +243,7 @@ class dto_create_comment(BaseModel):
      username : str
      context : str
      
-@app.post("/comment", tags=['Comment'])
+@app.post("/comment/{chapter_id}", tags=['Comment'])
 def CreateComment(dto: dto_create_comment):
      return write_a_read.create_comment(dto.chapter_id, dto.username, dto.context)
 

@@ -104,19 +104,53 @@
     </div>
 
     <!-- <div class="comment">
-        <div class="d-flex align-items-center">
+        <div >
             <form class="d-flex" role="comment">
-                <input id="comment" class="form-control me-2 mt-4" type="text" placeholder="Comment" style="border-top-color: #343a40; border-right-color: #343a40; border-bottom-color: #343a40; border-left-color: #343a40;">
+                <input id="comment"  type="text" placeholder="Comment" style="border-top-color: #343a40; border-right-color: #343a40; border-bottom-color: #343a40; border-left-color: #343a40;">
                 <button onclick="add_comment(event)" class="btn btn-outline-dark me-2 mt-4" type="button">Submit</button>
             </form>
         </div>
     </div>
     
-    <div class="mt-4" id="commentList"></div>
-     -->
+    <div id="commentList"></div> -->
+    
     <footer class="bottom_footer">
         <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
     </footer>
+
+    <script>
+        // Retrieve book information from sessionStorage
+        const bookInfoString = sessionStorage.getItem('bookInfo');
+        console.log(bookInfoString)
+
+        // Check if bookInfoString is not null or undefined
+        if (bookInfoString) {
+            try {
+                // Parse the JSON string to an object
+                const bookInfo = JSON.parse(bookInfoString);
+
+                console.log(bookInfo);
+
+                // Check if the parsed object has the expected properties
+                if (bookInfo && bookInfo.genre && bookInfo.name && bookInfo.pseudonym && bookInfo.prologue && bookInfo.writer_name && bookInfo.date_time) {
+                    // Display book information in the HTML page
+                    document.getElementById('genre').textContent = bookInfo.genre;
+                    document.getElementById('bookName').textContent = bookInfo.name;
+                    document.getElementById('prologueDisplay').textContent = bookInfo.prologue;
+                    document.getElementById('writer_username').textContent = bookInfo.writer_name;
+                    document.getElementById('date_time').textContent = bookInfo.date_time;
+                    document.getElementById('pseudonymDisplay').textContent = bookInfo.pseudonym;
+                } else {
+                    console.error('bookInfo object is missing some properties.');
+                }
+            } catch (error) {
+                console.error('Error parsing bookInfo JSON:', error);
+            }
+        }else {
+            console.error('bookInfo is null or undefined.');
+        }
+
+    </script>
 
 </body>
 
