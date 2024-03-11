@@ -69,15 +69,23 @@ class Controller:
         return "User Not Found"
     
     def get_chapter_by_chapter_id(self, chapter_id):
-        for book in self.all_book_list:
-            for chapter in book.chapter_list:
-                if chapter.chapter_id == chapter_id:
-                    return chapter
-        return "Chapter Not Found"
+        if "-" in chapter_id:
+            for book in self.all_book_list:
+                for chapter in book.chapter_list:
+                    if chapter.chapter_id == chapter_id:
+                        return chapter
+        elif isinstance(self.get_book_by_name(chapter_id),Book):
+            return self.get_book_by_name(chapter_id)
+        else:
+            return {"message":"Chapter Not Found"}
+        
+    
+    # def get_all_comment
     
     def get_book_by_chapter_id(self, chapter_id):
         for book in self.all_book_list:
             for chapter in book.chapter_list:
+                print(chapter.chapter_id)
                 if chapter.chapter_id == chapter_id:
                     return book
         return "Book Not Found"
@@ -251,12 +259,14 @@ class Controller:
     def create_comment(self, chapter_id, username, context):
         chapter = self.get_chapter_by_chapter_id(chapter_id)
         user = self.get_user_by_username(username)
-        if not isinstance(chapter, Chapter): return {"Comment": "please try again"}
-        new_comment = Comment(chapter, user, context)
-        book = self.get_book_by_chapter_id(chapter_id)
-        book.add_comment_list(new_comment)
-        chapter.add_comment(new_comment)
-        return new_comment
+        if isinstance(chapter, Chapter):
+            new_comment = Comment(chapter, user, context)
+            book = self.get_book_by_chapter_id(chapter_id)
+            book.add_comment_list(new_comment)
+            chapter.add_comment(new_comment)
+            return new_comment
+        else:
+            return {"Comment": "please try again"}
         
     # อันนี้ไว้ทำไรอะ
     # รับ username มาด้วยดีมั้ย แล้วเพิ่มpaymentmethodไว้ในuserแต่ละคน  

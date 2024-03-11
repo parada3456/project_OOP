@@ -69,6 +69,7 @@ html, body {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
+    justify-content: center;
 }
 
 .item-3 {
@@ -80,7 +81,7 @@ html, body {
     padding: 3%;
     margin-left: 3%;
     margin-right: 3%;
-    margin-top: 3%;
+    margin-top: 3% ;
 }
 
 
@@ -192,4 +193,18 @@ html, body {
 .input_box:focus {
     border: 2px solid rgb(0, 203, 195); 
     /* border-color: rgb(0, 203, 195); */
+}
+
+.box {
+    background-color: rgb(255, 255, 255);
+    font-weight: 400;
+    display: inline-block;
+    height: 40px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.381);
+    position: relative; 
+    cursor: pointer;
 }

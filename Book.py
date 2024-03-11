@@ -157,4 +157,9 @@ class Book:
         for comment in self.__comment_list:
             comment_list.append(comment.show_comment())
         return comment_list
-
+    
+    def show_chapter_list(self):
+        chapter_list = []
+        for chapter in self.__chapter_list:
+            chapter_list.append(chapter.show_chapter_briefly())
+        return chapter_list

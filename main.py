@@ -178,10 +178,30 @@ def SignIN(username:str, password:str):
 def searchBar(search_str:str):
      return {"Search": write_a_read.search_all_list(search_str)}
 
+# ----------------------------------------------comment list---------------------------------------------------------------
 @app.get("/chapter/{chapter_id}", tags=['chapter'])
 def show_comment_list(chapter_id:str):
      chapter = write_a_read.get_chapter_by_chapter_id(chapter_id)
-     return chapter.show_comment_list()
+     if isinstance(chapter,Chapter):
+          return chapter.show_comment_list()
+     elif isinstance(chapter,Book):
+            return chapter.show_comment_list()
+     else:
+          return chapter
+     
+print("-------------------------------------")
+
+print("fi",(write_a_read.get_chapter_by_chapter_id("Shin_chan")).show_comment_list())
+# -------------------------------------------------------------------------------------------------------------------
+@app.get("/book/chapter/{book_name}", tags=['book'])
+def show_chapter_list(book_name:str):
+     book = write_a_read.get_book_by_name(book_name)
+     if isinstance(book,Book):
+          return book.show_chapter_list()
+     else:
+          return {"message" : "error"}
+
+
 
 @app.get('/', response_class=HTMLResponse)
 def main(request: Request):
@@ -395,8 +415,8 @@ print(write_a_read.search_all_list("mo"))
 # print(write_a_read.edit_chapter_info("Shin_chan-10", "edited_name", "this is edited version", 99))
 
 
-# print("_______________________________________________Add Comment_______________________________________________")
-# print(write_a_read.create_comment("Shin_chan-1", "Mozaza", "this is amazing"))
+print("_______________________________________________Add Comment_______________________________________________")
+print(write_a_read.create_comment("Shin_chan", "Mozaza", "this is amazing"))
 
 # print("_______________________________________________View Chapter_______________________________________________\n")
 # print(write_a_read.view_chapter("Shin_chan-1"))

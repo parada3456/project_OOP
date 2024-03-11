@@ -14,6 +14,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
         rel="stylesheet">
+    <script src="../scripts/book_info.js"></script>
 
 </head>
 
@@ -31,8 +32,8 @@
             </div>
             <div class="header_menu_item">
                 <a href="#" onclick="toggle_search()"> <img class="search_icon" src="assets/header_img/search_button_light.png" alt="Original Image"></a>
-                <a href="#"> <img class="pen_icon" src="assets/header_img/writing_button_light.png" alt=Original Image"></a>
-                <a href="#"> <img class="user_icon" src="assets/header_img/user_button_light.png" alt=Original Image"></a>
+                <a href="#"> <img class="pen_icon" src="assets/header_img/writing_button_light.png" alt="Original Image"></a>
+                <a href="#"> <img class="user_icon" src="assets/header_img/user_button_light.png" alt="Original Image"></a>
             </div>
         </div>
 
@@ -99,7 +100,7 @@
             <div class="chapter_grid">
                 <p class="info_text text-3 text-2 chapter_content">บทที่</p>
                 <p class="info_text text-3 chapter_content">ชื่อตอน</p>
-                <img class="watch_icon chapter_content" src="image/eye.png" alt="watched" />
+                <img class="watch_icon chapter_content" src="assets/book_img/eye.png" alt="watched" />
                 <p class="info_text text-4 chapter_content">แก้ไข</p>
                 <p class="info_text text-3 text-2 chapter_content">#1</p>
                 <a href="payment.html" class="text text-3 chapter_content">เมื่อไหร่จะทำ oop เส้ดดดด</a>
@@ -113,13 +114,22 @@
         </div>
     </div>
 
-    <!-- comment -->
+    <!-- show chapter -->
+    <div class="flexbox-3" style="display: flex; justify-content: center;">
+        <div class="item-3" >
+            <a class="submit_button" onclick="showChapter('Shin_chan')">see Chapter</a>
+        </div>
+        <div id="chaptersContainer"></div>
+    </div>
+
+    <!-- add comment -->
     <div class="flexbox-3">
         <div class="item-3">
             <div class="search_item">
                 <form id="commentForm">
                     <h1 class="info_title">Chapter no :</h1>
                     <select id="chapter_id" name="chapter_id" class="input_box" style="width: 25%;">
+                        <!-- <option value="Shin_chan" class="input_box">book</option> -->
                         <option value="Shin_chan-1" class="input_box">Chapter 1</option>
                         <option value="Shin_chan-2" class="input_box">Chapter 2</option>
                     </select><br><br>
@@ -138,6 +148,12 @@
         </div>
     </div>
 
+    <!-- show comment -->
+    <div class="flexbox-3" style="display: flex; justify-content: center;">
+        <div class="item-3" >
+            <a class="submit_button" onclick="showComment('Shin_chan')">see comment</a>
+        </div>
+    </div>
     <div id="commentsContainer"></div>
     <!-- <div id="commentDiv"></div> -->
 
@@ -168,7 +184,7 @@
     <script>
         // Retrieve book information from sessionStorage
         const bookInfoString = sessionStorage.getItem('bookInfo');
-
+        console.log("bookInfoString",bookInfoString)
         if (bookInfoString) {
             try {
                 const bookInfo = JSON.parse(bookInfoString);
@@ -195,16 +211,17 @@
         } else {
             console.error('bookInfo is null or undefined.');
         }
+
         // Retrieve the comment data from sessionStorage
         const commentDataUse = JSON.parse(sessionStorage.getItem('commentData'));
-
         const commentsContainer = document.getElementById('commentsContainer');
         commentsContainer.innerHTML = ''; // Clear existing comments
-
+        console.log(commentsContainer)
         // Check if commentDataUse is not null and is an array
         if (commentDataUse && Array.isArray(commentDataUse)) {
             // Iterate over each comment data and create HTML elements
             commentDataUse.forEach(commentData => {
+                console.log("commentData",commentData)
                 commentsContainer.innerHTML += `
                     <div class="flexbox-3">
                         <div class="item-3">
@@ -220,8 +237,30 @@
             console.error('commentDataUse is null or not an array.');
         }
 
+        const chapterDataUse = JSON.parse(sessionStorage.getItem('chapterData'));
+        const chaptersContainer = document.getElementById('chaptersContainer');
+        chaptersContainer.innerHTML = ''; // Clear existing chapter
+        console.log(chaptersContainer)
+        // Check if chapterDataUse is not null and is an array
+        if (chapterDataUse && Array.isArray(chapterDataUse)) {
+            // Iterate over each comment data and create HTML elements
+            chapterDataUse.forEach(chapterData => {
+                console.log("chapterData",chapterData)
+                chaptersContainer.innerHTML += `
+                    <div class="item-3" style="width: 100%;">
+                        <div class="box" style="width: 12.5%;">${chapterData.chapter_number}</div>
+                        <div class="box" style="width: 50%;">${chapterData.name}</div>
+                        <div class="box" style="width: 12.5%;">${chapterData.viewer}</div>
+                        <div class="box" style="width: 12.5%;">${chapterData.price}</div>
+                        <div class="box" style="width: 25%;">${chapterData.date_time}</div>
+                    </div>
+                `;
+            });
+        } else {
+            console.error('chapterDataUse is null or not an array.');
+        }
+
     </script>
-    <script src="../scripts/book_info.js"></script>
 </body>
 
 </html>

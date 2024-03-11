@@ -1,6 +1,8 @@
 // script.js
 
+// Function to display book information and navigate
 function displayBookInfoAndNavigate(bookName) {
+    console.log("start");
     fetch(`/book/${bookName}`)
         .then(response => {
             if (!response.ok) {
@@ -9,15 +11,34 @@ function displayBookInfoAndNavigate(bookName) {
             return response.json();
         })
         .then(data => {
-            console.log(data);
             sessionStorage.setItem('bookInfo', JSON.stringify(data));
             window.location.href = "book_info.html";
+            // showComment("Shin_chan")
         })
         .catch(error => {
             console.error('Error fetching book information:', error);
         });
 }
 
+// Function to fetch and display comments
+function showComment(chapter_id) {
+    console.log(`Fetching comments for chapter ${chapter_id}...`);
+    fetch(`/chapter/${chapter_id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch comments for chapter ${chapter_id}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`Received comments for chapter ${chapter_id}:`, data);
+            // Store the comment data in sessionStorage
+            sessionStorage.setItem('commentData', JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error('Error fetching comments:', error);
+        });
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const commentForm = document.getElementById('commentForm');
@@ -58,24 +79,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    function showComment(chapter_id) {
-        fetch(`/chapter/${chapter_id}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch comments for chapter ${chapter_id}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(`Received comments for chapter ${chapter_id}:`, data);
-                
-                // Store the comment data in sessionStorage
-                sessionStorage.setItem('commentData', JSON.stringify(data));
-                
-                
-            })
-            .catch(error => {
-                console.error('Error fetching comments:', error);
-            });
-    }
 });
+
+function showChapter(book_name) {
+    console.log(`Fetching chapter for book ${book_name}...`);
+    fetch(`/book/chapter/${book_name}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chapter for chapter ${book_name}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`Received chapter for book ${book_name}:`, data);
+            sessionStorage.setItem('chapterData', JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error('Error fetching chapters:', error);
+        });
+}

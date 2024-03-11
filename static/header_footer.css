@@ -1,8 +1,9 @@
-:root{
+:root {
     --gray: rgb(144, 144, 144);
+    --main_color: rgb(0, 203, 195);
 }
 
-.header_flexbox_menu{
+.header_flexbox_menu {
     background-color: var(--main_color);
     display: flex;
     position: sticky;
@@ -16,11 +17,11 @@
     padding-top: 10px;
     padding-bottom: 10px;
     z-index: 2;
-    border-bottom: 1px solid var(--gray); 
+    border-bottom: 1px solid var(--main_color);
 }
 
 
-.header_menu_item{
+.header_menu_item {
     background-color: var(--main_color);
     color: White;
     text-align: center;
@@ -31,7 +32,7 @@
     position: relative var(--gray);
 }
 
-.header_writing_type{
+.header_writing_type {
     font-weight: 500;
     font-size: 20px;
     color: rgb(255, 255, 255);
@@ -39,23 +40,24 @@
     margin-left: 5%;
     margin-bottom: 0px;
     margin-top: 10px;
-    text-decoration:none ;
+    text-decoration: none;
 }
 
-.header_writing_type:hover
-{
+.header_writing_type:hover {
     color: rgb(0, 0, 0);
 }
 
 
-.WriteARead_image{
+.WriteARead_image {
     background-color: var(--main_color);
     Width: 50%;
     max-width: 200px;
     margin-top: 10px;
 }
 
-.pen_icon, .user_icon, .search_icon{
+.pen_icon,
+.user_icon,
+.search_icon {
     box-sizing: border-box;
     margin-top: 7px;
     width: 38px;
@@ -63,7 +65,7 @@
     display: inline-block;
     margin-left: 15px;
     margin-bottom: 0px;
-    text-decoration:none
+    text-decoration: none
 }
 
 .search_icon:hover {
@@ -88,23 +90,23 @@
     color: black;
     padding: 15px;
     display: block;
-    text-decoration:none ;
+    text-decoration: none;
 }
 
-.footer_item_container{
+.footer_item_container {
     width: 100%;
     /* background-color: aquamarine; */
     margin-top: 5px;
 }
 
-.footer_menu_text{
+.footer_menu_text {
     font-size: 15px;
     padding: 15px;
     margin-top: 10px;
     color: rgb(0, 0, 0);
-    text-decoration:none ;
+    text-decoration: none;
 }
 
-.footer_menu_text:hover{
+.footer_menu_text:hover {
     text-decoration: underline;
 }

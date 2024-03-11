@@ -74,3 +74,10 @@ class Chapter:
         for comment in self.__comment_list:
             comment_list.append(comment.show_comment())
         return comment_list
+    
+    def show_chapter_briefly(self):
+        return {"chapter_number" : self.__chapter_number,
+                "name" : self.__name,
+                "price" : self.__cost,
+                "viewer":self.__viewer_count,
+                "date_time" : self.__publish_date_time}
