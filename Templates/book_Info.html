@@ -102,17 +102,31 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="comment">
-        <div >
-            <form class="d-flex" role="comment">
-                <input id="comment"  type="text" placeholder="Comment" style="border-top-color: #343a40; border-right-color: #343a40; border-bottom-color: #343a40; border-left-color: #343a40;">
-                <button onclick="add_comment(event)" class="btn btn-outline-dark me-2 mt-4" type="button">Submit</button>
-            </form>
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="search_item">
+                <form id="commentForm" >
+                    <label for="chapter_id">Chapter no:</label>
+                    <!-- <select id="chapter_id" name="chapter_id">
+                        <option value="1">Chapter 1</option>
+                        <option value="2">Chapter 2</option>
+                        <option value="3">Chapter 3</option>
+                    </select><br><br> -->
+                    <input type="text" id="chapter_id" name="chapter_id" placeholder="chapter_id" required><br><br>
+                    
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="username" required><br><br>
+                    
+                    <label for="context">Context:</label><br>
+                    <textarea id="context" name="context" rows="4" cols="50" placeholder="context" required></textarea><br><br>
+                    
+                    <button type="submit" class="submit_button" >Submit</button>
+                </form>
+            </div>
         </div>
     </div>
     
-    <div id="commentList"></div> -->
+    <div id="comment_response"></div>
     
     <footer class="bottom_footer">
         <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
@@ -151,6 +165,7 @@
         }else {
             console.error('bookInfo is null or undefined.');
         }
+
 
     </script>
 

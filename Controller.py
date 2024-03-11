@@ -82,6 +82,12 @@ class Controller:
                     return book
         return "Book Not Found"
     
+    def get_all_chapter_id_in_book(self,book):
+        chapter_id_list=[]
+        for chapter in book.chapter_list:
+            chapter_id_list.append(chapter.chapter_id)
+        return chapter_id_list
+
     # ____________________________________Add to list___________________________________
 
     def add_reader(self, reader):
@@ -250,7 +256,7 @@ class Controller:
         book = self.get_book_by_chapter_id(chapter_id)
         book.add_comment_list(new_comment)
         chapter.add_comment(new_comment)
-        return {"Comment": "create comment success"}
+        return new_comment
         
     # อันนี้ไว้ทำไรอะ
     # รับ username มาด้วยดีมั้ย แล้วเพิ่มpaymentmethodไว้ในuserแต่ละคน  

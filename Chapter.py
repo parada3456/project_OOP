@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 class Chapter:
     def __init__(self, book_name, chapter_number, chapter_name, context, cost):
-        self.__chapter_id = str(book_name) + "/" + str(chapter_number)
+        self.__chapter_id = str(book_name) + "-" + str(chapter_number)
         self.__chapter_number = chapter_number
         self.__name = chapter_name
         self.__context = context

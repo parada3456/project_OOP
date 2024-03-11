@@ -20,6 +20,7 @@ from Payment import PaymentMethod, OnlineBanking, TrueMoneyWallet
 from CoinTransaction import CoinTransaction
 from Promotion import BookPromotion, CoinPromotion, Promotion
 from Coin import GoldenCoin, SilverCoin
+from Comment import Comment
 
 app = FastAPI()
 
@@ -64,8 +65,11 @@ Mo.add_writing_list(book2)
 
 #----------------------------------create chapters----------------------------------
 #Chapter("number", "name", "context", "dd/mm/yyyy", price)
+chapter1 = Chapter("Shin_chan", "1", "first_ch", "this is the first chapter of shincha", 184)
+book1.add_chapter_list(chapter1)
+# chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
+write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment")
 
-book1.add_chapter_list(Chapter("Shin_chan", "1", "first_ch", "this is the first chapter of shincha", 184))
 
 #----------------------------------create promotions----------------------------------
 #BookPromotion("dd/mm/yyyy", discount, [book_list])
@@ -172,6 +176,11 @@ def SignIN(username:str, password:str):
 def searchBar(search_str:str):
      return {"Search": write_a_read.search_all_list(search_str)}
 
+@app.get("/chapter/comment", tags=['chapter'])
+def searchBar(chapter_id:str):
+     chapter = write_a_read.get_chapter_by_chapter_id(chapter_id)
+     return chapter.show_comment_list()
+
 @app.get('/', response_class=HTMLResponse)
 def main(request: Request):
      return templates.TemplateResponse('index.html', {'request': request})
@@ -245,8 +254,19 @@ class dto_create_comment(BaseModel):
      
 @app.post("/comment/{chapter_id}", tags=['Comment'])
 def CreateComment(dto: dto_create_comment):
-     return write_a_read.create_comment(dto.chapter_id, dto.username, dto.context)
-
+     comment = write_a_read.create_comment(dto.chapter_id, dto.username, dto.context)
+     if isinstance(comment,Comment):
+          print("yes")
+          # "message": "Comment created successfully", 
+          return comment.show_comment()
+     
+     else:
+          print("no")
+          return {"message": "Error"}
+     
+write_a_read.create_comment("Shin_chan-1", "Mozaza", "55555")
+chapter111 = write_a_read.get_chapter_by_chapter_id("Shin_chan-1")
+print("commment: ", chapter111.show_comment_list())
 #..........................................................................................................
 
 class dto_buy_coin(BaseModel):
@@ -370,14 +390,14 @@ print(write_a_read.search_all_list("mo"))
 # print(write_a_read.create_chapter("Shin_chan", "10", "second", "hihi", 50))
 
 # print("_______________________________________________Edit Chapter_______________________________________________")
-# print(write_a_read.edit_chapter_info("Shin_chan/10", "edited_name", "this is edited version", 99))
+# print(write_a_read.edit_chapter_info("Shin_chan-10", "edited_name", "this is edited version", 99))
 
 
 # print("_______________________________________________Add Comment_______________________________________________")
-# print(write_a_read.create_comment("Shin_chan/1", "Mozaza", "this is amazing"))
+# print(write_a_read.create_comment("Shin_chan-1", "Mozaza", "this is amazing"))
 
 # print("_______________________________________________View Chapter_______________________________________________\n")
-# print(write_a_read.view_chapter("Shin_chan/1"))
+# print(write_a_read.view_chapter("Shin_chan-1"))
 
 # print("_______________________________________________View Book_______________________________________________\n")
 # print(write_a_read.view_book("Shin_chan"))

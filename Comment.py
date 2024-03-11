@@ -53,6 +53,5 @@ class Comment:
     def show_comment(self):
         return {"user" : self.commentator.display_name,
                 "chapter" : f"#{self.chapter.chapter_number} {self.chapter.name}",
-                "context" : self.context,
                 "date_time" : self.date_time_str,
                 "context" : self.context}
