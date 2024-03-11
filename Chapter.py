@@ -37,7 +37,7 @@ class Chapter:
     
     @property
     def publish_date_time_str(self):
-        return self.__publish_date_time.strftime("%d/%m/%Y, %H:%M:%S")
+        return self.__publish_date_time.strftime("%x %X")
     
     @property
     def cost(self):
@@ -80,4 +80,4 @@ class Chapter:
                 "name" : self.__name,
                 "price" : self.__cost,
                 "viewer":self.__viewer_count,
-                "date_time" : self.__publish_date_time}
+                "date_time" : self.__publish_date_time.strftime("%x %X")}

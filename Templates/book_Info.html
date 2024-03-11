@@ -119,8 +119,13 @@
         <div class="item-3" >
             <a class="submit_button" onclick="showChapter('Shin_chan')">see Chapter</a>
         </div>
-        <div id="chaptersContainer"></div>
     </div>
+    <div class="flexbox-3" >
+        <div class="item-3" >
+            <div id="chaptersContainer"></div>
+        </div>
+    </div>
+    
 
     <!-- add comment -->
     <div class="flexbox-3">
@@ -248,11 +253,11 @@
                 console.log("chapterData",chapterData)
                 chaptersContainer.innerHTML += `
                     <div class="item-3" style="width: 100%;">
-                        <div class="box" style="width: 12.5%;">${chapterData.chapter_number}</div>
-                        <div class="box" style="width: 50%;">${chapterData.name}</div>
-                        <div class="box" style="width: 12.5%;">${chapterData.viewer}</div>
-                        <div class="box" style="width: 12.5%;">${chapterData.price}</div>
-                        <div class="box" style="width: 25%;">${chapterData.date_time}</div>
+                        <div class="box" style="width: 9%;">${chapterData.chapter_number}</div>
+                        <div class="box" style="width: 40%;">${chapterData.name}</div>
+                        <div class="box" style="width: 9%;">${chapterData.viewer}</div>
+                        <div class="box" style="width: 9%;">${chapterData.price}</div>
+                        <div class="box" style="width: 10%;">${chapterData.date_time}</div>
                     </div>
                 `;
             });
