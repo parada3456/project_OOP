@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import FastAPI, Query, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+import os
 from pydantic import BaseModel
 import requests
 import json
@@ -98,7 +99,7 @@ Mo.add_book_shelf_list(book2)
 
 # @app.get("/")
 # def FirstPage(req: Request):
-#      return template.TemplateResponse(name="index.html", context={"request":req})
+#      return templates.TemplateResponse(name="index.html", context={"request":req})
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items(request: Request):
