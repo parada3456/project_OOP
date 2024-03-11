@@ -11,8 +11,10 @@
     <!--fonts-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
@@ -30,109 +32,110 @@
     </div>
 
     <!--book info-->
-    <div>
-        <div class="book_flexbox">
-            <div class="book_item">
-                <img class="book_cover" src="image/shin_chan_cover.jfif" alt="book_cover" />
-            </div>
-            <div class="book_info_flexbox">
-                <div class="book_info_item">
-                    <div class="text-0">
-                        <a id="genre"></a>
-                    </div>
-                </div>
-                <div class="book_info_item">
-                    <div class="book_title">
-                        <a id="bookName"></a>
-                    </div>
-                </div>
-                <div class="book_info_item">
-                    <div class="text-0">
-                        <a id="pseudonymInfo"></a>
-                    </div>
-                </div>
-                <div class="book_info_item">
-                    <div class="book_title">
-                        <a id="prologueInfo"></a>
-                    </div>
+    <div class="book_flexbox">
+        <div class="book_item">
+            <img class="book_cover" src="image/shin_chan_cover.jfif" alt="book_cover" />
+        </div>
+        <div class="book_info_flexbox">
+            <div class="book_info_item">
+                <div class="text-0">
+                    <a id="genre"></a>
                 </div>
             </div>
-        </div>
-        <div class="flexbox-3">
-            <div class="item-3">
-                <div class="info_title">prologue</div>
-                <a id="prologueDisplay"></a>
+            <div class="book_info_item">
+                <div class="book_title">
+                    <a id="bookName"></a>
+                </div>
             </div>
-        </div>
-        <div class="flexbox-3">
-            <div class="item-3">
-                <div class="info_title">writer information</div>
-                <a>Pseudonym : </a>
-                <a id="pseudonymDisplay"></a>
-                <br>
-                <a>Writer : </a>
-                <a id="writer_username" ></a>
+            <div class="book_info_item">
+                <div class="text-0">
+                    <a id="pseudonymInfo"></a>
+                </div>
             </div>
-        </div>
-        <div class="flexbox-3">
-            <div class="item-3">
-                <div class="info_title">publish</div>
-                <a>Latest Edit : </a>
-                <a id="date_time"></a>
-            </div>
-        </div>
-        <div class="flexbox-3">
-            <div class="item-3">
-                <a class="info_title">ตอนทั้งหมด</a>
-                <div class="chapter_grid">
-                    <p class="info_text text-3 text-2 chapter_content">บทที่</p>
-                    <p class="info_text text-3 chapter_content">ชื่อตอน</p>
-                    <img class="watch_icon chapter_content" src="image/eye.png" alt="watched" />
-                    <p class="info_text text-4 chapter_content">แก้ไข</p>
-                    <p class="info_text text-3 text-2 chapter_content">#1</p>
-                    <a href="payment.html" class="text text-3 chapter_content">เมื่อไหร่จะทำ oop เส้ดดดด</a>
-                    <p class="info_text text-4 chapter_content">152</p>
-                    <p class="info_text text-4 chapter_content">12/5/2023</p>
-                    <p class="info_text text-3 text-2 chapter_content">#2</p>
-                    <a href="payment.html" class="text text-3 chapter_content">ขี้เกียจแล้ววววว</a>
-                    <p class="info_text text-4 chapter_content">100</p>
-                    <p class="info_text text-4 chapter_content">14/5/2023</p>
+            <div class="book_info_item">
+                <div class="book_title">
+                    <a id="prologueInfo"></a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--prologue-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Prologue</div>
+            <a id="prologueDisplay"></a>
+        </div>
+    </div>
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Writer information</div>
+            <a>Pseudonym : </a>
+            <a id="pseudonymDisplay"></a>
+            <br>
+            <a>Writer : </a>
+            <a id="writer_username"></a>
+        </div>
+    </div>
+
+    <!--lastest edit-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Publish</div>
+            <a>Latest Edit : </a>
+            <a id="date_time"></a>
+        </div>
+    </div>
+
+    <!--chapter-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <a class="info_title">ตอนทั้งหมด</a>
+            <div class="chapter_grid">
+                <p class="info_text text-3 text-2 chapter_content">บทที่</p>
+                <p class="info_text text-3 chapter_content">ชื่อตอน</p>
+                <img class="watch_icon chapter_content" src="image/eye.png" alt="watched" />
+                <p class="info_text text-4 chapter_content">แก้ไข</p>
+                <p class="info_text text-3 text-2 chapter_content">#1</p>
+                <a href="payment.html" class="text text-3 chapter_content">เมื่อไหร่จะทำ oop เส้ดดดด</a>
+                <p class="info_text text-4 chapter_content">152</p>
+                <p class="info_text text-4 chapter_content">12/5/2023</p>
+                <p class="info_text text-3 text-2 chapter_content">#2</p>
+                <a href="payment.html" class="text text-3 chapter_content">ขี้เกียจแล้ววววว</a>
+                <p class="info_text text-4 chapter_content">100</p>
+                <p class="info_text text-4 chapter_content">14/5/2023</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- comment -->
     <div class="flexbox-3">
         <div class="item-3">
             <div class="search_item">
-                <form id="commentForm" >
-                    <label for="chapter_id">Chapter no:</label>
-                    <select id="chapter_id" name="chapter_id">
-                        <option value="Shin_chan-1">Chapter 1</option>
-                        <option value="Shin_chan-2">Chapter 2</option>
+                <form id="commentForm">
+                    <h1 class="info_title">Chapter no :</h1>
+                    <select id="chapter_id" name="chapter_id" class="input_box" style="width: 25%;">
+                        <option value="Shin_chan-1" class="input_box">Chapter 1</option>
+                        <option value="Shin_chan-2" class="input_box">Chapter 2</option>
                     </select><br><br>
                     <!-- <input type="text" id="chapter_id" name="chapter_id" placeholder="chapter_id" required><br><br> -->
-                    
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="username" required><br><br>
-                    
-                    <label for="context">Context:</label><br>
-                    <textarea id="context" name="context" rows="4" cols="50" placeholder="context" required></textarea><br><br>
-                    
-                    <button type="submit" class="submit_button" >Submit</button>
+
+                    <h1 class="info_title">Your Username : </h1>
+                    <input type="text" class="input_box" id="username" style="width: 40%;" name="username" placeholder="username" required><br><br>
+
+                    <h1 class="info_title">Your Comment : </h1>
+                    <textarea id="context" class="input_box" name="context" style="width: 40%;" rows="4" cols="50" placeholder="context"
+                        required></textarea><br><br>
+
+                    <button type="submit" class="submit_button">Submit</button>
                 </form>
             </div>
         </div>
     </div>
-    
-    <!-- <div id="commentDataDiv"></div> -->
-    <div class="flexbox-3">
-        <div class="item-3">
-            <div id = "context" class="info_title"></div>
-            <div id = "user" class="comment-username-text"></div>
-            <div id = "edit_date_time'" class="comment-date-text"></div>
-            <div id = "chapter'" class="comment-chapter-text"></div>
-        </div>
-    </div>
+
+    <div id="commentsContainer"></div>
+    <!-- <div id="commentDiv"></div> -->
+
 
     <footer class="bottom_footer">
         <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
@@ -141,54 +144,60 @@
     <script>
         // Retrieve book information from sessionStorage
         const bookInfoString = sessionStorage.getItem('bookInfo');
-        console.log(bookInfoString)
 
-        // Check if bookInfoString is not null or undefined
         if (bookInfoString) {
             try {
-                // Parse the JSON string to an object
                 const bookInfo = JSON.parse(bookInfoString);
+                console.log("bookInfo", bookInfo);
 
-                console.log(bookInfo);
+                if (bookInfo) {
+                    const { genre, name, pseudonym, prologue, writer_name, date_time } = bookInfo;
 
-                // Check if the parsed object has the expected properties
-                if (bookInfo && bookInfo.genre && bookInfo.name && bookInfo.pseudonym && bookInfo.prologue && bookInfo.writer_name && bookInfo.date_time) {
                     // Display book information in the HTML page
-                    document.getElementById('genre').textContent = bookInfo.genre;
-                    document.getElementById('bookName').textContent = bookInfo.name;
-                    document.getElementById('prologueInfo').textContent = bookInfo.prologue;
-                    document.getElementById('prologueDisplay').textContent = bookInfo.prologue;
-                    document.getElementById('writer_username').textContent = bookInfo.writer_name;
-                    document.getElementById('date_time').textContent = bookInfo.date_time;
-                    document.getElementById('pseudonymInfo').textContent = bookInfo.pseudonym;
-                    document.getElementById('pseudonymDisplay').textContent = bookInfo.pseudonym;
+                    document.getElementById('genre').textContent = genre || '';
+                    document.getElementById('bookName').textContent = name || '';
+                    document.getElementById('prologueInfo').textContent = prologue || '';
+                    document.getElementById('prologueDisplay').textContent = prologue || '';
+                    document.getElementById('writer_username').textContent = writer_name || '';
+                    document.getElementById('date_time').textContent = date_time || '';
+                    document.getElementById('pseudonymInfo').textContent = pseudonym || '';
+                    document.getElementById('pseudonymDisplay').textContent = pseudonym || '';
                 } else {
-                    console.error('bookInfo object is missing some properties.');
+                    console.error('bookInfo object is null or undefined.');
                 }
             } catch (error) {
                 console.error('Error parsing bookInfo JSON:', error);
             }
-        }else {
+        } else {
             console.error('bookInfo is null or undefined.');
         }
-        console.log("commentData",sessionStorage.getItem('commentData'));
+        // Retrieve the comment data from sessionStorage
+        const commentDataUse = JSON.parse(sessionStorage.getItem('commentData'));
 
-        const comment_data_use = JSON.parse(sessionStorage.getItem('commentData'));
+        const commentsContainer = document.getElementById('commentsContainer');
+        commentsContainer.innerHTML = ''; // Clear existing comments
 
-        console.log("comment_data_use",comment_data_use);
-
-        if (comment_data_use) {
-            // Display book information in the HTML page
-            document.getElementById('user').textContent = comment_data_use.user || '';
-            document.getElementById('chapter').textContent = comment_data_use.chapter || '';
-            document.getElementById('edit_date_time').textContent = comment_data_use.date_time || '';
-            document.getElementById('comment_context').textContent = comment_data_use.context || '';
+        // Check if commentDataUse is not null and is an array
+        if (commentDataUse && Array.isArray(commentDataUse)) {
+            // Iterate over each comment data and create HTML elements
+            commentDataUse.forEach(commentData => {
+                commentsContainer.innerHTML += `
+                    <div class="flexbox-3">
+                        <div class="item-3">
+                            <div class="comment-context-text">${commentData.context}</div>
+                            <div class="comment-username-text">${commentData.user}</div>
+                            <div class="comment-date-text">${commentData.date_time}</div>
+                            <div class="comment-chapter-text">${commentData.chapter}</div>
+                        </div>
+                    </div>
+                `;
+            });
         } else {
-            console.error('comment_data object is missing or invalid.');
+            console.error('commentDataUse is null or not an array.');
         }
 
     </script>
-    <script src="/scripts/book_info.js"></script>
+    <script src="../scripts/book_info.js"></script>
 </body>
 
 </html>

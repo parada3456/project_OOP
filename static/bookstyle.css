@@ -93,13 +93,13 @@ html, body {
 
 .book_title {
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 700;
     color: beige;
 }
 
 .text-0 {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     color: beige;
 }
 
@@ -107,7 +107,7 @@ html, body {
     /* background-color: aqua; */
     margin-bottom: 20px;
     font-size: 22px;
-    font-weight: 400;
+    font-weight: 700;
     color: rgb(17, 17, 17);
 }
 
@@ -115,7 +115,7 @@ html, body {
     /* background-color: white; */
     padding-left: 10px;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     color: black;
 }
 
@@ -154,21 +154,42 @@ html, body {
 }
 
 .comment-username-text{
-    font-size: 18px;
-    text-align: right;
-    vertical-align: bottom;
-}
-
-
-.comment-date-text{
     font-size: 14px;
     text-align: right;
     vertical-align: bottom;
 }
 
 
+.comment-date-text{
+    font-size: 12px;
+    text-align: right;
+    vertical-align: bottom;
+}
+
 .comment-chapter-text{
-    font-size: 18px;
+    font-size: 14px;
     text-align: left;
     vertical-align: bottom;
+}
+.comment-context-text{
+    font-size: 20px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.input_box {
+    font-weight: 400;
+    display: block;
+    border: 1px solid #d7d6d6; 
+    background: #fff; 
+    padding: 10px 10px 10px 20px; 
+    /* width: 40%;  */
+    margin-left: 20px;
+    outline: none;
+}
+
+
+.input_box:focus {
+    border: 2px solid rgb(0, 203, 195); 
+    /* border-color: rgb(0, 203, 195); */
 }
