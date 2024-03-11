@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <script src="/scripts/book_info.js"></script>
 </head>
 
 <body>
@@ -107,12 +106,11 @@
             <div class="search_item">
                 <form id="commentForm" >
                     <label for="chapter_id">Chapter no:</label>
-                    <!-- <select id="chapter_id" name="chapter_id">
-                        <option value="1">Chapter 1</option>
-                        <option value="2">Chapter 2</option>
-                        <option value="3">Chapter 3</option>
-                    </select><br><br> -->
-                    <input type="text" id="chapter_id" name="chapter_id" placeholder="chapter_id" required><br><br>
+                    <select id="chapter_id" name="chapter_id">
+                        <option value="Shin_chan-1">Chapter 1</option>
+                        <option value="Shin_chan-2">Chapter 2</option>
+                    </select><br><br>
+                    <!-- <input type="text" id="chapter_id" name="chapter_id" placeholder="chapter_id" required><br><br> -->
                     
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" placeholder="username" required><br><br>
@@ -126,8 +124,16 @@
         </div>
     </div>
     
-    <div id="comment_response"></div>
-    
+    <!-- <div id="commentDataDiv"></div> -->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div id = "context" class="info_title"></div>
+            <div id = "user" class="comment-username-text"></div>
+            <div id = "edit_date_time'" class="comment-date-text"></div>
+            <div id = "chapter'" class="comment-chapter-text"></div>
+        </div>
+    </div>
+
     <footer class="bottom_footer">
         <a class="menu_item" href="https://www.readawrite.com/">ReadAWrite</a>
     </footer>
@@ -165,10 +171,24 @@
         }else {
             console.error('bookInfo is null or undefined.');
         }
+        console.log("commentData",sessionStorage.getItem('commentData'));
 
+        const comment_data_use = JSON.parse(sessionStorage.getItem('commentData'));
+
+        console.log("comment_data_use",comment_data_use);
+
+        if (comment_data_use) {
+            // Display book information in the HTML page
+            document.getElementById('user').textContent = comment_data_use.user || '';
+            document.getElementById('chapter').textContent = comment_data_use.chapter || '';
+            document.getElementById('edit_date_time').textContent = comment_data_use.date_time || '';
+            document.getElementById('comment_context').textContent = comment_data_use.context || '';
+        } else {
+            console.error('comment_data object is missing or invalid.');
+        }
 
     </script>
-
+    <script src="/scripts/book_info.js"></script>
 </body>
 
 </html>

@@ -66,7 +66,9 @@ Mo.add_writing_list(book2)
 #----------------------------------create chapters----------------------------------
 #Chapter("number", "name", "context", "dd/mm/yyyy", price)
 chapter1 = Chapter("Shin_chan", "1", "first_ch", "this is the first chapter of shincha", 184)
+chapter2 = Chapter("Shin_chan", "2", "second_ch", "secooooooooooooooond chap", 184)
 book1.add_chapter_list(chapter1)
+book1.add_chapter_list(chapter2)
 # chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment")
 
@@ -176,8 +178,8 @@ def SignIN(username:str, password:str):
 def searchBar(search_str:str):
      return {"Search": write_a_read.search_all_list(search_str)}
 
-@app.get("/chapter/comment", tags=['chapter'])
-def searchBar(chapter_id:str):
+@app.get("/chapter/{chapter_id}", tags=['chapter'])
+def show_comment_list(chapter_id:str):
      chapter = write_a_read.get_chapter_by_chapter_id(chapter_id)
      return chapter.show_comment_list()
 
@@ -262,7 +264,7 @@ def CreateComment(dto: dto_create_comment):
      
      else:
           print("no")
-          return {"message": "Error"}
+          raise HTTPException(status_code=404, detail="Error creating comment")
      
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "55555")
 chapter111 = write_a_read.get_chapter_by_chapter_id("Shin_chan-1")

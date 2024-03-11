@@ -152,3 +152,23 @@ html, body {
     width: 300px;
     
 }
+
+.comment-username-text{
+    font-size: 18px;
+    text-align: right;
+    vertical-align: bottom;
+}
+
+
+.comment-date-text{
+    font-size: 14px;
+    text-align: right;
+    vertical-align: bottom;
+}
+
+
+.comment-chapter-text{
+    font-size: 18px;
+    text-align: left;
+    vertical-align: bottom;
+}
