@@ -136,9 +136,11 @@
                     // Display book information in the HTML page
                     document.getElementById('genre').textContent = bookInfo.genre;
                     document.getElementById('bookName').textContent = bookInfo.name;
+                    document.getElementById('prologueInfo').textContent = bookInfo.prologue;
                     document.getElementById('prologueDisplay').textContent = bookInfo.prologue;
                     document.getElementById('writer_username').textContent = bookInfo.writer_name;
                     document.getElementById('date_time').textContent = bookInfo.date_time;
+                    document.getElementById('pseudonymInfo').textContent = bookInfo.pseudonym;
                     document.getElementById('pseudonymDisplay').textContent = bookInfo.pseudonym;
                 } else {
                     console.error('bookInfo object is missing some properties.');
