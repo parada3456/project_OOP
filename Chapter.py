@@ -65,9 +65,9 @@ class Chapter:
     def show_chapter_info(self):
         return {"chapter_number" : self.__chapter_number,
                 "name" : self.__name,
-                "price" : self.__cost,
                 "context" : self.__context,
-                "comments" : self.show_comment_list()}
+                "chapter_id": self.__chapter_id,
+                "date_time" : self.__publish_date_time.strftime("%x %X")}
     
     def show_comment_list(self):
         comment_list = []
@@ -80,4 +80,5 @@ class Chapter:
                 "name" : self.__name,
                 "price" : self.__cost,
                 "viewer":self.__viewer_count,
+                "chapter_id": self.__chapter_id,
                 "date_time" : self.__publish_date_time.strftime("%x %X")}

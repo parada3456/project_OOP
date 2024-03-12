@@ -23,7 +23,7 @@ function displayBookInfoAndNavigate(bookName) {
 // Function to fetch and display comments
 function showComment(chapter_id) {
     console.log(`Fetching comments for chapter ${chapter_id}...`);
-    fetch(`/chapter/${chapter_id}`)
+    fetch(`/chapter/comment/${chapter_id}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Failed to fetch comments for chapter ${chapter_id}`);

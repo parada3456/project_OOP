@@ -66,7 +66,7 @@ Mo.add_writing_list(book2)
 #----------------------------------create chapters----------------------------------
 #Chapter("number", "name", "context", "dd/mm/yyyy", price)
 chapter1 = Chapter("Shin_chan", "1", "first_ch", "this is the first chapter of shincha", 184)
-chapter2 = Chapter("Shin_chan", "2", "second_ch", "secooooooooooooooond chap", 184)
+chapter2 = Chapter("Shin_chan", "2", "second_ch", "secooooooooooooooond chap", 104)
 book1.add_chapter_list(chapter1)
 book1.add_chapter_list(chapter2)
 # chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
@@ -109,22 +109,36 @@ Mo.add_book_shelf_list(book2)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_items(request: Request):
-    with open("Templates/index.html") as f:
-        html_content = f.read()
-    return HTMLResponse(content=html_content, status_code=200)
+     with open("Templates/index.html") as f:
+          html_content = f.read()
+     return HTMLResponse(content=html_content, status_code=200)
 
 @app.get("/book/{book_name}")
 async def get_book_info(book_name: str):
-    book = write_a_read.get_book_by_name(book_name)
-    return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
+     book = write_a_read.get_book_by_name(book_name)
+     if isinstance(book,Book):
+          return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
             "age_restricted":book.age_restricted, "prologue":book.prologue, "date_time":book.date_time_str,\
             "writer_name":book.writer.username}
-#     return {"message": "Book not found"}
+     else:
+          return {"message": "Book not found"}
 b=write_a_read.get_book_by_name("Shin_chan")
 print("1",b)
 print("2",{"name":b.name, "pseudonym":b.pseudonym, "genre":b.genre, "status":b.status, \
             "age_restricted":b.age_restricted, "prologue":b.prologue, "date_time":b.date_time_str,\
             "writer_name":b.writer.username})
+
+# -----------------------------------------------------------------------------------------------
+@app.get("/chapter/info/{chapter_id}")
+async def get_chapter_info(chapter_id: str):
+     chapter =write_a_read.get_chapter_by_chapter_id(chapter_id)
+     print("chapterrrrrrrrrrrrrrrrrrrrr_id", chapter_id)
+     if isinstance(chapter, Chapter):
+          return chapter.show_chapter_info()
+     else:
+          raise HTTPException(status_code=404, detail="Chapter not found")
+
+# -------------------------------------------------------------------------------------------------------
 
 @app.get("/bookname", tags=['search bar'])
 def searchBook(book_name:str):
@@ -179,7 +193,7 @@ def searchBar(search_str:str):
      return {"Search": write_a_read.search_all_list(search_str)}
 
 # ----------------------------------------------comment list---------------------------------------------------------------
-@app.get("/chapter/{chapter_id}", tags=['chapter'])
+@app.get("/chapter/comment/{chapter_id}", tags=['chapter'])
 def show_comment_list(chapter_id:str):
      chapter = write_a_read.get_chapter_by_chapter_id(chapter_id)
      if isinstance(chapter,Chapter):
@@ -190,7 +204,8 @@ def show_comment_list(chapter_id:str):
           return chapter
      
 print("-------------------------------------")
-
+chapter236 = write_a_read.get_chapter_by_chapter_id("Shin_chan")
+print("show_comment_list",chapter236.show_comment_list() )
 print("fi",(write_a_read.get_chapter_by_chapter_id("Shin_chan")).show_comment_list())
 # -------------------------------------------------------------------------------------------------------------------
 @app.get("/book/chapter/{book_name}", tags=['book'])
