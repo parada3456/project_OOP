@@ -23,7 +23,7 @@
 
 .header_menu_item {
     background-color: var(--main_color);
-    color: White;
+    color: var(--main_color);
     text-align: center;
     box-sizing: border-box;
     width: 33.33%;
@@ -69,15 +69,15 @@
 }
 
 .search_icon:hover {
-    content: url('../assets/header_img/search_button.png');
+    content: url('assets/header_img/search_button.png');
 }
 
 .pen_icon:hover {
-    content: url('../assets/header_img/writing_button.png');
+    content: url('assets/header_img/writing_button.png');
 }
 
 .user_icon:hover {
-    content: url('../assets/header_img/user_button.png');
+    content: url('assets/header_img/user_button.png');
 }
 
 .footer {

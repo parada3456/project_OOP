@@ -13,7 +13,9 @@ function displayBookInfoAndNavigate(bookName) {
         .then(data => {
             sessionStorage.setItem('bookInfo', JSON.stringify(data));
             window.location.href = "book_info.html";
-            // showComment("Shin_chan")
+            // showComment(bookName)
+            // console.log("show comment")
+            // showChapter(bookName)
         })
         .catch(error => {
             console.error('Error fetching book information:', error);
@@ -97,4 +99,8 @@ function showChapter(book_name) {
         .catch(error => {
             console.error('Error fetching chapters:', error);
         });
+}
+function back_to_book_info(){
+    console.log("back to book")
+    displayBookInfoAndNavigate(localStorage.getItem('book_name_last'))
 }

@@ -11,7 +11,9 @@ function NavigateToChapterInfo(chapter_id) {
         .then(data => {
             sessionStorage.setItem('chapterInfo', JSON.stringify(data)); // Storing chapter info
             console.log("chapter data: ", data);
-            // window.location.href = "reading_chapter.html"; // Redirecting to another page
+            localStorage.setItem('book_name_last',data.name)
+            console.log(localStorage.getItem('book_name_last'))
+            window.location.href = "reading_chapter.html"; // Redirecting to another page
         })
         .catch(error => {
             console.error('Error fetching chapter information:', error);
