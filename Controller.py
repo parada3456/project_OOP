@@ -52,6 +52,13 @@ class Controller:
                 pseudonym_list.append(pseudonym)
         return pseudonym_list
     
+    def show_all_book_list(self):
+        book_list=[]
+        for writer in self.__writer_list:
+            for book in writer.writing_list:
+                book_list.append({"book_name": book.name,"pseudonym":book.pseudonym})
+        return book_list
+
     def get_book_by_name(self, book_name):
         for book in self.all_book_list:
             if book.name == book_name:

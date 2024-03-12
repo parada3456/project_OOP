@@ -193,6 +193,12 @@ def SignIN(username:str, password:str):
 def searchBar(search_str:str):
      return {"Search": write_a_read.search_all_list(search_str)}
 
+@app.get("/writeARead/{search_str}")
+def get_all_book(search_str:str):
+     return write_a_read.show_all_book_list()
+
+print(write_a_read.show_all_book_list())
+
 # ----------------------------------------------comment list---------------------------------------------------------------
 @app.get("/chapter/comment/{chapter_id}", tags=['chapter'])
 def show_comment_list(chapter_id:str):
