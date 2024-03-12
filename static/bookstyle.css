@@ -213,3 +213,8 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+.comment-info-flexbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}

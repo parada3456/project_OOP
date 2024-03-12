@@ -16,6 +16,7 @@ function displayBookInfoAndNavigate(bookName) {
             // console.log("show comment")
             // showChapter(bookName)
             localStorage.setItem('book_name_last',bookName);
+            localStorage.setItem('login_username','Mozaza');
             console.log(localStorage.getItem('book_name_last'));
             window.location.href = "book_info.html";
         })
@@ -102,6 +103,7 @@ function showChapter(book_name) {
             console.error('Error fetching chapters:', error);
         });
 }
+
 function back_to_book_info(){
     console.log("back to book")
     displayBookInfoAndNavigate(localStorage.getItem('book_name_last'))

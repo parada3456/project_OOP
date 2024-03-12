@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from Report import Report
 
 class Comment:
     def __init__(self, chapter, user, context):
@@ -6,7 +7,6 @@ class Comment:
         self.__context = context
         self.__date_time = datetime.now()
         self.__chapter = chapter
-        self.__report_list = []
         self.__reply_list = []
 
     @property
@@ -32,6 +32,7 @@ class Comment:
     @property
     def report_list(self):
         return self.__report_list
+    
 
     @property
     def reply_list(self):

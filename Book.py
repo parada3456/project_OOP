@@ -112,9 +112,9 @@ class Book:
         if isinstance(report, Report):
             self.__report_list.append(report)
             
-    def add_report_list(self, report):
-        self.report_list.append(report)
-        self.counting_date_time = datetime.now()
+    # def add_report_list(self, report):
+    #     self.report_list.append(report)
+    #     self.counting_date_time = datetime.now()
     
 
     # def counting_report_from_type(self):

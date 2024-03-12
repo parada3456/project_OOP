@@ -7,6 +7,7 @@ from ChapterTransaction import ChapterTransaction #
 from Promotion import CoinPromotion, BookPromotion
 from Payment import OnlineBanking, TrueMoneyWallet, DebitCard
 from datetime import datetime
+from Report import Report
 
 class Controller:
     def __init__(self):
@@ -267,6 +268,16 @@ class Controller:
             return new_comment
         else:
             return {"Comment": "please try again"}
+        
+    def create_report(self,book_name, username, report_type, context):
+        user = self.get_user_by_username(username)
+        book = self.get_book_by_name(book_name)
+        if isinstance(book,Book) and (isinstance(user,Reader) or isinstance(user,Writer)) and report_type in self.report_type_list:
+                new_report = Report(type,report_type, user, context)
+                book.add_report_list(new_report)
+                return new_report
+        else:
+            return {"report": "please try again"}
         
     # อันนี้ไว้ทำไรอะ
     # รับ username มาด้วยดีมั้ย แล้วเพิ่มpaymentmethodไว้ในuserแต่ละคน  

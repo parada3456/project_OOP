@@ -21,6 +21,7 @@ from CoinTransaction import CoinTransaction
 from Promotion import BookPromotion, CoinPromotion, Promotion
 from Coin import GoldenCoin, SilverCoin
 from Comment import Comment
+from Report import Report
 
 app = FastAPI()
 
@@ -216,8 +217,6 @@ def show_chapter_list(book_name:str):
      else:
           return {"message" : "error"}
 
-
-
 @app.get('/', response_class=HTMLResponse)
 def main(request: Request):
      return templates.TemplateResponse('index.html', {'request': request})
@@ -304,8 +303,26 @@ def CreateComment(dto: dto_create_comment):
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "55555")
 chapter111 = write_a_read.get_chapter_by_chapter_id("Shin_chan-1")
 print("commment: ", chapter111.show_comment_list())
-#..........................................................................................................
 
+#..........................................................................................................
+class dto_create_report(BaseModel):
+     book_name:str
+     username:str
+     report_type:str
+     context: str
+     
+@app.post("/report/{book_name}", tags=['report'])
+def CreateReport(dto : dto_create_report):
+     report = write_a_read.create_report(dto.book_name, dto.username, dto.report_type, dto.context)
+     if isinstance(report,Report):
+          return {"massage":"report successfully"}
+     else :
+          raise HTTPException(status_code=404, detail="Error creating report")
+
+
+report11=write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
+print("report :",report11)
+#..........................................................................................................
 class dto_buy_coin(BaseModel):
      username:str
      golden_coin_amount:int
