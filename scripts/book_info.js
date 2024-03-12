@@ -12,11 +12,7 @@ function displayBookInfoAndNavigate(bookName) {
         })
         .then(data => {
             sessionStorage.setItem('bookInfo', JSON.stringify(data));
-            // showComment(bookName)
-            // console.log("show comment")
-            // showChapter(bookName)
             localStorage.setItem('book_name_last',bookName);
-            localStorage.setItem('login_username','Mozaza');
             console.log(localStorage.getItem('book_name_last'));
             window.location.href = "book_info.html";
         })

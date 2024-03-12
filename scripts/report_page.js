@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const reportForm = document.getElementById('reportForm');
     const reportResponse = document.getElementById('report_response');
-    localStorage
+    
 
     if (reportForm) {
         reportForm.addEventListener('submit', async function(event) {
@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const formData = new FormData(this);
                 const jsonData = Object.fromEntries(formData); // Convert FormData to JSON object
-                const username = localStorage.getItem('login_username');
+                // const username = localStorage.getItem('login_username');
+                const username = "Mozaza"
                 jsonData.username = username;
                 const jsonDataString = JSON.stringify(jsonData);
                 console.log(jsonDataString)
@@ -31,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Submitted report data:", data);
 
                 if (reportResponse) {
-                    reportResponse.innerText = JSON.stringify(data);
+                    console.log("data.value:",data.massage)
+                    reportResponse.innerText = data.massage;
                 }
 
-                showComment(jsonData.book_name);
             } catch (error) {
                 console.error('Error submitting report:', error);
             }

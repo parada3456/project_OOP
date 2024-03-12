@@ -184,6 +184,9 @@
     <br>
 
     <script>
+        
+        console.log("bookname",localStorage.getItem('book_name_last'))
+        console.log("username",localStorage.getItem('login_username'))
         // Retrieve book information from sessionStorage
         const bookInfoString = sessionStorage.getItem('bookInfo');
         console.log("bookInfoString", bookInfoString)

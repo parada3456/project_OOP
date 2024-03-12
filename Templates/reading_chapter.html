@@ -160,9 +160,18 @@
                             <div class="flexbox-3">
                                 <div class="item-3">
                                     <div class="comment-context-text">${commentData.context}</div>
-                                    <div class="comment-username-text">${commentData.user}</div>
-                                    <div class="comment-date-text">${commentData.date_time}</div>
-                                    <div class="comment-chapter-text">${commentData.chapter}</div>
+                                    <div class="comment-info-flexbox">
+                                        <div class="comment-username-text" style="text-align: left; width:50%;">
+                                            <a class="comment-username-text">${commentData.chapter}</a>
+                                        </div>
+                                        <div class="comment-username-text" style="text-align: right; width:50%;">
+                                            <a href="report_page.html"> <img class="home_icon" style="text-align: right;" src="assets/book_img/report_icon.png" alt="Original Image"></a>
+                                            <br>
+                                            <a class="comment-username-text">${commentData.user}</a>
+                                            <br>
+                                            <a class="comment-date-text">${commentData.date_time}</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             `;
