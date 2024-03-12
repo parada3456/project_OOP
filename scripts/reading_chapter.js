@@ -5,14 +5,13 @@ function NavigateToChapterInfo(chapter_id) {
             if (!response.ok) {
                 throw new Error('Failed to fetch chapter information');
             }
-            console.log("receive response")
+            console.log("receive response");
             return response.json();
         })
         .then(data => {
             sessionStorage.setItem('chapterInfo', JSON.stringify(data)); // Storing chapter info
             console.log("chapter data: ", data);
-            localStorage.setItem('book_name_last',data.name)
-            console.log(localStorage.getItem('book_name_last'))
+
             window.location.href = "reading_chapter.html"; // Redirecting to another page
         })
         .catch(error => {

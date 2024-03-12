@@ -12,10 +12,12 @@ function displayBookInfoAndNavigate(bookName) {
         })
         .then(data => {
             sessionStorage.setItem('bookInfo', JSON.stringify(data));
-            window.location.href = "book_info.html";
             // showComment(bookName)
             // console.log("show comment")
             // showChapter(bookName)
+            localStorage.setItem('book_name_last',bookName);
+            console.log(localStorage.getItem('book_name_last'));
+            window.location.href = "book_info.html";
         })
         .catch(error => {
             console.error('Error fetching book information:', error);
