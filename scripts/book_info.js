@@ -14,7 +14,7 @@ function displayBookInfoAndNavigate(bookName) {
             sessionStorage.setItem('bookInfo', JSON.stringify(data));
             localStorage.setItem('book_name_last', bookName);
             console.log(localStorage.getItem('book_name_last'));
-            document.getElementById('book_cover_img').src = `assets/cover_img/${bookName}.png`;
+            console.log("book_namee",bookName)
             window.location.href = "book_info.html";
         })
         .catch(error => {
