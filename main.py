@@ -403,12 +403,15 @@ class dto_edit_chapter(BaseModel):
      
 @app.put("/edit_chapter", tags=['Chapter'])
 def EditChapterInfo(dto : dto_edit_chapter):
+     print("edit_chapter rr ii")
      chapter =  write_a_read.edit_chapter_info(dto.chapter_id, dto.name, dto.context, dto.cost)
      if isinstance(chapter,Chapter):
           return chapter
      else:
-          return {"error": "Book not found"}
+          return {"error": "chapter not found"}
      
+print("\n\n")
+print("editBook :",write_a_read.edit_chapter_info("Shin-chan-1", dto.name, dto.context, dto.cost))
 # _________________________________________________ TEST _________________________________________________
 # mo_username = "Mozaza"
 # mo_password = "namchakeawpun"

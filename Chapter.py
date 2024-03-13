@@ -67,6 +67,7 @@ class Chapter:
                 "name" : self.__name,
                 "context" : self.__context,
                 "chapter_id": self.__chapter_id,
+                "price" : self.__cost,
                 "date_time" : self.__publish_date_time.strftime("%x %X")}
     
     def show_comment_list(self):
