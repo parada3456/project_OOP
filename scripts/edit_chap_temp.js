@@ -1,3 +1,7 @@
+function displayChapterEditAndNavigate(chapter_id) {
+    localStorage.setItem('chapter_id', chapter_id)
+    window.location.href = "edit_chap_temp.html";
+}
 
 document.addEventListener('DOMContentLoaded', async function () {
     const editChapterForm = document.getElementById('editChapterForm');
@@ -10,14 +14,14 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         // Retrieve existing chapter information from the server
-        const chapterId = 'Shin_chan-1'; // Provide the chapter ID you want to edit
+        const chapterId = localStorage.getItem('chapter_id'); // Provide the chapter ID you want to edit
         console.log(chapterId);
         const response = await fetch(`/chapter/info/${chapterId}`);
         if (!response.ok) {
             throw new Error('Failed to fetch chapter information');
         }
         const chapterData = await response.json();
-        console.log("before chapterData: ",chapterData)
+        console.log("before chapterData: ", chapterData)
         // Populate form fields with existing chapter information
         chapterIdInput.value = chapterData.chapter_id;
         nameInput.value = chapterData.name;
@@ -47,14 +51,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                     },
                     body: JSON.stringify(jsonData)
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Failed to edit chapter');
                 }
                 const data = await response.json();
-                console.log("data after",data);
+                console.log("data after", data);
                 if (response) {
-                    console.log("data.value:",data.message)
+                    console.log("data.value:", data.message)
                     response.innerText = data.message;
                 }
                 go_to_chapter_info();
@@ -64,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 });
-function go_to_chapter_info(){
+function go_to_chapter_info() {
     // const chapterId = localStorage.getItem("chapter_name_last")
     const chapterId = "Shin_chan-1"
     NavigateToChapterInfo(chapterId)

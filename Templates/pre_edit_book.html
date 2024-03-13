@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>PreEditBook</title>
+    <!-- Include your CSS and other meta tags here -->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
+    <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="../scripts/pre_edit_book.js"></script>
+    <script src="../scripts/reading_chapter.js"></script>
+</head>
+
+<body>
+    <div id="pre_edit_book"></div>
+    <!--หัวกระดาษ-->
+    <div class="header_flexbox_menu">
+        <div class="header_menu_item">
+            <a class="header_writing_type" href="#">นิยาย</a>
+            <a class="header_writing_type" href="#">แฟนฟิค</a>
+            <a class="header_writing_type" href="#">การ์ตูน</a>
+        </div>
+        <div class="header_menu_item">
+            <a href="homepage.html"><img src="assets/writearead_img/WriteARead_white.png" class="WriteARead_image"></a>
+        </div>
+        <div class="header_menu_item">
+            <a href="#" onclick="toggle_search()"> <img class="search_icon"
+                    src="assets/header_img/search_button_light.png" alt="Original Image"></a>
+            <a href="#"> <img class="pen_icon" src="assets/header_img/writing_button_light.png"
+                    alt="Original Image"></a>
+            <a href="#"> <img class="user_icon" src="assets/header_img/user_button_light.png" alt="Original Image"></a>
+        </div>
+    </div>
+
+    <!--book info-->
+    <div class="book_flexbox">
+        <div class="book_item">
+            <img class="book_cover" src="assets/covers_img/Shin_chan.png" alt="book_cover" />
+        </div>
+        <div class="pre_edit_book_flexbox">
+            <div class="pre_edit_chapter_item">
+                <div class="text-0">
+                    <a id="genre"></a>
+                </div>
+            </div>
+            <div class="pre_edit_book_item">
+                <div class="book_title">
+                    <a id="bookName"></a>
+                </div>
+            </div>
+            <div class="pre_edit_book_item">
+                <div class="text-0">
+                    <a id="pseudonymInfo"></a>
+                </div>
+            </div>
+            <div class="pre_edit_book_item">
+                <div class="book_title">
+                    <a id="prologueInfo"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--prologue-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Prologue</div>
+            <a id="prologueDisplay"></a>
+        </div>
+    </div>
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Writer information</div>
+            <a>Pseudonym : </a>
+            <a id="pseudonymDisplay"></a>
+            <br>
+            <a>Writer : </a>
+            <a id="writer_username"></a>
+        </div>
+    </div>
+
+    <!--lastest edit-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Publish</div>
+            <a>Latest Edit : </a>
+            <a id="date_time"></a>
+        </div>
+    </div>
+
+    <!--chapter-->
+    <div class="flexbox-3">
+        <div class="item-3">
+            <a class="info_title">ตอนทั้งหมด</a>
+            <div class="chapter_grid" style="grid-template-rows: 50px;">
+                <p class="info_text chapter_content" style="color: rgb(63, 185, 170);">บทที่</p>
+                <p class="info_text text-3 chapter_content">ชื่อตอน</p>
+                <p class="info_text chapter_content" style="margin: auto;">ราคา</p>
+                <img class="watch_icon chapter_content" src="assets/book_img/eye.png" alt="watched" />
+                <p class="info_text chapter_content" style="margin: auto;">แก้ไข</p>
+            </div>
+            <div id="chaptersContainer" class="chapter_grid" style="grid-template-rows: 50px 50px 50px;"></div>
+            <div class="my_writing_button">
+                <button class="submit_button" id="addChapterButton">เพิ่มตอนใหม่</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer_item_container">
+            <a class="footer_home_button" href="https://www.readawrite.com/">ReadAWrite</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="payment.html">Payment</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="MyPage.html">My Page</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="search_page.html">search</a>
+        </div>
+        <div class="footer_item_container">
+            <a class="footer_menu_text" href="payment.html">Payment</a>
+        </div>
+    </footer>
+
+    <script>
+        
+        console.log("bookname",localStorage.getItem('book_name_last'))
+        console.log("username",localStorage.getItem('login_username'))
+        // Retrieve book information from sessionStorage
+        const PreEditBookString = sessionStorage.getItem('PreEditBook');
+        console.log("PreEditBookString", PreEditBookString)
+        if (PreEditBookString) {
+            try {
+                const PreEditBook = JSON.parse(PPreEditBookString);
+                console.log("PreEditBook", PreEditBook);
+
+                if (PreEditPreEditBook) {
+                    const { genre, name, pseudonym, prologue, writer_name, date_time } = PreEditBook;
+
+                    // Display book information in the HTML page
+                    document.getElementById('genre').textContent = genre || '';
+                    document.getElementById('bookName').textContent = name || '';
+                    document.getElementById('prologueInfo').textContent = prologue || '';
+                    document.getElementById('prologueDisplay').textContent = prologue || '';
+                    document.getElementById('writer_username').textContent = writer_name || '';
+                    document.getElementById('date_time').textContent = date_time || '';
+                    document.getElementById('pseudonymInfo').textContent = pseudonym || '';
+                    document.getElementById('pseudonymDisplay').textContent = pseudonym || '';
+
+                    // Retrieve the comment data from sessionStorage
+                    const commentDataUse = JSON.parse(sessionStorage.getItem('commentData'));
+                    const commentsContainer = document.getElementById('commentsContainer');
+                    commentsContainer.innerHTML = ''; // Clear existing comments
+                    console.log(commentsContainer)
+                    // Check if commentDataUse is not null and is an array
+                    if (commentDataUse && Array.isArray(commentDataUse)) {
+                        // Iterate over each comment data and create HTML elements
+                        commentDataUse.forEach(commentData => {
+                            console.log("commentData", commentData)
+                            commentsContainer.innerHTML += `
+                            <div class="flexbox-3">
+                                <div class="item-3">
+                                    <div class="comment-context-text">${commentData.context}</div>
+                                    <div class="comment-info-flexbox">
+                                        <div class="comment-username-text" style="text-align: left; width:50%;">
+                                            <a class="comment-username-text">${commentData.chapter}</a>
+                                        </div>
+                                        <div class="comment-username-text" style="text-align: right; width:50%;">
+                                            <a href="report_page.html"> <img class="home_icon" style="text-align: right;" src="assets/book_img/report_icon.png" alt="Original Image"></a>
+                                            <br>
+                                            <a class="comment-username-text">${commentData.user}</a>
+                                            <br>
+                                            <a class="comment-date-text">${commentData.date_time}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        });
+                    } else {
+                        console.error('commentDataUse is null or not an array.');
+                    }
+
+                    const chapterDataUse = JSON.parse(sessionStorage.getItem('chapterData'));
+                    const chaptersContainer = document.getElementById('chaptersContainer');
+                    chaptersContainer.innerHTML = ''; // Clear existing chapter
+                    console.log(chaptersContainer)
+                    // Check if chapterDataUse is not null and is an array
+                    if (chapterDataUse && Array.isArray(chapterDataUse)) {
+                        // Iterate over each comment data and create HTML elements
+                        chapterDataUse.forEach(chapterData => {
+                            console.log("chapterData", chapterData)
+                            chaptersContainer.innerHTML += `
+                                <p class="info_text text-3 text-2 chapter_content"style="text-align: center;">${chapterData.chapter_number}</p>
+                                <a onclick="displayChapterEditAndNavigate('${chapterData.chapter_id}')" class="text text-3 chapter_content" style="text-align: left;">${chapterData.name}</a>
+                                <p class="info_text chapter_content" style="margin: auto; font-size: 14px;">${chapterData.price}</p>
+                                <p class="info_text chapter_content" style="margin: auto; font-size: 14px;">${chapterData.viewer}</p>
+                                <p class="info_text chapter_content" style=" margin: auto; font-size :12px;">${chapterData.date_time}</p>
+                            `;
+                        });
+                    } else {
+                        console.error('chapterDataUse is null or not an array.');
+                    }
+
+                    // Call the showChapter and showComment functions when the window loads
+                    window.onload = function () {
+                        showChapter(PreEditChapter.name);
+                        showComment(PreEditChapter.name);
+                    };
+                } else {
+                    console.error('bookInfo object is null or undefined.');
+                }
+            } catch (error) {
+                console.error('Error parsing bookInfo JSON:', error);
+            }
+        } else {
+            console.error('bookInfo is null or undefined.');
+        }
+
+    </script>
+</body>
+<!-- ${chapterData.name}+"-"+${chapterData.chapter_number} -->
+
+</html>
