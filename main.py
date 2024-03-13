@@ -34,10 +34,13 @@ app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
 write_a_read = Controller()
 
 if __name__ == "__main__":
-     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="info")
+     uvicorn.run("main:app", host="127.0.0.1", port=5500, log_level="info")
 
 now = datetime.now()
-
+app.mount("/Templates", StaticFiles(directory="Templates"), name="templates")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
+# app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 #uvicorn main:app --reload
 
 #----------------------------------create users----------------------------------
@@ -396,6 +399,7 @@ def EditBookInfo(dto : dto_edit_book):
 #..........................................................................................................
 
 class dto_edit_chapter(BaseModel):
+     chapter_number : str = None
      chapter_id : str = None
      name : str = None
      context : str = None
@@ -405,13 +409,12 @@ class dto_edit_chapter(BaseModel):
 def EditChapterInfo(dto : dto_edit_chapter):
      print("edit_chapter rr ii")
      chapter =  write_a_read.edit_chapter_info(dto.chapter_id, dto.name, dto.context, dto.cost)
-     if isinstance(chapter,Chapter):
-          return chapter
-     else:
-          return {"error": "chapter not found"}
+     return chapter
      
 print("\n\n")
-print("editBook :",write_a_read.edit_chapter_info("Shin-chan-1", dto.name, dto.context, dto.cost))
+print("editChapter :",write_a_read.edit_chapter_info("Shin_chan-1", "Mozaza", "too old", '12'))
+
+print("\n")
 # _________________________________________________ TEST _________________________________________________
 # mo_username = "Mozaza"
 # mo_password = "namchakeawpun"

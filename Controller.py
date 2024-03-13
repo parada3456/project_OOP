@@ -5,7 +5,7 @@ from Reader import Reader, Writer
 from CoinTransaction import CoinTransaction #
 from ChapterTransaction import ChapterTransaction #
 from Promotion import CoinPromotion, BookPromotion
-from Payment import OnlineBanking, TrueMoneyWallet, DebitCard
+# from Payment import OnlineBanking, TrueMoneyWallet, DebitCard
 from datetime import datetime
 from Report import Report
 
@@ -288,13 +288,13 @@ class Controller:
         
     # อันนี้ไว้ทำไรอะ
     # รับ username มาด้วยดีมั้ย แล้วเพิ่มpaymentmethodไว้ในuserแต่ละคน  
-    def create_payment_method(self, payment_method_name, payment_info):
-        if payment_method_name == self.__payment_list[0]:
-            return OnlineBanking(payment_info)
-        elif payment_method_name == self.__payment_list[1]:
-            return DebitCard(payment_info)
-        elif payment_method_name == self.__payment_list[2]:
-            return TrueMoneyWallet(payment_info)
+    # def create_payment_method(self, payment_method_name, payment_info):
+    #     if payment_method_name == self.__payment_list[0]:
+    #         return OnlineBanking(payment_info)
+    #     elif payment_method_name == self.__payment_list[1]:
+    #         return DebitCard(payment_info)
+    #     elif payment_method_name == self.__payment_list[2]:
+    #         return TrueMoneyWallet(payment_info)
         
     def add_pseudonym(self, username, pseudonym):
         user = self.get_user_by_username(username)
@@ -327,17 +327,26 @@ class Controller:
         # book.date_time(0) #last edit
         return {"Book updated" : book.show_book_info()}
             
-    def edit_chapter_info(self,chapter_id, name, context, cost):
+    def edit_chapter_info(self, chapter_id, name=None, context=None, cost=None):
         chapter = self.get_chapter_by_chapter_id(chapter_id)
-        if not isinstance(chapter, Chapter): return chapter
-        if name:
+
+        if not isinstance(chapter, Chapter):
+            return {"error": "Chapter not found"}
+
+        if name is not None:
             chapter.update_name(name)
-        if context:
+
+        if context is not None:
             chapter.update_context(context)
-        if cost:
+            print("Context updated")
+
+        if cost is not None:
             chapter.update_cost(cost)
-        # chapter.publish_date_time(0) #last edit
-        return {"Chapter updated" : chapter.show_chapter_info()}
+
+        print(chapter.show_chapter_info())
+
+        return {"message" : "chapter Update successfully"}
+
     
     def change_password(self, username, old_password, new_password):
         user = self.get_user_by_username(username)

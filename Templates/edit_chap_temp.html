@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="/static/create_chapter.css">
     <link rel="stylesheet" type="text/css" href="/static/payment_style.css">
     <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
+    
+    <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +46,7 @@
     <h1 class="first_payment_title">รายตอน</h1>
 <!-- 
     <div class=""> -->
-    <form id="editChapterForm"></form>
+    <form id="editChapterForm">
         <h1 class="pangcreate_chap_label">บทที่</h1>
         <input class="pangfill_box1" type="number" id="chapter_number" name="chapter_number" placeholder="บทที่" required>
         <h1 class="pangcreate_chap_label">ชื่อตอน</h1>
@@ -63,15 +65,11 @@
         <button class="cancel_button" onclick="cancel_button()" type="submit">ยกเลิก</button>
     </div>
 
-
-    <!-- pop up2 -->
-    <!-- <div class="popup" id="success_form">
-        <form class="info_form_container">
-            <div id="response"></div>
-        </form>
-    </div> -->
-
-    <!-- <div id="response"></div> -->
+    <div class="flexbox-3">
+        <div class="item-3" style="text-align: center; margin-bottom: 3%; ">
+            <h1 id="response" class="info_title" style="color: rgb(0, 203, 195);"></h1>
+        </div>
+    </div>
 
     <!-- footer -->
     <footer class="footer">
