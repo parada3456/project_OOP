@@ -74,15 +74,8 @@
         <div class="item-3">
             <div class="search_item">
                 <form id="commentForm">
-                    <h1 class="info_title">Chapter no :</h1>
-                    <select id="chapter_id" name="chapter_id" class="input_box" style="width: 25%;">
-                        <option value="Shin_chan-1" class="input_box">Chapter 1</option>
-                        <option value="Shin_chan-2" class="input_box">Chapter 2</option>
-                    </select><br><br>
-
-                    <h1 class="info_title">Your Username : </h1>
-                    <input type="text" class="input_box" id="username" style="width: 40%;" name="username"
-                        placeholder="username" required><br><br>
+                    <input type="hidden" name="chapter_id">
+                    <input type="hidden" name="username">
 
                     <h1 class="info_title">Your Comment : </h1>
                     <textarea id="context" class="input_box" name="context" style="width: 40%;" rows="4" cols="50"

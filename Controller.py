@@ -265,6 +265,7 @@ class Controller:
             return "please try again"
         
     def create_comment(self, chapter_id, username, context):
+        print(chapter_id,username,context)
         chapter = self.get_chapter_by_chapter_id(chapter_id)
         user = self.get_user_by_username(username)
         if isinstance(chapter, Chapter):
