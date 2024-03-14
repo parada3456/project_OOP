@@ -2,25 +2,27 @@
 <html lang="en">
 
 <head>
-    
+
     <title>Edit Book Info</title>
     <link rel="stylesheet" type="text/css" href="/static/create_chapter.css">
     <link rel="stylesheet" type="text/css" href="/static/payment_style.css">
     <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
-    
+
     <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
 
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="../scripts/edit_book.js"></script>
     <script src="../scripts/reading_chapter.js"></script>
- 
+
 </head>
 
 <body>
@@ -43,7 +45,7 @@
         </div>
     </div>
 
-    <h1 class="first_payment_title">รายตอน</h1> 
+    <h1 class="first_payment_title">แก้ไขข้อมูลหนังสือ</h1>
     <!-- old_name : str = None
      new_name : str = None
      new_genre: str = None
@@ -51,25 +53,27 @@
      age_restricted: bool = None
      status: str = None -->
     <form id="editBookForm">
-        <input type="hidden" id="old_name" name="old_name"> 
-        <h1 class="pangcreate_chap_label">บทที่</h1>
-        <input class="pangfill_box1" type="number" id="name" name="new_name" placeholder="บทที่" required>
-        <h1 class="pangcreate_chap_label">ชื่อตอน</h1>
-        <input class="pangfill_box2" type="text" id="name" name="new_genre" required>
-        <h1 class="pangcreate_chap_label">เนื้อหา</h1>
-        <textarea class="pangcontent_box" id="context" name="prologue" rows="4" cols="50" placeholder="เริ่มต้นเรื่องราวของคุณ" required></textarea>
+        <input type="hidden" id="old_name" name="old_name">
+        <h1 class="pangcreate_chap_label">Name</h1>
+        <input class="pangfill_box1" type="text" id="old_name_input" name="new_name" placeholder="ชื่อเรื่อง">
+        <h1 class="pangcreate_chap_label">Genre :</h1>
+        <input class="pangfill_box2" type="text" id="old_genre" name="new_genre">
+        <input type="hidden" id="old_pseudonym" name="old_pseudonym">
+        <h1 class="pangcreate_chap_label">prologue</h1>
+        <textarea class="pangcontent_box" id="old_prologue" name="prologue" rows="4" cols="50"
+            placeholder="เริ่มต้นเรื่องราวของคุณ"></textarea>
         <h1 class="pangcreate_chap_label">age_restricted</h1>
-        <select id="age_restricted" name="age_restricted" class="pangfill_box2">
+        <select id="old_age_restricted" name="age_restricted" class="pangfill_box2">
             <option value="True" class="input_box">Yes</option>
             <option value="False" class="input_box">No</option>
         </select>
         <h1 class="pangcreate_chap_label">Status</h1>
-        <select id="age_restricted" name="age_restricted" class="pangfill_box2">
-            <option value="publish" class="input_box">Publish</option>
-            <option value="hidden" class="input_box">Hidden</option>
+        <select id="old_status" name="status" class="pangfill_box2">
+            <option value="publishing" class="input_box">Publish</option>
+            <option value="hiding" class="input_box">Hidden</option>
         </select>
-        <div class="final_button" style="padding-bottom: 5px;" >
-            <button class="submit_button" type="submit">ยืนยัน</button> 
+        <div class="final_button" style="padding-bottom: 5px;">
+            <button class="submit_button" type="submit">ยืนยัน</button>
         </div>
     </form>
     <div class="final_button" style="padding-top: 0;">
@@ -108,4 +112,5 @@
     </script>
 
 </body>
+
 </html>

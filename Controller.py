@@ -324,7 +324,7 @@ class Controller:
             book.age_restricted = age_restricted
         if prologue:
             book.prologue = prologue
-        # book.date_time(0) #last edit
+        book.date_time(0) #last edit
         return {"Book updated" : book.show_book_info()}
             
     def edit_chapter_info(self, chapter_id, name=None, context=None, cost=None):

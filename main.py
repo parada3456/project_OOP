@@ -59,11 +59,11 @@ write_a_read.add_writer(Mo)
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
 
-book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue)
+book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", False, shin_chan_prologue)
 Mo.add_writing_list(book1)
 print(book1.pseudonym)
 
-book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 7, shin_chan_prologue)
+book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", True, shin_chan_prologue)
 Mo.add_writing_list(book2)
 
 
@@ -120,12 +120,14 @@ async def read_items(request: Request):
 @app.get("/book/{book_name}")
 async def get_book_info(book_name: str):
      book = write_a_read.get_book_by_name(book_name)
+     print(book)
      if isinstance(book,Book):
           return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
             "age_restricted":book.age_restricted, "prologue":book.prologue, "date_time":book.date_time_str,\
             "writer_name":book.writer.username}
      else:
           return {"message": "Book not found"}
+     
 b=write_a_read.get_book_by_name("Shin_chan")
 print("1",b)
 print("2",{"name":b.name, "pseudonym":b.pseudonym, "genre":b.genre, "status":b.status, \

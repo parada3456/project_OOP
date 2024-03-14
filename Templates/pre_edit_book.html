@@ -80,6 +80,18 @@
             <a id="prologueDisplay"></a>
         </div>
     </div>
+
+    <div class="flexbox-3">
+        <div class="item-3">
+            <div class="info_title">Others</div>
+            <a>Status : </a>
+            <a id="status"></a>
+            <br>
+            <a>Age Restricted : </a>
+            <a id="age_restricted"></a>
+        </div>
+    </div>
+
     <div class="flexbox-3">
         <div class="item-3">
             <div class="info_title">Writer information</div>
@@ -91,6 +103,8 @@
         </div>
     </div>
 
+
+
     <!--lastest edit-->
     <div class="flexbox-3">
         <div class="item-3">
@@ -99,11 +113,13 @@
             <a id="date_time"></a>
         </div>
     </div>
-    
+
+
     <div class="flexbox-3">
         <div class="item-3" style="text-align: center;">
             <div>
-                <button class="submit_button" onclick="displayBookEditAndNavigate(book_naame)">แก้ไขข้อมูลหนังสือ</button>
+                <button class="submit_button"
+                    onclick="displayBookEditAndNavigate(book_naame)">แก้ไขข้อมูลหนังสือ</button>
             </div>
         </div>
     </div>
@@ -166,7 +182,7 @@
                 console.log("bookInfo", bookInfo);
 
                 if (bookInfo) {
-                    const { genre, name, pseudonym, prologue, writer_name, date_time } = bookInfo;
+                    const { genre, name, pseudonym, prologue, writer_name, date_time, status, age_restricted } = bookInfo;
 
                     // Display book information in the HTML page
                     document.getElementById('genre').textContent = genre || '';
@@ -177,6 +193,9 @@
                     document.getElementById('date_time').textContent = date_time || '';
                     document.getElementById('pseudonymInfo').textContent = pseudonym || '';
                     document.getElementById('pseudonymDisplay').textContent = pseudonym || '';
+                    document.getElementById('status').textContent = status || '';
+                    document.getElementById('age_restricted').textContent = age_restricted || '';
+
 
 
                     const chapterDataUse = JSON.parse(sessionStorage.getItem('chapterData'));
