@@ -53,6 +53,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     margin: 2%;
+    padding-top: 8%;
 }
 
 .book_info_item {

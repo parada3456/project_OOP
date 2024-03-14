@@ -45,3 +45,11 @@ function back_to_book_info() {
     console.log("back to book")
     displayBookInfoAndNavigate(localStorage.getItem('book_name_edit_last'))
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const bookName = localStorage.getItem('book_name_edit_last');
+    showChapter(bookName);
+
+});

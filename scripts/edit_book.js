@@ -64,8 +64,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                     jsonData[key] = value;
                 });
                 
-                console.log("start fetch book edit")
-                const response = await fetch(`/edit_book/${jsonData.book_name}`, { // Corrected URL construction
+                console.log("start fetch book edit", jsonData.old_name)
+                
+                const response = await fetch(`/edit_book`, { 
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

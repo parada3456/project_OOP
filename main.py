@@ -58,12 +58,13 @@ write_a_read.add_writer(Mo)
 # Book( name, pseudonym, writer, genre, status, age_restricted, prologue)
 
 shin_chan_prologue = "Shin Chan is a 50-year-old boy"
+shinosuke_prologue = "Shinosuke is a 50-year-old boy"
 
 book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", False, shin_chan_prologue)
 Mo.add_writing_list(book1)
 print(book1.pseudonym)
 
-book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", True, shin_chan_prologue)
+book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", True, shinosuke_prologue)
 Mo.add_writing_list(book2)
 
 
@@ -73,6 +74,10 @@ chapter1 = Chapter("Shin_chan", "1", "first_ch", "this is the first chapter of s
 chapter2 = Chapter("Shin_chan", "2", "second_ch", "secooooooooooooooond chap", 104)
 book1.add_chapter_list(chapter1)
 book1.add_chapter_list(chapter2)
+chapter3 = Chapter("Shinosuke", "1", "first_Shinosuke", "this is the first chapter of Shinosuke", 22)
+chapter4 = Chapter("Shinosuke", "2", "second_Shinosuke", "secooooooooooooooond chap Shinosuke", 1)
+book2.add_chapter_list(chapter3)
+book2.add_chapter_list(chapter4)
 # chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment")
 
@@ -392,7 +397,7 @@ class dto_edit_book(BaseModel):
      
 @app.put("/edit_book", tags=['Book'])
 def EditBookInfo(dto : dto_edit_book):
-     book =  write_a_read.edit_book_info(dto.old_name,dto.new_name,dto.new_genre,dto.status,dto.age_restricted,dto.prologue)
+     book =  write_a_read.edit_book_info(dto.old_name, dto.new_name, dto.new_genre, dto.status, dto.age_restricted, dto.prologue)
      if isinstance(book,Book):
           return book
      else:

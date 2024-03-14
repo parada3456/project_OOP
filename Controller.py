@@ -306,25 +306,21 @@ class Controller:
         
     # ____________________________________Edit / Change___________________________________
             
-    def edit_book_info(self, old_name, new_name, pseudonym, add_tag_list, delete_tag_list, status, age_restricted, prologue):
+    def edit_book_info(self, old_name, new_name, genre, status, age_restricted, prologue):
         book = self.get_book_by_name(old_name)
         #เขียนดักไม่ให้ช้ำ
         if new_name:
             book.name = new_name
         #เขียนดักให้เพิ่ม pseudonym ก่อนถึงจะใช้ได้ หรือ เพิ่ม pseudonym เข้าลิสต์หลังใช้ new_pseudonym
-        if pseudonym:
-            book.pseudonym = pseudonym
-        if add_tag_list:
-            book.add_tag(add_tag_list)
-        if delete_tag_list:
-            book.delete_tag(delete_tag_list)
+        if genre:
+            book.genre = genre
         if status:
             book.status = status
         if age_restricted != book.age_restricted:
             book.age_restricted = age_restricted
         if prologue:
             book.prologue = prologue
-        book.date_time(0) #last edit
+        book.date_time = datetime.now() #last edit
         return {"Book updated" : book.show_book_info()}
             
     def edit_chapter_info(self, chapter_id, name=None, context=None, cost=None):
