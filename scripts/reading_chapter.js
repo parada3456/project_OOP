@@ -1,3 +1,5 @@
+const username = localStorage.getItem('login_username');
+
 function NavigateToChapterInfo(chapter_id) {
     console.log("start");
     fetch(`/chapter/info/${chapter_id}`)

@@ -1,26 +1,54 @@
 // script.js
-// book_display_img();
-// Function to display book information and navigate
-function displayPreEditBookAndNavigate(bookName) {
-    console.log("start");
-    console.log("bookName : ",bookName)
-    fetch(`/book/${bookName}`)
+// username_use = localStorage.getItem("username")
+var username_use = "Pinttttt";
+function check_writer(book_name){
+    fetch(`/check_writer/${username_use}`)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to fetch book information');
+                throw new Error('Failed to fetch check writer ');
             }
             return response.json();
         })
         .then(data => {
-            sessionStorage.setItem('bookInfo', JSON.stringify(data));
-            localStorage.setItem('book_name_edit_last', bookName);
-            console.log(localStorage.getItem('book_name_edit_last'));
-            console.log("book_namee",bookName)
-            window.location.href = "pre_edit_book.html";
+            console.log(data)
+            console.log("data.message: ",data.role);
+            if (data.role == "writer"){
+                displayPreEditBookAndNavigate(book_name);
+            }
+            else if (data.role == "reader"){
+                console.log("navigate_to_not_writer_page");
+                navigate_to_not_writer_page();
+            }
         })
         .catch(error => {
-            console.error('Error fetching book information:', error);
+            console.error('Error fetching check writer :', error);
         });
+}
+function navigate_to_not_writer_page(){
+    console.log("go to not_writer.html");
+    window.location.href = "not_writer.html";
+}
+// Function to display book information and navigate
+function displayPreEditBookAndNavigate(bookName) {
+        console.log("start");
+        console.log("bookName : ",bookName)
+        fetch(`/book/${bookName}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch book information');
+                }
+                return response.json();
+            })
+            .then(data => {
+                sessionStorage.setItem('bookInfo', JSON.stringify(data));
+                localStorage.setItem('book_name_edit_last', bookName);
+                console.log(localStorage.getItem('book_name_edit_last'));
+                console.log("book_namee",bookName);
+                window.location.href = "pre_edit_book.html";
+            })
+            .catch(error => {
+                console.error('Error fetching book information:', error);
+            });
 }
 
 function showChapter(book_name) {

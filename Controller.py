@@ -454,3 +454,12 @@ class Controller:
                 book.status = "hiding"
                 return f"this book has been reported 10 times in {report_type}"
         return "this book has been reported less than 10 times"
+    
+    def check_user_role(self, username):
+        user = self.get_user_by_username(username)
+        if isinstance(user,Writer):
+            return "writer"
+        elif isinstance(user,Reader):
+            return "reader"
+        else:
+            return "Not found user"

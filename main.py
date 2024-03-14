@@ -47,11 +47,10 @@ app.mount("/scripts", StaticFiles(directory="scripts"), name="scripts")
 #WriteARead.add_reader(Reader("username", "password", "dd/mm/yyyy"))
      
 Mo = Writer("Mozaza", "12345678", "12/05/2000")
-write_a_read.add_reader(Mo)
 write_a_read.add_reader(Reader("Pinttttt", "sawasdee", "01/01/2005"))
 write_a_read.add_reader(Reader("Pangrum", "ehehe", "02/01/2005"))
 write_a_read.add_reader(Reader("Jueeen", "whippedcream", "12/11/2004"))
-
+write_a_read.add_writer(Writer("boss", "00112233", "02/01/2004"))
 write_a_read.add_writer(Mo)
 
 #----------------------------------create books----------------------------------
@@ -431,6 +430,12 @@ print("\n\n")
 print("editChapter :",write_a_read.edit_chapter_info("Shin_chan-1", "Mozaza", "too old", '12'))
 
 print("\n")
+
+@app.get("/check_writer/{username}")
+def checkWriter(username:str):
+     print(write_a_read.check_user_role(username))
+     return {"role": write_a_read.check_user_role(username)}
+
 # _________________________________________________ TEST _________________________________________________
 # mo_username = "Mozaza"
 # mo_password = "namchakeawpun"

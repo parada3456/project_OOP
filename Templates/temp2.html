@@ -23,21 +23,10 @@
 <body>
     <div id="temp2"></div>
     <div class="item">
-        <a onclick="displayPreEditBookAndNavigate('Shin_chan')">Shin_chan pre edit</a>
+        <a onclick="check_writer('Shin_chan')">Shin_chan pre edit</a>
     </div>
     <script>
-        // Retrieve book information from sessionStorage
-        const bookInfo = JSON.parse(sessionStorage.getItem('bookInfo'));
-        if (bookInfo) {
-            // Display book information in the HTML page
-            const bookInfoDiv = document.getElementById('book-info');
-            bookInfoDiv.innerHTML = `
-                <p>Name: ${bookInfo.name}</p>
-                <p>Author: ${bookInfo.author}</p>
-                <p>Genre: ${bookInfo.genre}</p>
-                <p>Summary: ${bookInfo.summary}</p>
-            `;
-        }
+        
     </script>
 </body>
 </html>
