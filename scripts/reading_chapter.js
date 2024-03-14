@@ -71,3 +71,9 @@ document.addEventListener('DOMContentLoaded', function () {
     showComment(bookName);
 
 });
+
+function back_to_book_info() {
+    console.log("back to book")
+    localStorage.removeItem("chapter_id_read_last")
+    displayBookInfoAndNavigate(localStorage.getItem('book_name_last'))
+}
