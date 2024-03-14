@@ -1,11 +1,10 @@
 function displayChapterEditAndNavigate(chapter_id) {
-    localStorage.setItem('chapter_id', chapter_id)
+    localStorage.setItem('chapter_id_last', chapter_id)
     window.location.href = "edit_chap_temp.html";
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
     const editChapterForm = document.getElementById('editChapterForm');
-    const responseDiv = document.getElementById('response');
     const chapterIdInput = document.getElementById('chapter_id');
     const chapterNumberInput = document.getElementById('chapter_number');
     const nameInput = document.getElementById('name');
@@ -14,7 +13,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     try {
         // Retrieve existing chapter information from the server
-        const chapterId = localStorage.getItem('chapter_id'); // Provide the chapter ID you want to edit
+        // const chapterId = 'Shin_chan-1'
+        const chapterId = localStorage.getItem('chapter_id_last'); 
         console.log(chapterId);
         const response = await fetch(`/chapter/info/${chapterId}`);
         if (!response.ok) {
@@ -61,13 +61,19 @@ document.addEventListener('DOMContentLoaded', async function () {
                     console.log("data.value:", data.message)
                     response.innerText = data.message;
                 }
-                go_to_chapter_info();
+                go_to_pre_edit_book();
             } catch (error) {
                 console.error('Error editing chapter:', error);
             }
         });
     }
 });
+function go_to_pre_edit_book() {
+    const book_name = localStorage.getItem("book_name_last")
+    // const chapterId = "Shin_chan-1"
+    displayPreEditBookAndNavigate(book_name)
+}
+
 function go_to_chapter_info() {
     // const chapterId = localStorage.getItem("chapter_name_last")
     const chapterId = "Shin_chan-1"

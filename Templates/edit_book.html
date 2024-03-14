@@ -3,6 +3,7 @@
 
 <head>
     
+    <title>Edit Book Info</title>
     <link rel="stylesheet" type="text/css" href="/static/create_chapter.css">
     <link rel="stylesheet" type="text/css" href="/static/payment_style.css">
     <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
@@ -16,9 +17,8 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Chapter Info</title>
 
-    <script src="../scripts/edit_chap_temp.js"></script>
+    <script src="../scripts/edit_book.js"></script>
     <script src="../scripts/reading_chapter.js"></script>
  
 </head>
@@ -43,37 +43,37 @@
         </div>
     </div>
 
-    <h1 class="first_payment_title">รายตอน</h1>
-<!-- 
-    <div class=""> -->
+    <h1 class="first_payment_title">รายตอน</h1> 
+    <!-- old_name : str = None
+     new_name : str = None
+     new_genre: str = None
+     prologue: str = None
+     age_restricted: bool = None
+     status: str = None -->
     <form id="editBookForm">
-        <div class="form-group">
-            <label for="chapter_number" class="pangcreate_chap_label">บทที่</label>
-            <input type="number" id="chapter_number" name="chapter_number" class="pangfill_box1" placeholder="บทที่" required>
+        <input type="hidden" id="old_name" name="old_name"> 
+        <h1 class="pangcreate_chap_label">บทที่</h1>
+        <input class="pangfill_box1" type="number" id="name" name="new_name" placeholder="บทที่" required>
+        <h1 class="pangcreate_chap_label">ชื่อตอน</h1>
+        <input class="pangfill_box2" type="text" id="name" name="new_genre" required>
+        <h1 class="pangcreate_chap_label">เนื้อหา</h1>
+        <textarea class="pangcontent_box" id="context" name="prologue" rows="4" cols="50" placeholder="เริ่มต้นเรื่องราวของคุณ" required></textarea>
+        <h1 class="pangcreate_chap_label">age_restricted</h1>
+        <select id="age_restricted" name="age_restricted" class="pangfill_box2">
+            <option value="True" class="input_box">Yes</option>
+            <option value="False" class="input_box">No</option>
+        </select>
+        <h1 class="pangcreate_chap_label">Status</h1>
+        <select id="age_restricted" name="age_restricted" class="pangfill_box2">
+            <option value="publish" class="input_box">Publish</option>
+            <option value="hidden" class="input_box">Hidden</option>
+        </select>
+        <div class="final_button" style="padding-bottom: 5px;" >
+            <button class="submit_button" type="submit">ยืนยัน</button> 
         </div>
-
-        <div class="form-group">
-            <label for="name" class="pangcreate_chap_label">ชื่อตอน</label>
-            <input type="text" id="name" name="name" class="pangfill_box2" required>
-        </div>
-
-        <div class="form-group">
-            <label for="context" class="pangcreate_chap_label">เนื้อหา</label>
-            <textarea id="context" name="context" class="pangcontent_box" rows="4" cols="50" placeholder="เริ่มต้นเรื่องราวของคุณ" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="cost" class="pangcreate_chap_label">ราคา</label>
-            <input type="number" id="cost" name="cost" class="pangfill_box3" placeholder="ราคา" value="0">
-        </div>
-
-        <div class="final_button">
-            <button type="submit" class="submit_button">ยืนยัน</button>
-        </div>
-
     </form>
     <div class="final_button" style="padding-top: 0;">
-        <button class="cancel_button" onclick="cancel_button()" type="submit">ยกเลิก</button>
+        <button class="cancel_button" onclick="go_to_pre_edit_book()" type="submit">ยกเลิก</button>
     </div>
 
     <div class="flexbox-3">
@@ -103,9 +103,9 @@
             <p class="footer_menu_text">© 2024 - 2024 Teletubbies Book Center | All Rights Reserved.</p>
         </div>
     </footer>
+    <script>
+        const book_name = localStorage.getItem('book_name_last')
+    </script>
 
-
-    
 </body>
-<!-- page/edit_chap_temp.html -->
 </html>

@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>BookInfo</title>
+    <!-- Include your CSS and other meta tags here -->
     <meta charset="UTF-8">
-    <title>Temp2 Page</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/header_footer.css">
+    <link rel="stylesheet" type="text/css" href="/static/bookstyle.css">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../scripts/book_info.js"></script>
+    <script src="../scripts/reading_chapter.js"></script>
+    <script src="../scripts/pre_edit_book.js"></script>
+
 </head>
 <body>
-    <div id="book-info"></div>
-
-    <script src="book_info.js"></script>
+    <div id="temp2"></div>
+    <div class="item">
+        <a onclick="displayPreEditBookAndNavigate('Shin_chan')">Shin_chan pre edit</a>
+    </div>
     <script>
         // Retrieve book information from sessionStorage
         const bookInfo = JSON.parse(sessionStorage.getItem('bookInfo'));

@@ -1,35 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('addChapterButton').addEventListener('click', function() {
-        window.location.href = "create_chapter.html"; 
-    });
+// script.js
+// book_display_img();
+// Function to display book information and navigate
+function displayPreEditBookAndNavigate(bookName) {
+    console.log("start");
+    console.log("bookName : ",bookName)
+    fetch(`/book/${bookName}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch book information');
+            }
+            return response.json();
+        })
+        .then(data => {
+            sessionStorage.setItem('bookInfo', JSON.stringify(data));
+            localStorage.setItem('book_name_edit_last', bookName);
+            console.log(localStorage.getItem('book_name_edit_last'));
+            console.log("book_namee",bookName)
+            window.location.href = "pre_edit_book.html";
+        })
+        .catch(error => {
+            console.error('Error fetching book information:', error);
+        });
+}
 
-    function displayPreEditChapterAndNavigate(bookName) {
-        console.log("start");
+function showChapter(book_name) {
+    console.log(`Fetching chapter for book ${book_name}...`);
+    fetch(`/book/chapter/${book_name}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch chapter for chapter ${book_name}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(`Received chapter for book ${book_name}:`, data);
+            sessionStorage.setItem('chapterData', JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error('Error fetching chapters:', error);
+        });
+}
 
-        fetch(`/book/${bookName}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log("oooo")
-                sessionStorage.setItem('PreEditChapter', JSON.stringify(data));
-
-                const PreEditChapter = JSON.parse(sessionStorage.getItem('PreEditChapter'));
-
-                console.log("Retrieved book information:", data);
-
-                if (PreEditChapter && PreEditChapter.genre && PreEditChapter.name && PreEditChapter.pseudonym && PreEditChapter.prologue && PreEditChapter.writer_name && bookInfo.date_time) {
-
-                    document.getElementById('genre').textContent = PreEditChapter.genre;
-                    document.getElementById('bookName').textContent = PreEditChapter.name;
-                    document.getElementById('prologueInfo').textContent = PreEditChapter.prologue;
-                    document.getElementById('prologueDisplay').textContent = PreEditChapter.prologue;
-                    document.getElementById('pseudonymInfo').textContent = PreEditChapter.pseudonym;
-                    document.getElementById('pseudonymDisplay').textContent = PreEditChapter.pseudonym;
-                    document.getElementById('writer_username').textContent = PreEditChapter.writer_name;
-                    document.getElementById('date_time').textContent = PreEditChapter.date_time;
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-});
+function back_to_book_info() {
+    console.log("back to book")
+    displayBookInfoAndNavigate(localStorage.getItem('book_name_edit_last'))
+}
