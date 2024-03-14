@@ -112,19 +112,15 @@ class Book:
         if isinstance(report, Report):
             self.__report_list.append(report)
             
-    # def add_report_list(self, report):
-    #     self.report_list.append(report)
-    #     self.counting_date_time = datetime.now()
-    
 
-    # def counting_report_from_type(self):
-    #     report_count=0
-    #     for report in self.__report_list:
-    #         for report_type in write_a_read.report_type_list:
-    #             if report_count == 10:
-    #                 break
-    #             if report.report_type == report_type:
-    #                 report_count+=1
+    def counting_report_from_type(self,report_type_to_count):
+        report_count=0
+        for report in self.__report_list:
+            if report_count == 10:
+                break
+            if report.report_type == report_type_to_count:
+                report_count+=1
+
 
     def delete_report(self, report):
         if report in self.report_list:
@@ -139,18 +135,21 @@ class Book:
     
     def show_age_restricted(self):
         if self.__age_restricted:
-            return "/"
-        return "X"
+            return "true"
+        return "false"
     
-    def show_book_info(self):
-        return {"name" : self.__name,
-                "pseudonym" : self.__pseudonym,
-                "genre" : self.__genre,
-                "status" : self.status,
-                "prologue" : self.prologue,
-                "age_retricted" : self.show_age_restricted(),
-                "chapter_count" : self.chapter_count,
-                "comments" : self.show_comment_list()}
+    def show_book_info(self,writer):
+        if self.status.lower() == "publishing" or writer == self.writer:
+            return {"name" : self.__name,
+                    "pseudonym" : self.__pseudonym,
+                    "genre" : self.__genre,
+                    "status" : self.__status,
+                    "prologue" : self.prologue,
+                    "age_retricted" : self.show_age_restricted(),
+                    "chapter_count" : self.chapter_count,
+                    "comments" : self.show_comment_list()}
+        else:
+            return "This book is not publishing"
         
     def show_comment_list(self):
         comment_list = []
@@ -163,3 +162,9 @@ class Book:
         for chapter in self.__chapter_list:
             chapter_list.append(chapter.show_chapter_briefly())
         return chapter_list
+    
+    def show_report_list(self):
+        report_list = []
+        for report in self.__report_list:
+            report_list.append(report.show_report())
+        return report_list

@@ -155,6 +155,7 @@ async def get_chapter_info(chapter_id: str):
 def searchBook(book_name:str):
      return {"Book": write_a_read.search_book_by_name(book_name)}
 
+
 @app.get("/username", tags=['search bar'])
 def SearchUser(username:str):
      return {"user": write_a_read.search_user(username)}
@@ -216,7 +217,7 @@ def show_comment_list(chapter_id:str):
      if isinstance(chapter,Chapter):
           return chapter.show_comment_list()
      elif isinstance(chapter,Book):
-            return chapter.show_comment_list()
+          return chapter.show_comment_list()
      else:
           return chapter
      
@@ -333,11 +334,18 @@ def CreateReport(dto : dto_create_report):
      if isinstance(report,Report):
           return {"massage":"report successfully"}
      else :
-          raise HTTPException(status_code=404, detail="Error creating report")
+          return {"massage" : "! Cannot create report !"}
 
-
-report11=write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
+print("------------------------------------------------------------------------------------------report")
+report11 = write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
+print(write_a_read.show_all_report("Shin_chan"))
 print("report :",report11)
+# print(report11.show_report())
+
+@app.get("/report/{book_name}" )
+def allReport(book_name:str):
+     return write_a_read.show_all_report(book_name)
+
 #..........................................................................................................
 class dto_buy_coin(BaseModel):
      username:str
@@ -389,6 +397,7 @@ def ChangeDisplayName(dto : dto_change_display_name):
 
 class dto_edit_book(BaseModel):
      old_name : str = None
+     writer_name : str = None
      new_name : str = None
      new_genre: str = None
      prologue: str = None
@@ -397,7 +406,7 @@ class dto_edit_book(BaseModel):
      
 @app.put("/edit_book", tags=['Book'])
 def EditBookInfo(dto : dto_edit_book):
-     book =  write_a_read.edit_book_info(dto.old_name, dto.new_name, dto.new_genre, dto.status, dto.age_restricted, dto.prologue)
+     book =  write_a_read.edit_book_info(dto.old_name, dto.writer_name, dto.new_name, dto.new_genre, dto.status, dto.age_restricted, dto.prologue)
      if isinstance(book,Book):
           return book
      else:

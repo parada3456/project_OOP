@@ -64,6 +64,10 @@ class Controller:
             if book.name == book_name:
                 return book
         return "Book Not Found"
+    
+    def show_all_report(self,book_name):
+        book = self.get_book_by_name(book_name)
+        return book.show_report_list()
                 
     def get_user_by_username(self, username):
         for reader in self.__reader_list:
@@ -280,10 +284,12 @@ class Controller:
     def create_report(self,book_name, username, report_type, context):
         user = self.get_user_by_username(username)
         book = self.get_book_by_name(book_name)
+        # print(book,user)
         if isinstance(book,Book) and (isinstance(user,Reader) or isinstance(user,Writer)) and report_type in self.report_type_list:
-                new_report = Report(type,report_type, user, context)
-                book.add_report_list(new_report)
-                return new_report
+            new_report = Report(book,user,report_type, context)
+            book.add_report_list(new_report)
+            # print("new_report: ",new_report.book,new_report.user,new_report.report_type)
+            return new_report
         else:
             return {"report": "please try again"}
         
@@ -307,22 +313,24 @@ class Controller:
         
     # ____________________________________Edit / Change___________________________________
             
-    def edit_book_info(self, old_name, new_name, genre, status, age_restricted, prologue):
+    def edit_book_info(self, old_name, writer_name, new_name, genre, status, age_restricted, prologue):
         book = self.get_book_by_name(old_name)
+        writer = self.get_user_by_username(writer_name)
         #เขียนดักไม่ให้ช้ำ
-        if new_name:
-            book.name = new_name
-        #เขียนดักให้เพิ่ม pseudonym ก่อนถึงจะใช้ได้ หรือ เพิ่ม pseudonym เข้าลิสต์หลังใช้ new_pseudonym
-        if genre:
-            book.genre = genre
-        if status:
-            book.status = status
-        if age_restricted != book.age_restricted:
-            book.age_restricted = age_restricted
-        if prologue:
-            book.prologue = prologue
-        book.date_time = datetime.now() #last edit
-        return {"Book updated" : book.show_book_info()}
+        if writer == book.writer:
+            if new_name:
+                book.name = new_name
+            #เขียนดักให้เพิ่ม pseudonym ก่อนถึงจะใช้ได้ หรือ เพิ่ม pseudonym เข้าลิสต์หลังใช้ new_pseudonym
+            if genre:
+                book.genre = genre
+            if status:
+                book.status = status
+            if age_restricted != book.age_restricted:
+                book.age_restricted = age_restricted
+            if prologue:
+                book.prologue = prologue
+            book.date_time = datetime.now() #last edit
+            return {"Book updated" : book.show_book_info(writer)}
             
     def edit_chapter_info(self, chapter_id, name=None, context=None, cost=None):
         chapter = self.get_chapter_by_chapter_id(chapter_id)
@@ -438,9 +446,11 @@ class Controller:
     
     # ____________________________________Error____________________________________
     
-    # def counting_report(self, book):
-    #     for report_type in self.__report_type_list:
-    #         if book.counting_report_from_type(report_type) in self.__report_type_list:
-    #             #send to web master
-    #             book.status = "hiding"
-    #             return f"your book has been reported 10 times in {report_type}"
+    def counting_report(self, book_name):
+        book = self.get_book_by_name(book_name)
+        for report_type in self.__report_type_list:
+            if book.counting_report_from_type(report_type) >= 10:
+                #send to web master
+                book.status = "hiding"
+                return f"this book has been reported 10 times in {report_type}"
+        return "this book has been reported less than 10 times"

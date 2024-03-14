@@ -24,3 +24,10 @@ class Report:
     @property
     def date_time(self):
         return f"{self.__date_time.strftime("%x")} {self.__date_time.strftime("%X")}"
+    
+    def show_report(self):
+        return {"book_name" : self.book.name,
+                "user" : self.user.username,
+                "report_type" : self.report_type,
+                "date_time" : self.date_time,
+                "context" : self.context}
