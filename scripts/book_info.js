@@ -1,8 +1,9 @@
 // script.js
 // book_display_img();
+
 // Function to display book information and navigate
 function displayBookInfoAndNavigate(bookName) {
-    console.log("start");
+    console.log("start",bookName);
     fetch(`/book/${bookName}`)
         .then(response => {
             if (!response.ok) {
@@ -51,6 +52,7 @@ function showComment(chapter_id) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const bookName = localStorage.getItem('book_name_last');
     const commentForm = document.getElementById('commentForm');
     const commentResponse = document.getElementById('comment_response');
 
@@ -88,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
+    showChapter(bookName);
+    showComment(bookName);
 
 });
 

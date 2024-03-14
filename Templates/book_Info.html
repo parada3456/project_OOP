@@ -166,8 +166,7 @@
     <br>
 
     <script>
-        const book_naame = localStorage.getItem('book_name_last')
-        console.log(book_naame)
+        const book_naame = localStorage.getItem('book_name_last');
         document.getElementById('book_cover_img').src = `assets/covers_img/${book_naame}.png`;
         console.log("bookname", localStorage.getItem('book_name_last'))
         console.log("username", localStorage.getItem('login_username'))
