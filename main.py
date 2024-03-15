@@ -77,17 +77,8 @@ chapter3 = Chapter("Shinosuke", "1", "first_Shinosuke", "this is the first chapt
 chapter4 = Chapter("Shinosuke", "2", "second_Shinosuke", "secooooooooooooooond chap Shinosuke", 1)
 book2.add_chapter_list(chapter3)
 book2.add_chapter_list(chapter4)
-# chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
-write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment")
-write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
-write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kid')
-write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid ks')
-write_a_read.create_report('Shin_chan','Mozaza','violence','old man kids')
-write_a_read.create_report('Shin_chan','Mozaza','violence','old maid kids')
-write_a_read.create_report('Shin_chan','Mozaza','violence','old n kid kids')
-write_a_read.create_report('Shin_chan','Mozaza','violence','o man kid sdvdsvkids')
-write_a_read.create_report('Shin_chan','Mozaza','violence','oldman ksdvdvdewid kids')
-# write_a_read.create_report('Shin_chan','Mozaza','violence','oldman sdvsdvvdskid ksdds')
+
+print(write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment"))
 
 
 #----------------------------------create promotions----------------------------------
@@ -145,12 +136,7 @@ print("2",{"name":b.name, "pseudonym":b.pseudonym, "genre":b.genre, "status":b.s
 # -----------------------------------------------------------------------------------------------
 @app.get("/chapter/info/{chapter_id}")
 async def get_chapter_info(chapter_id: str):
-     chapter =write_a_read.get_chapter_by_chapter_id(chapter_id)
-     print("chapterrrrrrrrrrrrrrrrrrrrr_id", chapter_id)
-     if isinstance(chapter, Chapter):
-          return chapter.show_chapter_info()
-     else:
-          raise HTTPException(status_code=404, detail="Chapter not found")
+     return write_a_read.show_chapter_info
 
 # -------------------------------------------------------------------------------------------------------
 
@@ -216,26 +202,16 @@ print(write_a_read.show_all_book_list())
 # ----------------------------------------------comment list---------------------------------------------------------------
 @app.get("/chapter/comment/{chapter_id}", tags=['chapter'])
 def show_comment_list(chapter_id:str):
-     chapter = write_a_read.get_chapter_by_chapter_id(chapter_id)
-     if isinstance(chapter,Chapter):
-          return chapter.show_comment_list()
-     elif isinstance(chapter,Book):
-          return chapter.show_comment_list()
-     else:
-          return chapter
+     return write_a_read.show_comment_list(chapter_id)
      
 print("-------------------------------------")
-chapter236 = write_a_read.get_chapter_by_chapter_id("Shin_chan")
+chapter236 = write_a_read.get_chapter_by_chapter_id_or_book("Shin_chan")
 print("show_comment_list",chapter236.show_comment_list() )
-print("fi",(write_a_read.get_chapter_by_chapter_id("Shin_chan")).show_comment_list())
+print("fi",(write_a_read.get_chapter_by_chapter_id_or_book("Shin_chan")).show_comment_list())
 # -------------------------------------------------------------------------------------------------------------------
 @app.get("/book/chapter/{book_name}", tags=['book'])
 def show_chapter_list(book_name:str):
-     book = write_a_read.get_book_by_name(book_name)
-     if isinstance(book,Book):
-          return book.show_chapter_list()
-     else:
-          return {"message" : "error"}
+     return write_a_read.show_chapter_list_in_book(book_name)
 
 @app.get('/', response_class=HTMLResponse)
 def main(request: Request):
@@ -310,15 +286,8 @@ class dto_create_comment(BaseModel):
      
 @app.post("/comment/{chapter_id}", tags=['Comment'])
 def CreateComment(dto: dto_create_comment):
-     comment = write_a_read.create_comment(dto.chapter_id, dto.username, dto.context)
-     if isinstance(comment,Comment):
-          print("yes")
-          # "message": "Comment created successfully", 
-          return comment.show_comment()
+     return write_a_read.create_comment(dto.chapter_id, dto.username, dto.context)
      
-     else:
-          print("no")
-          raise HTTPException(status_code=404, detail="Error creating comment")
      
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "55555")
 chapter111 = write_a_read.get_chapter_by_chapter_id("Shin_chan-1")
@@ -333,11 +302,7 @@ class dto_create_report(BaseModel):
      
 @app.post("/report/{book_name}", tags=['report'])
 def CreateReport(dto : dto_create_report):
-     report = write_a_read.create_report(dto.book_name, dto.username, dto.report_type, dto.context)
-     if isinstance(report,Report):
-          return {"massage":"report successfully"}
-     else :
-          return {"massage" : "! Cannot create report !"}
+     return write_a_read.create_report(dto.book_name, dto.username, dto.report_type, dto.context)
 
 print("------------------------------------------------------------------------------------------report")
 report11 = write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')

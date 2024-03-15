@@ -79,17 +79,20 @@ class Controller:
                 return writer
             
         return "User Not Found"
-    
     def get_chapter_by_chapter_id(self, chapter_id):
+        for book in self.all_book_list:
+            for chapter in book.chapter_list:
+                if chapter.chapter_id == chapter_id:
+                    return chapter
+        return "Chapter Not Found"
+    
+    def get_chapter_by_chapter_id_or_book(self, chapter_id):
         if "-" in chapter_id:
-            for book in self.all_book_list:
-                for chapter in book.chapter_list:
-                    if chapter.chapter_id == chapter_id:
-                        return chapter
+            return self.get_chapter_by_chapter_id(chapter_id)
         elif isinstance(self.get_book_by_name(chapter_id),Book):
             return self.get_book_by_name(chapter_id)
         else:
-            return {"message":"Chapter Not Found"}
+            return {"message":"Chapter/Book Not Found"}
         
     
     # def get_all_comment
@@ -144,6 +147,28 @@ class Controller:
     def show_book_shelf(self,username):
         user = self.get_user_by_username(username)
         return user.show_book_shelf(self.__report_type_list)
+    
+    def show_chapter_info(self,chapter_id):
+        chapter = self.get_chapter_by_chapter_id_or_book(chapter_id)
+        print("chapterrrrrrrrrrrrrrrrrrrrr_id", chapter_id)
+        if isinstance(chapter, Chapter):
+            return chapter.show_chapter_info()
+        else:
+            raise {"message" : "chapter not found"}
+    
+    def show_comment_list(self,chapter_id):
+        chapter_or_book = self.get_chapter_by_chapter_id_or_book(chapter_id)
+        if isinstance(chapter_or_book,Chapter) or isinstance(chapter_or_book,Book):
+            return chapter_or_book.show_comment_list()
+        else:
+            return chapter_or_book
+        
+    def show_chapter_list_in_book(self,book_name):
+        book = self.get_book_by_name(book_name)
+        if isinstance(book,Book):
+            return book.show_chapter_list()
+        else:
+            return {"message" : "Wrong book name"}
 
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> UI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     # ____________________________________Search___________________________________
@@ -281,25 +306,28 @@ class Controller:
         print(chapter_id,username,context)
         chapter = self.get_chapter_by_chapter_id(chapter_id)
         user = self.get_user_by_username(username)
-        if isinstance(chapter, Chapter):
+        if isinstance(chapter, Chapter) and isinstance(user, Reader):
             new_comment = Comment(chapter, user, context)
             book = self.get_book_by_chapter_id(chapter_id)
             book.add_comment_list(new_comment)
             chapter.add_comment(new_comment)
-            return new_comment
+            print("comment create")
+            return new_comment.show_comment()
         else:
+            print("No comment create")
             return {"Comment": "please try again"}
+        
         
     def create_report(self,book_name, username, report_type, context):
         user = self.get_user_by_username(username)
         book = self.get_book_by_name(book_name)
         # print(book,user)
-        if isinstance(book,Book) and (isinstance(user,Reader) or isinstance(user,Writer)) and report_type in self.report_type_list:
+        if isinstance(book,Book) and isinstance(user,Reader) and report_type in self.report_type_list:
             new_report = Report(book,user,report_type, context)
             book.add_report_list(new_report)
-            return new_report
+            return {"massage":"report successfully"}
         else:
-            return {"report": "please try again"}
+            return {"massage" : "! Cannot create report !"}
         
     # อันนี้ไว้ทำไรอะ
     # รับ username มาด้วยดีมั้ย แล้วเพิ่มpaymentmethodไว้ในuserแต่ละคน  
