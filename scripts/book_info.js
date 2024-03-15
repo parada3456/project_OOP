@@ -15,7 +15,7 @@ function displayBookInfoAndNavigate(bookName) {
         })
         .then(data => {
             console.log("message:" ,data.message)
-            if (data.message == "This book is publishing") {
+            if (data.message == "This book is publishing or You are a writer"){
                 sessionStorage.setItem('bookInfo', JSON.stringify(data));
                 localStorage.setItem('book_name_last', bookName);
                 console.log(localStorage.getItem('book_name_last'));

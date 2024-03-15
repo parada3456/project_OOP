@@ -113,13 +113,18 @@ class Book:
             self.__report_list.append(report)
             
 
-    def counting_report_from_type(self,report_type_to_count):
-        report_count=0
-        for report in self.__report_list:
-            if report_count == 10:
-                break
-            if report.report_type == report_type_to_count:
-                report_count+=1
+    def counting_report(self,report_type_list):
+        # count_report_list =[]
+        for report_type in report_type_list:
+            report_count = 0
+            for report in self.__report_list:
+                if report_count == 10:
+                    self.status = "hiding"
+                elif report.report_type == report_type:
+                    report_count += 1
+                    print("report_count",report_count)
+            # count_report_list.append(report_count)
+        # return count_report_list
 
 
     def delete_report(self, report):
@@ -138,7 +143,8 @@ class Book:
             return "true"
         return "false"
     
-    def show_book_info(self,writer):
+    def show_book_info(self,writer,report_type_list):
+        self.counting_report(report_type_list)
         if self.status.lower() == "publishing" or writer == self.__writer:
             return {"name" : self.__name,
                     "pseudonym" : self.__pseudonym,
@@ -148,7 +154,7 @@ class Book:
                     "age_retricted" : self.show_age_restricted(),
                     "chapter_count" : self.chapter_count,
                     "comments" : self.show_comment_list(),
-                    "message" : "This book is publishing" }
+                    "message" : "This book is publishing or You are a writer" }
         else:
             return {"message": "This book is not publishing"}
         

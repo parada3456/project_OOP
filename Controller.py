@@ -135,7 +135,16 @@ class Controller:
             return True
         return False
     
+    def add_book_list(self,username,book_name):
+        print("add book controller",book_name)
+        user = self.get_user_by_username(username)
+        book = self.get_book_by_name(book_name)
+        return user.add_book_shelf_list(book)
     
+    def show_book_shelf(self,username):
+        user = self.get_user_by_username(username)
+        return user.show_book_shelf(self.__report_type_list)
+
     #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> UI <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     # ____________________________________Search___________________________________
         
@@ -288,7 +297,6 @@ class Controller:
         if isinstance(book,Book) and (isinstance(user,Reader) or isinstance(user,Writer)) and report_type in self.report_type_list:
             new_report = Report(book,user,report_type, context)
             book.add_report_list(new_report)
-            # print("new_report: ",new_report.book,new_report.user,new_report.report_type)
             return new_report
         else:
             return {"report": "please try again"}
@@ -317,20 +325,23 @@ class Controller:
         book = self.get_book_by_name(old_name)
         writer = self.get_user_by_username(writer_name)
         #เขียนดักไม่ให้ช้ำ
-        if writer == book.writer:
-            if new_name:
-                book.name = new_name
-            #เขียนดักให้เพิ่ม pseudonym ก่อนถึงจะใช้ได้ หรือ เพิ่ม pseudonym เข้าลิสต์หลังใช้ new_pseudonym
-            if genre:
-                book.genre = genre
-            if status:
-                book.status = status
-            if age_restricted != book.age_restricted:
-                book.age_restricted = age_restricted
-            if prologue:
-                book.prologue = prologue
-            book.date_time = datetime.now() #last edit
-            return {"Book updated" : book.show_book_info(writer)}
+        if isinstance(book,Book):
+            if writer == book.writer:
+                if new_name:
+                    book.name = new_name
+                #เขียนดักให้เพิ่ม pseudonym ก่อนถึงจะใช้ได้ หรือ เพิ่ม pseudonym เข้าลิสต์หลังใช้ new_pseudonym
+                if genre:
+                    book.genre = genre
+                if status:
+                    book.status = status
+                if age_restricted != book.age_restricted:
+                    book.age_restricted = age_restricted
+                if prologue:
+                    book.prologue = prologue
+                book.date_time = datetime.now() #last edit
+                return {"Book updated" : book.show_book_info(writer)}
+        else:
+            {"error" : "Book not found"}
             
     def edit_chapter_info(self, chapter_id, name=None, context=None, cost=None):
         chapter = self.get_chapter_by_chapter_id(chapter_id)
@@ -435,7 +446,7 @@ class Controller:
         book = self.get_book_by_name(book_name)
         writer = self.get_user_by_username(writer_name)
         if isinstance(book,Book):
-            return book.show_book_info(writer)
+            return book.show_book_info(writer,self.__report_type_list)
     
     # ____________________________________others___________________________________    
     
@@ -448,14 +459,14 @@ class Controller:
     
     # ____________________________________Error____________________________________
     
-    def counting_report(self, book_name):
-        book = self.get_book_by_name(book_name)
-        for report_type in self.__report_type_list:
-            if book.counting_report_from_type(report_type) >= 10:
-                #send to web master
-                book.status = "hiding"
-                return f"this book has been reported 10 times in {report_type}"
-        return "this book has been reported less than 10 times"
+    # def counting_report(self, book_name):
+    #     book = self.get_book_by_name(book_name)
+    #     for report_type in self.__report_type_list:
+    #         if book.counting_report_from_type(report_type) >= 10:
+    #             #send to web master
+    #             book.status = "hiding"
+    #             return f"this book has been reported 10 times in {report_type}"
+    #     return "this book has been reported less than 10 times"
     
     def check_user_role(self, username):
         user = self.get_user_by_username(username)

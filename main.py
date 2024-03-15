@@ -63,7 +63,7 @@ book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 
 Mo.add_writing_list(book1)
 print(book1.pseudonym)
 
-book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "hiding", True, shinosuke_prologue)
+book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", True, shinosuke_prologue)
 Mo.add_writing_list(book2)
 
 
@@ -79,6 +79,15 @@ book2.add_chapter_list(chapter3)
 book2.add_chapter_list(chapter4)
 # chapter1.writecreate_comment("Shin_chan-1", Mo, "first comment"))
 write_a_read.create_comment("Shin_chan-1", "Mozaza", "first comment")
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kid')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid ks')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old maid kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old n kid kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','o man kid sdvdsvkids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','oldman ksdvdvdewid kids')
+# write_a_read.create_report('Shin_chan','Mozaza','violence','oldman sdvsdvvdskid ksdds')
 
 
 #----------------------------------create promotions----------------------------------
@@ -400,11 +409,8 @@ class dto_edit_book(BaseModel):
      
 @app.put("/edit_book", tags=['Book'])
 def EditBookInfo(dto : dto_edit_book):
-     book =  write_a_read.edit_book_info(dto.old_name, dto.writer_name, dto.new_name, dto.new_genre, dto.status, dto.age_restricted, dto.prologue)
-     if isinstance(book,Book):
-          return book
-     else:
-          return {"error": "Book not found"}
+     return write_a_read.edit_book_info(dto.old_name, dto.writer_name, dto.new_name, dto.new_genre, dto.status, dto.age_restricted, dto.prologue)
+
      
 #..........................................................................................................
 
@@ -492,3 +498,33 @@ print(write_a_read.create_comment("Shin_chan", "Mozaza", "this is amazing"))
 # print(write_a_read.buy_coin("Mozaza", OnlineBanking, "chakeawaroi", 100))
 
 
+
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid kid')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kid ks')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old man kids')
+write_a_read.create_report('Shin_chan','Mozaza','violence','old maid kids')
+
+write_a_read.create_report('Shin_chan','Mozaza','violence','old n kid kids')
+# write_a_read.create_report('Shin_chan','Mozaza','violence','o man kid sdvdsvkids')
+# write_a_read.create_report('Shin_chan','Mozaza','violence','oldman ksdvdvdewid kids')
+# write_a_read.create_report('Shin_chan','Mozaza','violence','oldman ksdvdvdewidvsdd kids')
+print("book_info:",write_a_read.view_book("Shin_chan","Mozaza"))
+
+print("--------------------------------------------------------------------------------------------------------------")
+print("book_shelf_list",write_a_read.show_book_shelf("boss"))
+write_a_read.add_book_list("boss","Shin_chan")
+print("book_shelf_list",write_a_read.show_book_shelf("boss"))
+
+class dto_add_book_shelf(BaseModel):
+     username : str
+     book_name :str
+
+@app.put("/book_shelf/add")
+def AddBookShelf(dto : dto_add_book_shelf):
+     return {"book shelf" : write_a_read.add_book_list(dto.username, dto.book_name)}
+
+
+@app.get("/book_shelf")
+def show_book_shelf(username:str):
+     return write_a_read.show_book_shelf(username)

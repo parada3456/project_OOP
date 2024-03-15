@@ -1,18 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const reportForm = document.getElementById('reportForm');
     const reportResponse = document.getElementById('report_response');
-    
+
 
     if (reportForm) {
-        reportForm.addEventListener('submit', async function(event) {
+        reportForm.addEventListener('submit', async function (event) {
             event.preventDefault();
 
             try {
                 const formData = new FormData(this);
                 const jsonData = Object.fromEntries(formData); // Convert FormData to JSON object
-                // const username = localStorage.getItem('login_username');
-                const username = "Mozaza"
+                const username = localStorage.getItem('login_username')|| "Mozaza";
                 jsonData.username = username;
+                console.log(jsonData.username)
                 const jsonDataString = JSON.stringify(jsonData);
                 console.log(jsonDataString)
 
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Submitted report data:", data);
 
                 if (reportResponse) {
-                    console.log("data.value:",data.massage)
+                    console.log("data.value:", data.massage)
                     reportResponse.innerText = data.massage;
                 }
 

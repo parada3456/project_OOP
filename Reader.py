@@ -89,8 +89,13 @@ class Reader:
         return self.__book_shelf_list
     
     def add_book_shelf_list(self,book):
-        if isinstance(book,Book):
+        if isinstance(book,Book) and book not in self.__book_shelf_list and book.status == "publishing" :
+            print("add book to book shelf")
             self.__book_shelf_list.append(book)
+            return "add book shelf success"
+        else : 
+            print(book.status)
+            return "Fail to add book shelf"
     
     @property
     def chapter_transaction_list(self):
@@ -190,6 +195,12 @@ class Reader:
             return "over 18"
         else: 
             return "under 18"
+        
+    def show_book_shelf(self,report_type_list):
+        book_shelf_info = []
+        for book in self.__book_shelf_list:
+            book_shelf_info.append(book.show_book_info(self,report_type_list))
+        return book_shelf_info
 
 class Writer(Reader):
     money_balance = 0
