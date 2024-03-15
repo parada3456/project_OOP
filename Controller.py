@@ -431,9 +431,11 @@ class Controller:
         chapter = self.get_chapter_by_chapter_id(chapter_id)
         return chapter.show_chapter_info()
     
-    def view_book(self, book_name):
+    def view_book(self, book_name,writer_name):
         book = self.get_book_by_name(book_name)
-        return book.show_book_info()
+        writer = self.get_user_by_username(writer_name)
+        if isinstance(book,Book):
+            return book.show_book_info(writer)
     
     # ____________________________________others___________________________________    
     

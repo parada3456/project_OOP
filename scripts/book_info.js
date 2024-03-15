@@ -3,8 +3,10 @@
 
 // Function to display book information and navigate
 function displayBookInfoAndNavigate(bookName) {
-    console.log("start",bookName);
-    fetch(`/book/${bookName}`)
+    console.log("start", bookName);
+    // const writer_name = localStorage.getItem("login_username")
+    const writer_name = "Mozza"
+    fetch(`/book/${bookName}?writer_name=${writer_name}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch book information');
@@ -12,11 +14,18 @@ function displayBookInfoAndNavigate(bookName) {
             return response.json();
         })
         .then(data => {
-            sessionStorage.setItem('bookInfo', JSON.stringify(data));
-            localStorage.setItem('book_name_last', bookName);
-            console.log(localStorage.getItem('book_name_last'));
-            console.log("book_namee",bookName)
-            window.location.href = "book_info.html";
+            console.log("message:" ,data.message)
+            if (data.message == "This book is publishing") {
+                sessionStorage.setItem('bookInfo', JSON.stringify(data));
+                localStorage.setItem('book_name_last', bookName);
+                console.log(localStorage.getItem('book_name_last'));
+                console.log("book_namee", bookName)
+                window.location.href = "book_info.html";
+            }
+            else if (data.message == "This book is not publishing") {
+                window.location.href = "book_hiding.html";
+            }
+
         })
         .catch(error => {
             console.error('Error fetching book information:', error);

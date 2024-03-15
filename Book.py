@@ -139,7 +139,7 @@ class Book:
         return "false"
     
     def show_book_info(self,writer):
-        if self.status.lower() == "publishing" or writer == self.writer:
+        if self.status.lower() == "publishing" or writer == self.__writer:
             return {"name" : self.__name,
                     "pseudonym" : self.__pseudonym,
                     "genre" : self.__genre,
@@ -147,9 +147,10 @@ class Book:
                     "prologue" : self.prologue,
                     "age_retricted" : self.show_age_restricted(),
                     "chapter_count" : self.chapter_count,
-                    "comments" : self.show_comment_list()}
+                    "comments" : self.show_comment_list(),
+                    "message" : "This book is publishing" }
         else:
-            return "This book is not publishing"
+            return {"message": "This book is not publishing"}
         
     def show_comment_list(self):
         comment_list = []

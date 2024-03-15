@@ -63,7 +63,7 @@ book1 = Book("Shin_chan", "Mola", Mo, ["kids", "comedy","crime"], "publishing", 
 Mo.add_writing_list(book1)
 print(book1.pseudonym)
 
-book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "publishing", True, shinosuke_prologue)
+book2 = Book("Shinosuke", "Mola", Mo, ["kids", "comedy","crime"], "hiding", True, shinosuke_prologue)
 Mo.add_writing_list(book2)
 
 
@@ -122,16 +122,11 @@ async def read_items(request: Request):
      return HTMLResponse(content=html_content, status_code=200)
 
 @app.get("/book/{book_name}")
-async def get_book_info(book_name: str):
-     book = write_a_read.get_book_by_name(book_name)
-     print(book)
-     if isinstance(book,Book):
-          return {"name":book.name, "pseudonym":book.pseudonym, "genre":book.genre, "status":book.status, \
-            "age_restricted":book.age_restricted, "prologue":book.prologue, "date_time":book.date_time_str,\
-            "writer_name":book.writer.username}
-     else:
-          return {"message": "Book not found"}
+async def get_book_info(book_name: str, writer_name: str):
+     return write_a_read.view_book(book_name, writer_name)
      
+print(write_a_read.view_book("Shinosuke","Mozza"))
+print("/n")
 b=write_a_read.get_book_by_name("Shin_chan")
 print("1",b)
 print("2",{"name":b.name, "pseudonym":b.pseudonym, "genre":b.genre, "status":b.status, \
